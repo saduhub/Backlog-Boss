@@ -1,0 +1,18 @@
+{
+  "name": "backlog-boss",
+  "version": "1.0.0",
+  "description": "Discover new titles, rate games, manage your backlog, document your gaming journey & connect with friends who share your passion.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}
