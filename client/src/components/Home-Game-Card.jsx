@@ -1,11 +1,11 @@
-import gamePreview from 'client/src/assets/images/png/game-preview.png';
+import gamePreview from '../assets/images/png/game-preview.png';
 
 const HomeGameCard = ({game}) => {
   return (
     // Testing a card container (div) to use flex and gap for each card
-    <div className="home-flex home-gap">
+    <div>
       <article className="home-game-card">
-        <div>
+        <div className="home-game-preview-image home-border-radius">
           <img src={gamePreview} alt="game preview" />
         </div>
 
@@ -16,7 +16,7 @@ const HomeGameCard = ({game}) => {
         </div>
 
         <div className="home-user-review-rating">
-          <div className="home-user-review">
+          <div className="home-user-review home-flex">
             <div>
               <img src="" alt="profile pic" />
             </div>
@@ -30,14 +30,14 @@ const HomeGameCard = ({game}) => {
             </div>
           </div>
 
-          <div className="home-user-rating">
-            <div>
+          <div className="home-user-rating home-flex home-gap">
+            <div className="home-flex">
               <img src="" alt="star" />
               <h5>
                 {game.rating}
               </h5>
             </div>
-            <div>
+            <div className="home-flex">
               <img src="" alt="heart" />
               <h5>
                 {game.likes}
@@ -47,7 +47,7 @@ const HomeGameCard = ({game}) => {
         </div>
 
         <div>
-          <button className="home-game-button">
+          <button className="home-game-button home-border-radius home-font">
             View Details
           </button>
         </div>

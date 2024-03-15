@@ -17,6 +17,13 @@ const Home = () => {
       review: 'Game review 2',
       rating: 5.0,
       likes: 65,
+    },
+    {
+      title: 'Game Title 3',
+      username: 'Username 3',
+      review: 'Game review 3',
+      rating: 3.2,
+      likes: 18,
     }
   ];
   
@@ -34,11 +41,13 @@ const Home = () => {
             Trending Games
           </h3>
         </div>
-        {gameObjs.map(game => {
-          return (
-            <HomeGameCard key={game.title} game={game} />
-          )
-        })}
+        <div className="home-flex home-gap home-content-center">
+          {gameObjs.map(game => {
+            return (
+              <HomeGameCard key={game.title} game={game} />
+            )
+          })}
+        </div>
       </section>
     </div>
   )
