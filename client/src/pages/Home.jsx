@@ -22,14 +22,14 @@ const Home = () => {
   
   return (
     <div className="home-container">
-      <section className="home-main-header">
+      <section className="home-main-header home-font">
         <h2>
           Hello, Username
         </h2>
       </section>
 
       <section className="home-inner-box">
-        <div className="home-sub-header">
+        <div className="home-sub-header home-font">
           <h3>
             Trending Games
           </h3>
@@ -41,7 +41,7 @@ const Home = () => {
         })}
       </section>
     </div>
-  );
-};
+  )
+}
 
 export default Home;

@@ -48,7 +48,7 @@ const HomeGameCard = ({game}) => {
         </button>
       </div>
     </article>
-  );
-};
+  )
+}
 
 export default HomeGameCard;

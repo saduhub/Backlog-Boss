@@ -1,18 +1,43 @@
+:root {
+  --background-color: #161616;
+  --font-color: #FFFFFF;
+  --grey: #282828;
+  --purple: #9F34FF;
+  --light-purple: #E1CDF2;
+}
+
 .home-flex {
   display: flex;
 }
 
+.home-font {
+  color: var(--font-color);
+  font-family: Poppins, sans-serif;
+}
+
+/* //// Example for @supports structure */
+/* @supports (font-family: Poppins) {
+  .home-font {
+    font-family: Poppins;
+    font-weight: bold;
+  }
+} */
+
 /* Home Page */
 .home-container {
-
+  padding: 0 3rem;
+  height: 100vh;
+  background-color: var(--background-color);
 }
 
 .home-main-header {
-
+  padding-top: 2rem;
+  padding-bottom: 1rem;
 }
 
 .home-inner-box {
-
+  background-color: var(--grey);
+  padding: .5rem;
 }
 
 .home-sub-header {
@@ -21,6 +46,12 @@
 
 /* Game Cards */
 .home-game-card {
+  outline-width: 2px;
+  outline-style: solid;
+  outline-color: #9F34FF;
+}
+
+.home-user-review-rating {
 
 }
 
@@ -33,5 +64,5 @@
 }
 
 .home-game-button {
-  
+
 }
