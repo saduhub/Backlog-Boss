@@ -1,6 +1,6 @@
 .navbar-header-section {
     position: fixed;
-    top: 0;
+    bottom: 0;
     left: 0;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.1);
@@ -30,4 +30,28 @@
     text-decoration: none;
     font-weight: 350;
     margin-left: 2rem;
+}
+
+@media (min-width: 760px) {
+    
+    .navbar-header-section {
+        width: 12%;
+        height: 100%;
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+        max-width: 200px;
+    }
+
+    .navbar-container-menu-items {
+        margin: 0;
+    }
+
+    .navbar-container-menu-items a {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+    }
 }
