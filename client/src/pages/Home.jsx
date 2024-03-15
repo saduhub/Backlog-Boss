@@ -21,15 +21,15 @@ const Home = () => {
   ];
   
   return (
-    <div class="home-container">
-      <section class="home-main-header">
+    <div className="home-container">
+      <section className="home-main-header">
         <h2>
           Hello, Username
         </h2>
       </section>
 
-      <section class="home-inner-box">
-        <div class="home-sub-header">
+      <section className="home-inner-box">
+        <div className="home-sub-header">
           <h3>
             Trending Games
           </h3>

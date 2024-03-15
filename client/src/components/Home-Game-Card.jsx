@@ -1,6 +1,6 @@
 const HomeGameCard = ({game}) => {
   return (
-    <article class="home-game-card">
+    <article className="home-game-card">
       <div>
         <img src="" alt="game preview" />
       </div>
@@ -11,8 +11,8 @@ const HomeGameCard = ({game}) => {
         </h4>
       </div>
 
-      <div class="home-user-review-rating">
-        <div class="home-user-review">
+      <div className="home-user-review-rating">
+        <div className="home-user-review">
           <div>
             <img src="" alt="profile pic" />
           </div>
@@ -26,7 +26,7 @@ const HomeGameCard = ({game}) => {
           </div>
         </div>
 
-        <div class="home-user-rating">
+        <div className="home-user-rating">
           <div>
             <img src="" alt="star" />
             <h5>
@@ -43,7 +43,7 @@ const HomeGameCard = ({game}) => {
       </div>
 
       <div>
-        <button class="home-game-button">
+        <button className="home-game-button">
           View Details
         </button>
       </div>
