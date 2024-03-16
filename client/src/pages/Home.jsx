@@ -5,6 +5,7 @@ import HomeGameCard from '../components/Home-Game-Card';
 const Home = () => {
   const gameObjs = [
     {
+      id: 0,
       title: 'Game Title',
       username: 'Username',
       review: 'Game review',
@@ -12,6 +13,7 @@ const Home = () => {
       likes: 70,
     },
     {
+      id: 1,
       title: 'Game Title 2',
       username: 'Username 2',
       review: 'Game review 2',
@@ -19,6 +21,7 @@ const Home = () => {
       likes: 65,
     },
     {
+      id: 2,
       title: 'Game Title 3',
       username: 'Username 3',
       review: 'Game review 3',
@@ -44,7 +47,7 @@ const Home = () => {
         <div className="home-flex home-gap home-content-center">
           {gameObjs.map(game => {
             return (
-              <HomeGameCard key={game.title} game={game} />
+              <HomeGameCard key={game.id} game={game} />
             )
           })}
         </div>
