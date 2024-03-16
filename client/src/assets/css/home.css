@@ -1,26 +1,106 @@
+:root {
+  --background-color: #161616;
+  --font-color: #FFFFFF;
+  --grey: #282828;
+  --purple: #9F34FF;
+  --light-purple: #E1CDF2;
+}
+
 .home-flex {
   display: flex;
 }
 
+.home-flex-wrap {
+  flex-wrap: wrap;
+}
+
+.home-flex-col {
+  flex-direction: column;
+}
+
+.home-gap {
+  /* gap: 1rem; */
+  gap: clamp(1rem, 4vw, 6rem);
+}
+
+/* .home-width-100 {
+  width: 100%;
+} */
+
+/* .home-mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+} */
+
+.home-my-p5 {
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+}
+
+.home-content-center {
+  justify-content: center;
+}
+
+.home-items-center {
+  align-items: center;
+}
+
+.home-border-radius {
+  border-radius: .5rem;
+}
+
+.home-object-cover {
+  object-fit: cover;
+}
+
+.home-font {
+  color: var(--font-color);
+  font-family: Poppins, sans-serif;
+}
+
+/* //// Example for @supports structure */
+/* @supports (font-family: Poppins) {
+  .home-font {
+    font-family: Poppins;
+    font-weight: bold;
+  }
+} */
+
 /* Home Page */
 .home-container {
-
+  padding: 0 3rem;
+  height: 100vh;
+  background-color: var(--background-color);
 }
 
 .home-main-header {
-
+  padding-top: 2rem;
+  padding-bottom: 1rem;
 }
 
 .home-inner-box {
-
+  background-color: var(--grey);
+  padding: .5rem;
+  max-width: 55rem;
 }
 
 .home-sub-header {
-
+  padding-bottom: .5rem;
 }
 
 /* Game Cards */
-.home-game-card {
+/* .home-game-card {
+  outline-width: 2px;
+  outline-style: solid;
+  outline-color: #9F34FF;
+} */
+
+.home-game-preview-image {
+  width: 12rem;
+  height: 8rem;
+}
+
+.home-user-review-rating {
 
 }
 
@@ -32,6 +112,25 @@
 
 }
 
+.home-profile-pic {
+  width: 3rem;
+  height: 3rem;
+}
+
+.home-icon {
+  width: 1rem;
+  height: 1rem;
+  margin-left: 1rem;
+  margin-right: .5rem;
+}
+
 .home-game-button {
-  
+  background-color: var(--purple);
+}
+
+@media (max-width: 759px) {
+  #gameCard {
+    flex-direction: column;
+    align-items: center;
+  }
 }
