@@ -1,8 +1,11 @@
 .landing-main-section {
-    width: 100%;
-    padding: 0 10%; 
+    width: 85%;
+    height: 50vh; 
     text-align: center;
-    margin: 8rem auto;
+    margin: 15% auto;
+    background-color: black;
+    color: #ffffff;
+    border-radius: 1rem;
 }
 
 .landing-greeting h2 {
