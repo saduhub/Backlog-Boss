@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import '../assets/css/Game.css';
-import GameCard from '../components/GameCard';
+// import GameCard from '../components/GameCard';
 
 function Game(props) {
     const [formState, setFormState] = useState({rating: '', reviewText: ''});

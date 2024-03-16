@@ -5,6 +5,7 @@ import HomeGameCard from '../components/Home-Game-Card';
 const Home = () => {
   const gameObjs = [
     {
+      id: 0,
       title: 'Game Title',
       username: 'Username',
       review: 'Game review',
@@ -12,36 +13,95 @@ const Home = () => {
       likes: 70,
     },
     {
+      id: 1,
       title: 'Game Title 2',
       username: 'Username 2',
       review: 'Game review 2',
       rating: 5.0,
       likes: 65,
+    },
+    {
+      id: 2,
+      title: 'Game Title 3',
+      username: 'Username 3',
+      review: 'Game review 3',
+      rating: 3.2,
+      likes: 18,
+    },
+    {
+      id: 3,
+      title: 'Game Title 4',
+      username: 'Username 4',
+      review: 'Game review 4',
+      rating: 4.9,
+      likes: 70,
+    },
+    {
+      id: 4,
+      title: 'Game Title 5',
+      username: 'Username 5',
+      review: 'Game review 5',
+      rating: 5.0,
+      likes: 65,
+    },
+    {
+      id: 5,
+      title: 'Game Title 6',
+      username: 'Username 6',
+      review: 'Game review 6',
+      rating: 3.2,
+      likes: 18,
+    },
+    {
+      id: 6,
+      title: 'Game Title 7',
+      username: 'Username 7',
+      review: 'Game review 7',
+      rating: 4.9,
+      likes: 70,
+    },
+    {
+      id: 7,
+      title: 'Game Title 8',
+      username: 'Username 8',
+      review: 'Game review 8',
+      rating: 5.0,
+      likes: 65,
+    },
+    {
+      id: 8,
+      title: 'Game Title 9',
+      username: 'Username 9',
+      review: 'Game review 9',
+      rating: 3.2,
+      likes: 18,
     }
   ];
   
   return (
-    <div class="home-container">
-      <section class="home-main-header">
+    <div className="home-container">
+      <section className="home-main-header home-font">
         <h2>
           Hello, Username
         </h2>
       </section>
 
-      <section class="home-inner-box">
-        <div class="home-sub-header">
+      <section className="home-inner-box home-border-radius">
+        <div className="home-sub-header home-font">
           <h3>
             Trending Games
           </h3>
         </div>
-        {gameObjs.map(game => {
-          return (
-            <HomeGameCard key={game.title} game={game} />
-          )
-        })}
+        <div id="gameCard" className="home-flex home-flex-wrap home-gap home-content-center">
+          {gameObjs.map(game => {
+            return (
+              <HomeGameCard key={game.id} game={game} />
+            )
+          })}
+        </div>
       </section>
     </div>
-  );
-};
+  )
+}
 
 export default Home;
