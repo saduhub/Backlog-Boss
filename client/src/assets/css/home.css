@@ -10,16 +10,17 @@
   display: flex;
 }
 
-/* .home-flex-wrap {
+.home-flex-wrap {
   flex-wrap: wrap;
-} */
+}
 
 .home-flex-col {
   flex-direction: column;
 }
 
 .home-gap {
-  gap: 1rem;
+  /* gap: 1rem; */
+  gap: clamp(1rem, 4vw, 6rem);
 }
 
 /* .home-width-100 {
@@ -80,6 +81,7 @@
 .home-inner-box {
   background-color: var(--grey);
   padding: .5rem;
+  max-width: 55rem;
 }
 
 .home-sub-header {
@@ -124,4 +126,11 @@
 
 .home-game-button {
   background-color: var(--purple);
+}
+
+@media (max-width: 759px) {
+  #gameCard {
+    flex-direction: column;
+    align-items: center;
+  }
 }

@@ -27,6 +27,54 @@ const Home = () => {
       review: 'Game review 3',
       rating: 3.2,
       likes: 18,
+    },
+    {
+      id: 3,
+      title: 'Game Title 4',
+      username: 'Username 4',
+      review: 'Game review 4',
+      rating: 4.9,
+      likes: 70,
+    },
+    {
+      id: 4,
+      title: 'Game Title 5',
+      username: 'Username 5',
+      review: 'Game review 5',
+      rating: 5.0,
+      likes: 65,
+    },
+    {
+      id: 5,
+      title: 'Game Title 6',
+      username: 'Username 6',
+      review: 'Game review 6',
+      rating: 3.2,
+      likes: 18,
+    },
+    {
+      id: 6,
+      title: 'Game Title 7',
+      username: 'Username 7',
+      review: 'Game review 7',
+      rating: 4.9,
+      likes: 70,
+    },
+    {
+      id: 7,
+      title: 'Game Title 8',
+      username: 'Username 8',
+      review: 'Game review 8',
+      rating: 5.0,
+      likes: 65,
+    },
+    {
+      id: 8,
+      title: 'Game Title 9',
+      username: 'Username 9',
+      review: 'Game review 9',
+      rating: 3.2,
+      likes: 18,
     }
   ];
   
@@ -38,13 +86,13 @@ const Home = () => {
         </h2>
       </section>
 
-      <section className="home-inner-box">
+      <section className="home-inner-box home-border-radius">
         <div className="home-sub-header home-font">
           <h3>
             Trending Games
           </h3>
         </div>
-        <div className="home-flex home-gap home-content-center">
+        <div id="gameCard" className="home-flex home-flex-wrap home-gap home-content-center">
           {gameObjs.map(game => {
             return (
               <HomeGameCard key={game.id} game={game} />
