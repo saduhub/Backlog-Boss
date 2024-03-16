@@ -1,14 +1,38 @@
 .landing-main-section {
-    width: 85%;
-    height: 50vh; 
+    width: 90%;
     text-align: center;
-    margin: 15% auto;
-    background-color: black;
+    margin: calc(10vh + 50px) auto 5%;
     color: #ffffff;
     border-radius: 1rem;
 }
 
+.landing-greeting img {
+    height: auto;
+    max-width: 200px;
+    margin: 0 auto;
+}
+
 .landing-greeting h2 {
     font-size: 2.5rem;
-    font-weight: 300;
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
+.landing-greeting h4 {
+    font-weight: 200;
+    margin-bottom: 2rem;
+}
+
+.landing-anchor-to-home {
+    color: #ffffff;
+    background-color: #9F34FF;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    transition: color 0.5s ease, background-color 0.5s ease; 
+}
+
+.landing-anchor-to-home:hover {
+    color: #9F34FF;
+    background-color: #E1CDF2;
 }
