@@ -1,0 +1,31 @@
+.filter-bar {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    background-color: #282828;
+  }
+  
+  .filter-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #FFFFFF;
+    background-color: #9F34FF; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .filter-button:hover {
+    background-color: #E1CDF2; 
+  }
+  
+  .filter-button:active {
+    transform: scale(0.98);
+  }
+  
+  .filter-button:not(:last-child) {
+    margin-right: 10px;
+  }
+  
+  

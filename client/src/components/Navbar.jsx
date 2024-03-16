@@ -28,7 +28,9 @@ function App() {
         {/* Nav Bar */}
         <nav className="navbar-navbar">
           <div className="navbar-container-menu-items">
-            <Link to="/home" style={{ color: location.pathname === '/' ? '#9F34FF' : '#ffffff','--item': '0' }}>Home</Link>
+            <Link to="/home" style={{ color: location.pathname === '/home' ? '#9F34FF' : '#ffffff','--item': '0' }}>Home</Link>
+            <Link to="/game" style={{ color: location.pathname === '/game' ? '#9F34FF' : '#ffffff','--item': '0' }}>Game</Link>
+            <Link to="/search" style={{ color: location.pathname === '/search' ? '#9F34FF' : '#ffffff','--item': '0' }}>Search</Link>
           </div>
         </nav>
       </header>

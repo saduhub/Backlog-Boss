@@ -1,0 +1,33 @@
+#searchPage {
+    color: #FFFFFF; 
+    background-color: #161616; 
+    font-family: 'Poppins', sans-serif;
+    padding: 20px;
+  }
+  
+  .filter-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 
+  }
+  
+.display-area {
+    background-color: #161616; 
+    color: #FFFFFF; 
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+  }
+  
+  .game-card {
+    background-color: #282828;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+  }
+  
+  .game-title {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
