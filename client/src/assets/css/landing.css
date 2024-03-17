@@ -36,3 +36,62 @@
     color: #9F34FF;
     background-color: #E1CDF2;
 }
+
+@media (min-width: 760px) {
+    
+    .landing-main-section {
+        /* Credit https://www.joshwcomeau.com/gradient-generator/ */
+        background-image: linear-gradient(
+            90deg,
+            hsl(0deg 0% 0%) 1%,
+            hsl(272deg 100% 7%) 43%,
+            hsl(272deg 100% 13%) 50%,
+            hsl(272deg 100% 20%) 51%,
+            hsl(272deg 100% 27%) 51%,
+            hsl(272deg 100% 34%) 49%,
+            hsl(272deg 100% 40%) 49%,
+            hsl(272deg 100% 47%) 50%,
+            hsl(272deg 100% 54%) 57%,
+            hsl(272deg 100% 60%) 99%
+        );
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        border-radius: 0;
+    }
+
+    .landing-greeting {
+        height: 100%;
+        width: 100%;
+        max-width: 1600px;
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .landing-image-container, .landing-page-elements {
+        flex: 1;
+    }
+
+    .landing-page-elements h4 {
+        padding: 0 6rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    
+    .landing-page-elements h4 {
+        padding: 0 8rem;
+    }
+}
+
+@media (min-width: 1440px) {
+    
+    .landing-page-elements h4 {
+        padding: 0 12rem;
+    }
+}
