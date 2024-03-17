@@ -1,5 +1,5 @@
 import '../assets/css/landing.css';
-import testAsset from '../assets/images/png/testasset.png';
+import testAsset from '../assets/images/svg/backlogbosslogowhite.svg';
 import { Link } from 'react-router-dom';
 
 function Landing() {

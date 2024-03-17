@@ -1,7 +1,7 @@
 .landing-main-section {
     width: 90%;
     text-align: center;
-    margin: calc(10vh + 50px) auto 5%;
+    margin: calc(10vh + 25px) auto 5%;
     color: #ffffff;
     border-radius: 1rem;
 }
@@ -79,6 +79,10 @@
 
     .landing-page-elements h4 {
         padding: 0 6rem;
+    }
+
+    .landing-greeting img {
+        max-width: 400px;
     }
 }
 
