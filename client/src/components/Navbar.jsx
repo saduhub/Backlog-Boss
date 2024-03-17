@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 // Styles
 import '../assets/css/navbar.css'
 // Images
-import favicon from '../assets/images/svg/backlogBossIcon.svg'
+import favicon from '../assets/images/svg/backlogbossfaviconwhite.svg'
 
 function loadFavicon() {
   const link = document.querySelector("link[rel~='icon']");
