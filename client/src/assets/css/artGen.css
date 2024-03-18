@@ -1,0 +1,87 @@
+:root {
+  --background-color: #161616;
+  --font-color: #FFFFFF;
+  --grey: #282828;
+  --purple: #9F34FF;
+  --light-purple: #E1CDF2;
+}
+
+.artGen-flex {
+  display: flex;
+}
+
+.artGen-flex-wrap {
+  flex-wrap: wrap;
+}
+
+.artGen-flex-col {
+  flex-direction: column;
+}
+
+.artGen-gap {
+  /* gap: 1rem; */
+  gap: clamp(1rem, 4vw, 6rem);
+}
+
+.artGen-content-between {
+  justify-content: space-evenly
+}
+
+.artGen-my-p5 {
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+}
+
+.artGen-content-center {
+  justify-content: center;
+}
+
+.artGen-items-center {
+  align-items: center;
+}
+
+.artGen-border-radius {
+  border-radius: .5rem;
+}
+
+.artGen-object-cover {
+  object-fit: cover;
+}
+
+.artGen-font {
+  color: var(--font-color);
+  font-family: Poppins, sans-serif;
+}
+
+/* Art Section */
+.artGen-container {
+  padding: 0 3rem;
+  height: 100%;
+  background-color: var(--background-color);
+}
+
+.artGen-inner-box {
+  background-color: var(--grey);
+  padding: 1rem;
+  width: 80%;
+}
+
+.artGen-preview {
+  margin: 1rem 0;
+  /* width: clamp(256px, 40rem, 1024px);
+  height: clamp(256px, 40rem, 1024px); */
+  width: clamp(5rem, 50vw, 40rem);
+  height: clamp(5rem, 50vw, 40rem);
+  object-fit: cover;
+  background-color: var(--background-color);
+}
+
+.artGen-gen-button {
+  background-color: var(--purple);
+  min-width: 5rem;
+}
+
+.artGen-save-button {
+  background-color: var(--purple);
+  margin-top: 3rem;
+}
