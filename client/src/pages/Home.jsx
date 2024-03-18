@@ -1,8 +1,28 @@
 import '../assets/css/home.css';
 
+/* import { useEffect } from 'react';
+import dotenv from 'dotenv'; */
+
 import HomeGameCard from '../components/Home-Game-Card';
 
 const Home = () => {
+
+/*   useEffect(() => {
+    // dotenv.config();
+  
+    const apiKey = process.env.RAWG_API_KEY;
+    const url = `https://api.rawg.io/api/games?ordering=-metacritic&page_size=9&key=${apiKey}`;
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      const games = data.results;
+      console.log(games);
+
+      const gameInfo = games.map(({ id, name }) => ({ id, name}));
+      console.log(gameInfo);
+    });
+  }, []); */
+
   const gameObjs = [
     {
       id: 0,
