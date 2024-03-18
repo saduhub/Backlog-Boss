@@ -15,6 +15,7 @@
 
 .navbar-navbar {
     width: 100%;
+    min-width: 280px;
 }
 
 .navbar-logo {
