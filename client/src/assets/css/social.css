@@ -1,0 +1,108 @@
+:root {
+  --background-color: #161616;
+  --font-color: #FFFFFF;
+  --grey: #282828;
+  --purple: #9F34FF;
+  --light-purple: #E1CDF2;
+}
+
+.social-flex {
+  display: flex;
+}
+
+.social-flex-wrap {
+  flex-wrap: wrap;
+}
+
+.social-flex-col {
+  flex-direction: column;
+}
+
+.social-gap {
+  /* gap: 1rem; */
+  gap: clamp(1rem, 4vw, 6rem);
+}
+
+.social-gap-p5 {
+  gap: .5rem;
+}
+
+.social-my-p5 {
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+}
+
+.social-w-80 {
+  width: 80%;
+}
+
+.social-content-between {
+  justify-content: space-between;
+}
+
+.social-content-center {
+  justify-content: center;
+}
+
+.social-items-center {
+  align-items: center;
+}
+
+.social-border-radius {
+  border-radius: .5rem;
+}
+
+.social-object-cover {
+  object-fit: cover;
+}
+
+.social-font {
+  color: var(--font-color);
+  font-family: Poppins, sans-serif;
+}
+
+.social-inner-box {
+  background-color: var(--grey);
+  padding: .7rem;
+}
+
+/* Search Bar */
+.social-container {
+  padding: 3rem;
+}
+
+.social-search-box {
+  outline-color: var(--grey);
+  padding: .2rem;
+  width: 40%;
+  min-width: 15.5rem;
+}
+
+.social-search-input {
+  background-color: var(--background-color);
+  outline-color: var(--grey);
+  margin-right: .2rem;
+  width: 100%;
+}
+
+.social-search-button {
+  background-color: var(--background-color);
+}
+
+.social-search-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Friend Tab */
+.social-profile-pic {
+  width: 2rem;
+  height: 2rem;
+  margin-left: .5rem;
+  margin-right: .5rem;
+}
+
+.social-button {
+  background-color: var(--purple);
+  width: 5rem;
+}

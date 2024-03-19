@@ -1,7 +1,7 @@
 import '../assets/css/artGen.css';
 
 import { useState } from 'react';
-import dotenv from 'dotenv';
+// import dotenv from 'dotenv';
 import { OpenAI } from 'openai';
 // import { writeFileSync } from 'fs';
 
@@ -51,13 +51,13 @@ const ArtGen = () => {
     //// Access user profile pic property (may need global user context), then change current img to new AI-generated image
   }
 
-  const handleSaveDevice = async () => {
+/*   const handleSaveDevice = async () => {
     // Save image URL to img folder
     const imgResult = await fetch(imgUrl);
     const blob = await imgResult.blob();
     const buffer = Buffer.from(await blob.arrayBuffer());
     writeFileSync(`../public/SaveData/${Date.now()}.png`, buffer);
-  }
+  } */
 
   return (
     <div className="artGen-container artGen-flex artGen-flex-col artGen-items-center">
