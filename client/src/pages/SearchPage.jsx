@@ -3,7 +3,7 @@ import FilterBar from '../components/FilterBar';
 import '../assets/css/searchPage.css';
 
 const SearchPage = () => {
-  const [games, setGames] = useState([]); 
+const [games, setGames] = useState([]); 
 
   const handleFilterSelect = (filter) => {
     console.log(`Filter selected: ${filter}`);
@@ -15,8 +15,8 @@ const SearchPage = () => {
       <div className="display-area">
         {games.length > 0 ? (
           games.map((game, index) => (
-            <div key={index} className="game-card">
-              <h3 className="game-title">{game.title}</h3>
+          <div key={index} className="game-card">
+            <h3 className="game-title">{game.title}</h3>
               {/*Place holder for more content when needed*/}
             </div>
           ))
