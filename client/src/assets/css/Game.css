@@ -16,15 +16,19 @@
     color: var(--font-color);
     margin: auto;
     width: 90%;
-    padding-left: 5%;
+    padding-top: 5%;
+    padding-left: 10%;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    justify-content: center;
+  }
+  
+  .game-card {
+    margin-bottom: 5%;
   }
 
   .game-form {
-    margin-top: 50px;
+    margin-top: 5%;
   }
 
   .game-rating-div {

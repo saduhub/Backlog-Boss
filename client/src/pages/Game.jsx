@@ -3,7 +3,7 @@ import '../assets/css/Game.css';
 import GameCard from '../components/GameCard';
 
 
-function Game(props) {
+function Game({game}) {
     const [formState, setFormState] = useState({rating: '', reviewText: ''});
 
 
@@ -58,6 +58,6 @@ return (
         </form>
     </div>
 )
-};
+}
 
 export default Game;
