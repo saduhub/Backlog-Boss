@@ -1,19 +1,62 @@
 import '../assets/css/artGen.css';
 
+import { useState } from 'react';
+import dotenv from 'dotenv';
+import { OpenAI } from 'openai';
+// import { writeFileSync } from 'fs';
+
 import gamePreview from '../assets/images/png/game-preview.png';
 
 const ArtGen = () => {
+  // dotenv.config();
+
+  const [prompt, setPrompt ] = useState('');
+  const [imgUrl, setImgUrl ] = useState(gamePreview);
+  
+/*   const openai = new OpenAI({
+    apiKey: process.env.OPEN_AI_KEY,
+  }); */
+
+  const generateImage = async () => {
+    try {
+      const image = await openai.images.generate({
+        model: "dall-e-2",  // dall-e-2 (default) or dall-e-3
+        prompt,
+        n: 1, // dall-e-2 can generate up to n: 10, dall-e-3 can only use n: 1
+        size: "256x256",  // dall-e-2 sizes: "256x256", "512x512", "1024x1024" || dall-e-3 sizes: "1024x1024", "1024x1792", 1792x1024"
+        style: "natural", // vivid (default) or natural
+        // quality: "standard",  // standard (default) or hd
+        // response_format: "url", // url (default) or b64_json
+        // user: 'insertUsername' // keeps track of user who generated the image
+      });
+      
+      const url = image.data[0].url;
+      setImgUrl(url);
+      // console.log(image.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const handlePromptInput = () => {
+    setPrompt(document.querySelector('#promptInput').value);
+  }
 
   const handleGen = () => {
-
+    generateImage();
   }
   
   const handleSaveProfile = () => {
-
+    //// Can only be done after image is converted to png (like shown in handleSaveDevice)
+    //// Access user profile pic property (may need global user context), then change current img to new AI-generated image
   }
 
-  const handleSaveDevice = () => {
-
+  const handleSaveDevice = async () => {
+    // Save image URL to img folder
+    const imgResult = await fetch(imgUrl);
+    const blob = await imgResult.blob();
+    const buffer = Buffer.from(await blob.arrayBuffer());
+    writeFileSync(`../public/SaveData/${Date.now()}.png`, buffer);
   }
 
   return (
@@ -25,7 +68,9 @@ const ArtGen = () => {
       </div>
 
       <div className="artGen-inner-box artGen-border-radius artGen-flex artGen-flex-col artGen-items-center">
-        <img src={gamePreview} alt="game preview" className="artGen-preview artGen-border-radius" />
+        <img src={imgUrl} alt="image preview" id="imagePreview" className="artGen-preview artGen-border-radius" />
+
+        <input type="text" onChange={handlePromptInput} id="promptInput" name="promptInput" value={prompt} />
 
         <button onClick={handleGen} className="artGen-gen-button artGen-font artGen-border-radius artGen-my-p5">
           Generate
