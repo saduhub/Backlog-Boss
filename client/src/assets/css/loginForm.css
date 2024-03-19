@@ -1,16 +1,16 @@
-.signupform-signup-header {
+.loginform-login-header {
     font-size: 2rem;
     font-style: normal;
     font-weight: 600;
 }
 
-.signupform-signup-sub-header {
+.loginform-login-sub-header {
     font-size: 1rem;
     font-style: normal;
     font-weight: 400;
 }
 
-.signupform-signup-form {
+.loginform-login-form {
     width: 100%;
     max-width: 500px;
     margin: 0 auto;
@@ -20,12 +20,12 @@
     border-radius: 1rem;
 }
 
-.signupform-signup-form label {
+.loginform-login-form label {
     margin-top: 1rem;
     text-align: left;
 }
 
-.signupform-signup-form input {
+.loginform-login-form input {
     text-align: left;
     border-radius: 0.7rem;
     padding: 0.50rem;
@@ -40,7 +40,7 @@ input:focus
 	outline:0;
 }
 
-.signupform-signup-form button {
+.loginform-login-form button {
     margin-top: 3rem;
     padding: 0.75rem 0;
     border-radius: 1rem;
@@ -64,26 +64,23 @@ input:focus
     transition: color 0.5s ease;
 }
 
-.signupform-signup-form button:hover {
+.loginform-login-form button:hover {
     color: #9F34FF;
 }
 
-.signup-link-to-login {
+.login-link-to-signup {
     font-size: 1rem;
     font-style: normal;
     font-weight: 400;
 }
 
-.signup-link-to-login span {
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 400;
+.login-link-to-signup span {
     margin-left: 5px;
     color: #9F34FF;
     cursor: pointer;
 }
 
-.signupform-modal {
+.loginform-modal {
     background-color: #000000;
     display: block;
     max-width: 280px;
@@ -91,7 +88,7 @@ input:focus
     border-radius: 1rem;
 }
 
-.signupform-modal-content {
+.loginform-modal-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -100,7 +97,7 @@ input:focus
     text-align: center;
 }
 
-.signupform-close-button {
+.loginform-close-button {
     float: right;
     font-size: 28px;
     cursor: pointer;
