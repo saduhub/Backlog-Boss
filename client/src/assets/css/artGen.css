@@ -73,6 +73,7 @@
   width: clamp(5rem, 50vw, 40rem);
   height: clamp(5rem, 50vw, 40rem);
   object-fit: cover;
+  /* object-fit: fill; */
   background-color: var(--background-color);
 }
 
