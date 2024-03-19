@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import FilterBar from './FilterBar';
+import FilterBar from '../components/FilterBar';
 import '../assets/css/searchPage.css';
 
 const SearchPage = () => {
