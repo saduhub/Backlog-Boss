@@ -57,7 +57,7 @@ function App() {
             <Link to='/search' style={{ color: location.pathname === '/search' ? '#9F34FF' : '#ffffff','--item': '0' }}>
               <i className='bx bx-search'></i>
             </Link>
-            <Link to='/create' style={{ color: location.pathname === '/create' ? '#9F34FF' : '#ffffff','--item': '0' }}>
+            <Link to='/ArtGen' style={{ color: location.pathname === '/create' ? '#9F34FF' : '#ffffff','--item': '0' }}>
               <i className='bx bxs-palette'></i>
             </Link>
           </div>
