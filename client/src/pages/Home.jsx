@@ -8,7 +8,7 @@ import HomeGameCard from '../components/Home-Game-Card';
 const Home = () => {
 
 /*   useEffect(() => {
-    // dotenv.config();
+    dotenv.config();
   
     const apiKey = process.env.RAWG_API_KEY;
     const url = `https://api.rawg.io/api/games?ordering=-metacritic&page_size=9&key=${apiKey}`;
@@ -99,27 +99,29 @@ const Home = () => {
   ];
   
   return (
-    <div className="home-container">
-      <section className="home-main-header home-font">
-        <h2>
-          Hello, Username
-        </h2>
-      </section>
+    <div className="home-flex home-content-center">
+      <div className="home-container">
+        <section className="home-main-header home-font">
+          <h2>
+            Hello, Username
+          </h2>
+        </section>
 
-      <section className="home-inner-box home-border-radius">
-        <div className="home-sub-header home-font">
-          <h3>
-            Trending Games
-          </h3>
-        </div>
-        <div id="gameCard" className="home-flex home-flex-wrap home-gap home-content-center">
-          {gameObjs.map(game => {
-            return (
-              <HomeGameCard key={game.id} game={game} />
-            )
-          })}
-        </div>
-      </section>
+        <section className="home-inner-box home-border-radius">
+          <div className="home-sub-header home-font">
+            <h3>
+              Trending Games
+            </h3>
+          </div>
+          <div id="gameCard" className="home-flex home-flex-wrap home-gap home-content-center">
+            {gameObjs.map(game => {
+              return (
+                <HomeGameCard key={game.id} game={game} />
+              )
+            })}
+          </div>
+        </section>
+      </div>
     </div>
   )
 }
