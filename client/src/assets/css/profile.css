@@ -1,10 +1,75 @@
 .profile-main-section {
+    display: flex;
+    flex-direction: column;
     width: 100vw;
     padding: 0 5%; 
     text-align: center;
     margin: calc(5vh + 25px) auto 50%;
     color: #ffffff;
     min-width: 280px;
+}
+/* Section 1 */
+.profile-user-stats-challenges {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    border: #ffffff solid 1px;
+}
+/* User Card */
+.profile-user {
+    display: flex;
+    flex-direction: row;
+    border: #ffffff solid 1px;
+}
+
+.profile-user-stats {
+    display: flex;
+    flex-direction: row;
+}
+/* Game Stats */
+.profile-game-stats {
+    display: flex;
+    flex-direction: row;
+    border: #ffffff solid 1px;
+}
+/* Challenges */
+.profile-games-reviewed, .profile-likes-gardnered {
+    display: flex;
+    flex-direction: row;
+}
+/* Section 2 */
+.profile-suggestions-friends {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    border: #ffffff solid 1px;
+}
+/* Game Suggestions */
+.profile-game-suggestions{
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    border: #ffffff solid 1px;
+}
+/* Game */
+.profile-game-suggested {
+    display: flex;
+    flex-direction: row;
+}
+/* Friends */
+.profile-friend-list{
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    border: #ffffff solid 1px;
+}
+/* Friend */
+.profile-friend-listed {
+    display: flex;
+    flex-direction: row;
+}
+img {
+    max-width: 100px;
 }
 
 /* Media Queries  */
