@@ -27,14 +27,18 @@
   width: 100%;
 } */
 
-/* .home-mx-auto {
+.home-mx-auto {
   margin-left: auto;
   margin-right: auto;
-} */
+}
 
 .home-my-p5 {
   margin-top: .5rem;
   margin-bottom: .5rem;
+}
+
+.home-items-start {
+  align-items: start;
 }
 
 .home-content-center {
@@ -69,7 +73,7 @@
 /* Home Page */
 .home-container {
   padding: 0 3rem;
-  height: 100vh;
+  height: 100%;
   background-color: var(--background-color);
 }
 

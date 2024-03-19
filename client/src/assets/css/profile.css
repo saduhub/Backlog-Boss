@@ -1,0 +1,15 @@
+.profile-main-section {
+    width: 100vw;
+    padding: 0 5%; 
+    text-align: center;
+    margin: calc(5vh + 25px) auto 50%;
+    color: #ffffff;
+    min-width: 280px;
+}
+
+/* Media Queries  */
+@media (min-width: 760px) {
+    .profile-main-section {
+        margin: calc(10vh + 25px) auto 5%;
+    }
+}
