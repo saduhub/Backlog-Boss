@@ -1,6 +1,7 @@
 import '../assets/css/home.css';
 
 import HomeGameCard from '../components/Home-Game-Card';
+// import { getRawgKey } from '../../../server/utils/getKeys';
 
 const Home = () => {
   const gameObjs = [
@@ -77,6 +78,28 @@ const Home = () => {
       likes: 18,
     }
   ];
+
+  // const rawgKey = getRawgKey();
+
+  const getGamesbyMeta = async (min, max) => {
+    const baseUrl = 'https://api.rawg.io/games';
+    const url = new URL(baseUrl);
+    url.searchParams.append('key', rawgKey);
+    url.searchParams.append('metacritic', `${min},${max}`);
+    url.searchParams.append('page_size', 9);
+
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`${response.status}`);
+      }
+      const data = await response.json();
+      return data.results;
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  console.log(getGamesbyMeta());
   
   return (
     <div className="home-container">
