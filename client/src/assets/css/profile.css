@@ -2,77 +2,270 @@
     display: flex;
     flex-direction: column;
     width: 100vw;
-    padding: 0 5%; 
+    /* padding: 0 5%;  */
     text-align: center;
     margin: calc(5vh + 25px) auto 50%;
     color: #ffffff;
     min-width: 280px;
 }
+
+.profile-main-section img {
+    max-width: 100px;
+    margin: 0 auto;
+}
+
+.profile-main-section h2 {
+    font-style: normal;
+    font-weight: 600;
+}
+
+.profile-main-section h3,h4,h5 {
+    font-style: normal;
+    font-weight: 400;
+}
 /* Section 1 */
 .profile-user-stats-challenges {
+    width: 100%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    border: #ffffff solid 1px;
 }
 /* User Card */
 .profile-user {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    margin-bottom: 3rem;
+}
+
+.profile-user img {
+    border-radius: 50%;
     border: #ffffff solid 1px;
+}
+
+.profile-username-since {
+    margin-bottom: 3rem;
 }
 
 .profile-user-stats {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    border: #282828 10px solid;
+    border-radius: 1rem;
+    margin: 0 3rem;
+}
+
+.profile-user-games, .profile-favorite-games, .profile-rated-games {
+    margin: 1rem auto;
 }
 /* Game Stats */
+.profile-games {
+    margin-bottom: 3rem;
+}
+
 .profile-game-stats {
     display: flex;
-    flex-direction: row;
-    border: #ffffff solid 1px;
+    flex-direction: column;
 }
+
+.profile-game-stats h3 {
+    background-color: #282828;
+}
+
+.profile-completed-games, .profile-score-games, .profile-onehundred-games {
+    border: #282828 10px solid;
+    border-radius: 1rem;
+    margin: 0 3rem 1rem;
+}
+
 /* Challenges */
+.profile-challenges {
+    margin-bottom: 3rem;
+}
+
 .profile-games-reviewed, .profile-likes-gardnered {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    background-color: #282828;
+    margin: 0 3rem 1rem;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.profile-reviewed-image, .profile-likes-image {
+    background-color: #E1CDF2;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+}
+
+.profile-progress-bar {
+    width: 100%;
+    background-color: #565656;
+    margin: 0.25rem 0;
+    border-radius: 0.3rem;
+}
+
+.profile-progress-bar p {
+    opacity: 0;
+    font-size: 4px;
+}
+
+.profile-reviewed {
+    width: calc(37/50 * 100%);
+    background-color: #E1CDF2;
+    border-radius: 0.3rem;
+}
+
+.profile-likes {
+    width: calc(1/200 * 100%);
+    background-color: #E1CDF2;
+    border-radius: 0.3rem;
+}
+/* Challenges Desktop */
+.profile-challenges-desktop {
+    display: none;
 }
 /* Section 2 */
 .profile-suggestions-friends {
+    width: 100%;
     margin: 0 auto;
+    padding: 0 3rem;
     display: flex;
     flex-direction: column;
-    border: #ffffff solid 1px;
 }
 /* Game Suggestions */
 .profile-game-suggestions{
-    margin: 0 auto;
+    width: 100%;
+    margin: 0 auto 3rem;
     display: flex;
     flex-direction: column;
-    border: #ffffff solid 1px;
+    border-radius: 1rem;
+    background-color: #282828;
+}
+
+.profile-explore-button {
+    margin: 1rem 5rem;
+    padding: 0.25rem 0;
+    background-color: #000000;
+    border: 1px solid #ffffff;
+    border-radius: 0.75rem;
+    color: #ffffff;
 }
 /* Game */
 .profile-game-suggested {
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0.1rem 1rem;
+    padding: 0.5rem 0;
+    border-bottom: #565656 solid 1px;
+}
+
+.profile-game-suggested img {
+    height: auto;
+    width: 30px;
+    margin: 0;
+    border-radius: 50%;
+    border: solid wheat 1px;
+}
+
+.profile-game-suggested button {
+    width: 30px;
+    border-radius: 0.25rem;
+    background-color: #9F34FF;
+    border: none;
+    color: #ffffff;
 }
 /* Friends */
 .profile-friend-list{
-    margin: 0 auto;
+    width: 100%;
+    margin: 0 auto 3rem;
     display: flex;
     flex-direction: column;
-    border: #ffffff solid 1px;
+    border-radius: 1rem;
+    background-color: #282828;
 }
 /* Friend */
 .profile-friend-listed {
+    /* display: flex;
+    flex-direction: row; */
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0.1rem 1rem;
+    padding: 0.5rem 0;
+    border-bottom: #565656 solid 1px;
 }
-img {
-    max-width: 100px;
+
+.profile-all-friends-button {
+    margin: 1rem 4.5rem;
+    padding: 0.25rem 0;
+    background-color: #000000;
+    border: 1px solid #ffffff;
+    border-radius: 0.75rem;
+    color: #ffffff;
+}
+
+.profile-friend-listed img {
+    height: auto;
+    width: 30px;
+    margin: 0;
+    border-radius: 50%;
+    border: solid wheat 1px;
+}
+
+.profile-friend-listed button {
+    width: 60px;
+    border-radius: 0.5rem;
+    background-color: #000000;
+    border: 1px solid #ffffff;
+    color: #ffffff;
 }
 
 /* Media Queries  */
+@media (max-width: 360px) {
+    .profile-user-stats, .profile-completed-games, .profile-score-games, .profile-onehundred-games, .profile-games-reviewed, .profile-likes-gardnered {
+        margin: 1rem;
+    }
+
+    .profile-suggestions-friends {
+        padding: 0 1rem;
+    }
+}
+
+@media (min-width: 540px) {
+    .profile-main-section {
+        flex-direction: row;
+    }
+
+    .profile-user {
+        margin-bottom: 6rem;
+    }
+
+    /* Mobile Challenges */
+    .profile-challenges {
+        display: none;
+    }
+    /* Desktop Challenges */
+    .profile-challenges-desktop {
+        display: block;
+    }
+
+    .profile-games-reviewed, .profile-likes-gardnered {
+        margin: 0.75rem 0 1rem 0;
+    }
+
+    .profile-user-stats, .profile-completed-games, .profile-score-games, .profile-onehundred-games {
+        margin: 0.5rem;
+    }
+
+    .profile-suggestions-friends {
+        padding: 0 0.5rem;
+    }
+
+}
+
 @media (min-width: 760px) {
     .profile-main-section {
         margin: calc(10vh + 25px) auto 5%;

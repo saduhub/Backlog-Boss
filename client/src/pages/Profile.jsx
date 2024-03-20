@@ -27,7 +27,7 @@ function Profile() {
                 <div className="profile-user-stats">
                   <div className="profile-user-games">
                     <h3>5</h3>
-                    <h3>Games Backlogged</h3>
+                    <h3>Backlogged</h3>
                   </div>
                   <div className="profile-favorite-games">
                     <h3>3</h3>
@@ -35,73 +35,81 @@ function Profile() {
                   </div>
                   <div className="profile-rated-games">
                     <h3>45</h3>
-                    <h3>Rated Games</h3>
+                    <h3>Rated</h3>
                   </div>
                 </div>
               </div>
             </div>
-            {/* Game Stats */}
-            <div className="profile-games">
-              <h2>Game Stats</h2>
-              <div className="profile-game-stats">
-                {/* Completed Games */}
-                <div className="profile-completed-games">
-                  <div className='profile-completed-image'>
-                    <img src={logo} alt="placeholder" />
+              {/* Game Stats */}
+              <div className="profile-games">
+                <h2>Game Stats</h2>
+                <div className="profile-game-stats">
+                  {/* Completed Games */}
+                  <div className="profile-completed-games">
+                    <div className='profile-completed-image'>
+                      <img src={logo} alt="placeholder" />
+                    </div>
+                    <h3>Games Completed</h3>
+                    <h3>5</h3>
                   </div>
-                  <h3>Games Completed</h3>
-                  <h3>5</h3>
-                </div>
-                {/* User Score */}
-                <div className="profile-score-games">
-                  <div className='profile-score-image'>
-                    <img src={logo} alt="placeholder" />
+                  {/* User Score */}
+                  <div className="profile-score-games">
+                    <div className='profile-score-image'>
+                      <img src={logo} alt="placeholder" />
+                    </div>
+                    <h3>User Score</h3>
+                    <h3>500</h3>
                   </div>
-                  <h3>User Score</h3>
-                  <h3>500</h3>
-                </div>
-                {/* 100% Completion  */}
-                <div className="profile-onehundred-games">
-                  <div className='profile-onehundred-image'>
-                    <img src={logo} alt="placeholder" />
+                  {/* 100% Completion  */}
+                  <div className="profile-onehundred-games">
+                    <div className='profile-onehundred-image'>
+                      <img src={logo} alt="placeholder" />
+                    </div>
+                    <h3>100% Completed</h3>
+                    <h3>8</h3>
                   </div>
-                  <h3>100% Completed</h3>
-                  <h3>8</h3>
                 </div>
               </div>
-            </div>
-            {/* Challenges */}
-            <div className="profile-challenges">
-              <h2>Challenges</h2>
-              {/* Reviewed */}
-              <div className="profile-games-reviewed">
-                <div className="profile-reviewed-image">
-                  <img src={logo} alt="placeholder" />
-                </div>
-                <div className="profile-progress">
-                  <div className="profile-title-number">
-                    <h3>Games Reviewed</h3>
-                    <h4>37/50</h4>
+              {/* Challenges Mobile */}
+              <div className="profile-challenges">
+                <h2>Challenges</h2>
+                {/* Reviewed */}
+                <div className="profile-games-reviewed">
+                  <div className="profile-reviewed-image">
+                    <img src={logo} alt="placeholder" />
                   </div>
-                  <div className='profile-progress-bar'></div>
-                  <h5>Takes the time!</h5>
+                  <div className="profile-progress">
+                    <div className="profile-title-number">
+                      <h3>Games Reviewed</h3>
+                      <h4>37/50</h4>
+                    </div>
+                    <div className='profile-progress-bar'>
+                      <div className='profile-reviewed'>
+                        <p>.</p>
+                      </div>
+                    </div>
+                    <h5>Takes the time!</h5>
+                  </div>
+                </div>
+                {/* Likes */}
+                <div className="profile-likes-gardnered">
+                  <div className="profile-likes-image">
+                    <img src={logo} alt="placeholder" />
+                  </div>
+                  <div className="profile-progress">
+                    <div className="profile-title-number">
+                      <h3>Games Reviewed</h3>
+                      <h4>1/200</h4>
+                    </div>
+                    <div className='profile-progress-bar'>
+                      <div className='profile-likes'>
+                        <p>.</p>
+                      </div>
+                    </div>
+                    <h5>Popular!</h5>
+                  </div>
                 </div>
               </div>
-              {/* Likes */}
-              <div className="profile-likes-gardnered">
-                <div className="profile-likes-image">
-                  <img src={logo} alt="placeholder" />
-                </div>
-                <div className="profile-progress">
-                  <div className="profile-title-number">
-                    <h3>Games Reviewed</h3>
-                    <h4>37/50</h4>
-                  </div>
-                  <div className='profile-progress-bar'></div>
-                  <h5>Popular!</h5>
-                </div>
-              </div>
-            </div>
           </div>
           <div className='profile-suggestions-friends'>
             {/* Game Suggestions */}
@@ -126,7 +134,7 @@ function Profile() {
                 <button>+</button>
               </div>
               {/* Explore */}
-              <button>Explore</button>
+              <button className='profile-explore-button'>Explore</button>
             </div>
             {/* Friends */}
             <h2>Friends</h2>
@@ -150,8 +158,48 @@ function Profile() {
                 <button>Visit</button>
               </div>
               {/* All Friends */}
-              <button>All Friends</button>
+              <button className='profile-all-friends-button'>All Friends</button>
             </div>
+            {/* Challenges Desktop */}
+            <div className="profile-challenges-desktop">
+                <h2>Challenges</h2>
+                {/* Reviewed */}
+                <div className="profile-games-reviewed">
+                  <div className="profile-reviewed-image">
+                    <img src={logo} alt="placeholder" />
+                  </div>
+                  <div className="profile-progress">
+                    <div className="profile-title-number">
+                      <h3>Games Reviewed</h3>
+                      <h4>37/50</h4>
+                    </div>
+                    <div className='profile-progress-bar'>
+                      <div className='profile-reviewed'>
+                        <p>.</p>
+                      </div>
+                    </div>
+                    <h5>Takes the time!</h5>
+                  </div>
+                </div>
+                {/* Likes */}
+                <div className="profile-likes-gardnered">
+                  <div className="profile-likes-image">
+                    <img src={logo} alt="placeholder" />
+                  </div>
+                  <div className="profile-progress">
+                    <div className="profile-title-number">
+                      <h3>Games Reviewed</h3>
+                      <h4>1/200</h4>
+                    </div>
+                    <div className='profile-progress-bar'>
+                      <div className='profile-likes'>
+                        <p>.</p>
+                      </div>
+                    </div>
+                    <h5>Popular!</h5>
+                  </div>
+                </div>
+              </div>
           </div>
       </section>
     );
