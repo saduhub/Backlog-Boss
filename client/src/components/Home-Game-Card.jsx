@@ -13,7 +13,7 @@ const HomeGameCard = ({game}) => {
         <img src={gamePreview} alt="game preview" className="home-game-preview-image home-border-radius home-object-cover" />
 
         <h4 className="home-font home-my-p5">
-          {game.title}
+          {game.name}
         </h4>
 
         <div className="home-user-review home-flex home-items-center">
@@ -21,10 +21,10 @@ const HomeGameCard = ({game}) => {
           
           <div className="home-font">
             <h5>
-              {game.username}
+              Username
             </h5>
             <p>
-              {game.review}
+              Review
             </p>
           </div>
         </div>
@@ -39,7 +39,7 @@ const HomeGameCard = ({game}) => {
           <div className="home-flex">
             <img src={heart} alt="heart" className="home-icon" />
             <h5>
-              {game.likes}
+              {game.ratings_count}
             </h5>
           </div>
         </div>
