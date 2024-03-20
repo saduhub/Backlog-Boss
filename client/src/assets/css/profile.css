@@ -94,7 +94,6 @@
 .profile-reviewed-image, .profile-likes-image {
     background-color: #E1CDF2;
     border-radius: 1rem;
-    margin-bottom: 1rem;
 }
 
 .profile-progress-bar {
@@ -268,6 +267,141 @@
 
 @media (min-width: 760px) {
     .profile-main-section {
-        margin: calc(10vh + 25px) auto 5%;
+        padding: 0 5%;
+        margin-bottom: 5%;
+        max-width: 900px;
+    }
+
+    .profile-user-stats-challenges, .profile-suggestions-friends {
+        max-width: 350px;
+    }
+
+    .profile-user-stats {
+        flex-direction: row;
     }
 }
+
+@media (min-width: 1200px) {
+    .profile-main-section {
+        margin: calc(5vh + 25px) auto 5%;
+        padding: 0 0 0 5%;
+        justify-content: center;
+        /* flex-direction: column; */
+        max-width: 1400px;
+    }
+
+    .profile-user-stats-challenges, .profile-suggestions-friends {
+        width: 600px;
+        max-width: 650px;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .profile-user-stats-challenges {
+        margin-left: 1rem;
+    }
+
+    .profile-suggestions-friends {
+        margin-left: 4rem;
+        padding-right: 1rem;
+    }
+
+    .profile-highlighted-text {
+        color: #9F34FF;
+    }
+
+    .profile-user, .profile-games {
+        flex-direction: row;
+        margin-bottom: 2rem;
+    }
+
+    .profile-user img {
+        max-height: 200px;
+        max-width: 200px;
+        margin: 0;
+    }
+
+    .profile-user-since-stats {
+        width: 70%;
+    }
+
+    .profile-username-since {
+        margin: 0;
+    }
+
+    .profile-username-since h2,
+    .profile-username-since h3 {
+        text-align: left;
+        margin-left: 0.5rem;
+    }
+
+    .profile-games h2, .profile-challenges h2 {
+        text-align: left;
+    }
+
+    .profile-stat-card {
+        margin: 0 0.1rem;
+    }
+
+    .profile-suggestions-friends h2 {
+        text-align: left;
+    }
+    
+    .profile-user-stats, .profile-game-stats, .profile-games-reviewed, .profile-likes-gardnered {
+        flex-direction: row;
+    }
+
+    .profile-stat-card {
+        width: 33%;
+    }
+
+    /* Mobile Challenges */
+    .profile-challenges {
+        display: block;
+    }
+    /* Desktop Challenges */
+    .profile-challenges-desktop {
+        display: none;
+    }
+
+    .profile-progress {
+        width: 100%;
+        margin: 3%;
+    }
+
+    .profile-progress div {
+        margin-bottom: 0.5rem;
+    }
+
+    .profile-progress h5 {
+        text-align: left;
+    }
+
+    .profile-title-number {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .profile-suggestions-friends h2 {
+        text-align: left;
+    }
+
+    .profile-all-friends-button, .profile-explore-button {
+        margin: 1rem 15rem;
+    }
+}
+
+/* @media (min-width: 860px) {
+    .profile-main-section {
+        margin: calc(10vh + 25px) auto 1%;
+        padding: 0 10% 0 15%;
+        justify-content: center;
+        flex-direction: row;
+    }
+
+    .profile-user {
+        flex-direction: row;
+    }
+} */

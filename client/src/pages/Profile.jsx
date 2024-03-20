@@ -26,16 +26,16 @@ function Profile() {
                 </div>
                 <div className="profile-user-stats">
                   <div className="profile-user-games">
-                    <h3>5</h3>
+                    <h3 className='profile-highlighted-text'>5</h3>
                     <h3>Backlogged</h3>
                   </div>
                   <div className="profile-favorite-games">
-                    <h3>3</h3>
+                    <h3 className='profile-highlighted-text'>3</h3>
                     <h3>Favorites</h3>
                   </div>
                   <div className="profile-rated-games">
-                    <h3>45</h3>
-                    <h3>Rated</h3>
+                    <h3 className='profile-highlighted-text'>45</h3>
+                    <h3>Played</h3>
                   </div>
                 </div>
               </div>
@@ -45,28 +45,31 @@ function Profile() {
                 <h2>Game Stats</h2>
                 <div className="profile-game-stats">
                   {/* Completed Games */}
-                  <div className="profile-completed-games">
+                  <div className="profile-completed-games profile-stat-card">
                     <div className='profile-completed-image'>
                       <img src={logo} alt="placeholder" />
                     </div>
-                    <h3>Games Completed</h3>
-                    <h3>5</h3>
+                    <h3>Games</h3>
+                    <h3>Completed</h3>
+                    <h3 className='profile-highlighted-text'>5</h3>
                   </div>
                   {/* User Score */}
-                  <div className="profile-score-games">
+                  <div className="profile-score-games profile-stat-card">
                     <div className='profile-score-image'>
                       <img src={logo} alt="placeholder" />
                     </div>
-                    <h3>User Score</h3>
-                    <h3>500</h3>
+                    <h3>User</h3>
+                    <h3>Score</h3>
+                    <h3 className='profile-highlighted-text'>500</h3>
                   </div>
                   {/* 100% Completion  */}
-                  <div className="profile-onehundred-games">
+                  <div className="profile-onehundred-games profile-stat-card">
                     <div className='profile-onehundred-image'>
                       <img src={logo} alt="placeholder" />
                     </div>
-                    <h3>100% Completed</h3>
-                    <h3>8</h3>
+                    <h3>100%</h3>
+                    <h3>Completed</h3>
+                    <h3 className='profile-highlighted-text'>8</h3>
                   </div>
                 </div>
               </div>
@@ -81,7 +84,7 @@ function Profile() {
                   <div className="profile-progress">
                     <div className="profile-title-number">
                       <h3>Games Reviewed</h3>
-                      <h4>37/50</h4>
+                      <h4><span className='profile-highlighted-text'>37</span>/50</h4>
                     </div>
                     <div className='profile-progress-bar'>
                       <div className='profile-reviewed'>
@@ -98,8 +101,8 @@ function Profile() {
                   </div>
                   <div className="profile-progress">
                     <div className="profile-title-number">
-                      <h3>Games Reviewed</h3>
-                      <h4>1/200</h4>
+                      <h3>Likes Gardnered</h3>
+                      <h4><span className='profile-highlighted-text'>1</span>/200</h4>
                     </div>
                     <div className='profile-progress-bar'>
                       <div className='profile-likes'>
@@ -133,11 +136,23 @@ function Profile() {
                 <h3>Game 3</h3>
                 <button>+</button>
               </div>
+              {/* Game */}
+              <div className="profile-game-suggested">
+                <img src={logo} alt="placeholder" />
+                <h3>Game 4</h3>
+                <button>+</button>
+              </div>
+              {/* Game */}
+              <div className="profile-game-suggested">
+                <img src={logo} alt="placeholder" />
+                <h3>Game 5</h3>
+                <button>+</button>
+              </div>
               {/* Explore */}
               <button className='profile-explore-button'>Explore</button>
             </div>
             {/* Friends */}
-            <h2>Friends</h2>
+            <h2>Friend List</h2>
             <div className="profile-friend-list">
               {/* Friend */}
               <div className="profile-friend-listed">
@@ -157,6 +172,18 @@ function Profile() {
                 <h3>friend 3</h3>
                 <button>Visit</button>
               </div>
+              {/* Friend */}
+              <div className="profile-friend-listed">
+                <img src={logo} alt="placeholder" />
+                <h3>friend 4</h3>
+                <button>Visit</button>
+              </div>
+              {/* Friend */}
+              <div className="profile-friend-listed">
+                <img src={logo} alt="placeholder" />
+                <h3>friend 5</h3>
+                <button>Visit</button>
+              </div>
               {/* All Friends */}
               <button className='profile-all-friends-button'>All Friends</button>
             </div>
@@ -171,7 +198,7 @@ function Profile() {
                   <div className="profile-progress">
                     <div className="profile-title-number">
                       <h3>Games Reviewed</h3>
-                      <h4>37/50</h4>
+                      <h4><span className='profile-highlighted-text'>37</span>/50</h4>
                     </div>
                     <div className='profile-progress-bar'>
                       <div className='profile-reviewed'>
@@ -188,8 +215,8 @@ function Profile() {
                   </div>
                   <div className="profile-progress">
                     <div className="profile-title-number">
-                      <h3>Games Reviewed</h3>
-                      <h4>1/200</h4>
+                      <h3>Likes Gardnered</h3>
+                      <h4><span className='profile-highlighted-text'>1</span>/200</h4>
                     </div>
                     <div className='profile-progress-bar'>
                       <div className='profile-likes'>
