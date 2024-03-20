@@ -1,102 +1,113 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import '../assets/css/social.css';
 
+import FriendSearch from '../components/FriendSearch';
+import FriendRequest from '../components/FriendRequest';
+import FriendList from '../components/FriendList';
+import FriendSuggestion from '../components/FriendSuggestion';
+
 import profilePic from '../assets/images/png/icons8-male-user-16.png';
-import searchIcon from '../assets/images/png/icons8-search-white.png';
+import star from '../assets/images/png/simplistic-star-icon.png';
+import heart from '../assets/images/png/juicy-heart-1.png';
 
 const Social = () => {
   const [ friend, setFriend ] = useState('');
-  const [ result , setResult ] = useState([]);
+  const [ result , setResult ] = useState({});
 
-  const handleFriendInput = () => {
-    setFriend(document.querySelector('#friendSearch').value);
-  }
+  let friendRequests = [
+    {
+      id: 0,
+      username: 'Todd',
+      profilePictureUrl: profilePic,
+    },
+    {
+      id: 1,
+      username: 'Jackie',
+      profilePictureUrl: profilePic,
+    }
+  ];
 
-  const handleFriendSearch = () => {
-    //// Query database to look for users with name equal to friend
-    setResult(friend);
-    setFriend('');
-  }
+  let gameReviews = [
+    {
+      id: 0,
+      game: 'Game',
+      description: 'Review',
+      rating: 78,
+      likes: 34,
+      created: 3/25/2024,
+    },
+    {
+      id: 1,
+      game: 'Game 2',
+      description: 'Review 2',
+      rating: 78,
+      likes: 34,
+      created: 2/14/2024,
+    }
+  ];
 
-  const handleFriendAccept = () => {
-
-  }
-
-  const handleFriendDecline = () => {
-
-  }
-
-  const handleFriendRemove = () => {
-    
-  }
+  //// Need function to get friend requests
+  //// Need function to get user context
 
   return (
     <div className="social-container social-flex social-flex-col">
-      <div className="social-flex social-content-center">
-        <div className="social-search-box social-inner-box social-flex social-border-radius">
-          <input type="text" onChange={handleFriendInput} id="friendSearch" value={friend} className="social-search-input social-border-radius" />
-          <button onSubmit={handleFriendSearch} className="social-search-button social-border-radius social-font">
-            <img src={searchIcon} alt="search icon" className="social-search-icon" />
-          </button>
-        </div>
-      </div>
-      <section>
-      {result &&
-        result.map(user => {
-          return (
-            <div key={user} className="social-flex social-content-between">
-              <div>
-                <img src={profilePic} alt="profile pic" className="social-profile-pic social-border-radius" />
-                <p className="social-font">User</p>
-              </div>
-              <button className="social-button social-border-radius social-font">
-                Add Friend
-              </button>
-            </div>
-          )
-        })
-      }
-      </section>
+      <FriendSearch friendRequests={friendRequests} />
 
-      <section>
-        <h3 className="social-font social-my-p5">
-          Friend Requests
-        </h3>
-        <div className="social-inner-box social-flex social-flex-wrap social-content-between social-border-radius">
-          <div className="social-flex social-items-center">
-            <img src={profilePic} alt="profile pic" className="social-profile-pic" />
-            <p className="social-font">
-              Username
-            </p>
-          </div>
-          <div className="social-flex social-gap-p5">
-            <button onClick={handleFriendAccept} className="social-button social-font">
-              Accept
-            </button>
-            <button onClick={handleFriendDecline} className="social-button social-font">
-              Decline
-            </button>
-          </div>
-        </div>
-      </section>
+      <FriendRequest friendRequests={friendRequests} />
 
-      <section>
-        <h3>
-          Friend List
+      <FriendList friendRequests={friendRequests} />
+
+      <FriendSuggestion friendRequests={friendRequests} />
+
+      <section className="social-font">
+        <h3 className="social-my-p5">
+          My Reviews
         </h3>
-        <div className="social-inner-box social-flex social-flex-wrap social-content-between social-border-radius">
-          <div className="social-flex social-items-center">
-            <img src={profilePic} alt="profile pic" className="social-profile-pic" />
-            <p className="social-font">
-              Username
-            </p>
-          </div>
-          <div className="social-flex social-gap-p5">
-            <button onClick={handleFriendRemove} className="social-button social-font">
-              Remove Friend
-            </button>
-          </div>
+
+        <div className="social-review-box social-inner-box social-border-radius social-flex social-flex-wrap social-content-center social-gap">
+          {gameReviews &&
+            gameReviews.map(review => {
+              return (
+                <div key={review.id} className="social-card">
+                  <div className="social-flex social-items-center">
+                    <img src={profilePic} alt="profile pic" className="social-profile-pic" />
+                    
+                    <div className="social-font">
+                      <h5>
+                        Username
+                      </h5>
+                      <p>
+                        {review.description}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div>
+                    <Link to={`/Games/${review.id}`} className="social-font">
+                      {review.game}
+                    </Link>
+                  </div>
+
+                  <div className="social-flex social-font social-my-p5">
+                    <div className="social-flex">
+                      <img src={star} alt="star" className="social-icon" />
+                      <h5>
+                        {review.rating}
+                      </h5>
+                    </div>
+                    <div className="social-flex">
+                      <img src={heart} alt="heart" className="social-icon" />
+                      <h5>
+                        {review.likes}
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+              )
+            })
+          }
         </div>
       </section>
     </div>

@@ -14,6 +14,10 @@
   flex-wrap: wrap;
 }
 
+/* .social-wrap-none {
+  flex-wrap: nowrap;
+} */
+
 .social-flex-col {
   flex-direction: column;
 }
@@ -32,8 +36,17 @@
   margin-bottom: .5rem;
 }
 
+.social-mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .social-w-80 {
   width: 80%;
+}
+
+.social-w-100 {
+  width: 100%;
 }
 
 .social-content-between {
@@ -94,7 +107,7 @@
   height: 1rem;
 }
 
-/* Friend Tab */
+/* Add Friend */
 .social-profile-pic {
   width: 2rem;
   height: 2rem;
@@ -105,4 +118,22 @@
 .social-button {
   background-color: var(--purple);
   width: 5rem;
+}
+
+.social-sub-container {
+  min-width: 8rem;
+  max-width: 30rem;
+}
+
+/* Review */
+.social-icon {
+  width: 1rem;
+  height: 1rem;
+  margin-left: 1rem;
+  margin-right: .5rem;
+}
+
+.social-review-box {
+  padding-left: 4rem;
+  padding-right: 4rem;
 }
