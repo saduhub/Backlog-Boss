@@ -9,7 +9,7 @@ const HomeGameCard = ({game}) => {
   return (
     // Testing a card container (div) to use flex and gap for each card
     <div>
-      <article className="home-game-card">
+      <article>
         <img src={gamePreview} alt="game preview" className="home-game-preview-image home-border-radius home-object-cover" />
 
         <h4 className="home-font home-my-p5">
