@@ -4,17 +4,16 @@ import { useState } from 'react';
 // import dotenv from 'dotenv';
 import { OpenAI } from 'openai';
 // import { writeFileSync } from 'fs';
+// import { getOpenAiKey } from '../../../server/utils/getKeys';
 
 import gamePreview from '../assets/images/png/game-preview.png';
 
 const ArtGen = () => {
-  // dotenv.config();
-
   const [prompt, setPrompt ] = useState('');
   const [imgUrl, setImgUrl ] = useState(gamePreview);
   
 /*   const openai = new OpenAI({
-    apiKey: process.env.OPEN_AI_KEY,
+    apiKey: getOpenAiKey(),
   }); */
 
   const generateImage = async () => {
