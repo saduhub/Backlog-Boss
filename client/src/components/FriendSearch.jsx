@@ -4,6 +4,7 @@ import searchIcon from '../assets/images/png/icons8-search-white.png';
 
 const FriendSearch = ({ friendRequests }) => {
   const [ friend, setFriend ] = useState('');
+  //// useState for result will have to start empty in development
   const [ result , setResult ] = useState({});
 
   const handleFriendInput = () => {

@@ -13,9 +13,6 @@ import star from '../assets/images/png/simplistic-star-icon.png';
 import heart from '../assets/images/png/juicy-heart-1.png';
 
 const Social = () => {
-  const [ friend, setFriend ] = useState('');
-  const [ result , setResult ] = useState({});
-
   let friendRequests = [
     {
       id: 0,
