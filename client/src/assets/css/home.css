@@ -23,14 +23,14 @@
   gap: clamp(1rem, 4vw, 6rem);
 }
 
-/* .home-width-100 {
+/* .home-w-100 {
   width: 100%;
 } */
 
-.home-mx-auto {
+/* .home-mx-auto {
   margin-left: auto;
   margin-right: auto;
-}
+} */
 
 .home-my-p5 {
   margin-top: .5rem;

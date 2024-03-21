@@ -8,6 +8,7 @@ import Landing from './pages/Landing';
 import Game from './pages/Game';
 import SearchPage from './pages/SearchPage';
 import ArtGen from './pages/ArtGen';
+import Social from './pages/Social';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,8 @@ const router = createBrowserRouter([
       { path: 'Profile', element: <Profile /> },
       { path: 'Home', element: <Home /> },
       { path: 'Game', element: <Game /> },
+      { path: 'ArtGen', element: <ArtGen /> },
+      { path: 'Social', element: <Social /> },
       { path: 'search', element: <SearchPage /> },
     ],
   },
