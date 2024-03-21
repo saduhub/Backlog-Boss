@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import FilterBar from '../components/FilterBar';
+import gamePreview from '../assets/images/png/game-preview.png'; 
 import '../assets/css/searchPage.css';
 
 const SearchPage = () => {
@@ -7,31 +8,29 @@ const SearchPage = () => {
     { id: 1, title: "Game 1", description: "Description for Game 1" },
     { id: 2, title: "Game 2", description: "Description for Game 2" },
     { id: 3, title: "Game 3", description: "Description for Game 3" },
+    { id: 4, title: "Game 4", description: "Description for Game 4" },
+    { id: 5, title: "Game 5", description: "Description for Game 5" },
+    { id: 6, title: "Game 6", description: "Description for Game 6" },
+    { id: 7, title: "Game 7", description: "Description for Game 7" },
+    { id: 8, title: "Game 8", description: "Description for Game 8" },
   ];
 
-  const [games, setGames] = useState(sampleGames); 
+  const [games, setGames] = useState(sampleGames);
 
   const handleFilterSelect = (filter) => {
     console.log(`Filter selected: ${filter}`);
-    const filteredGames = sampleGames.filter(game => game.title.includes(filter));
-    setGames(filteredGames);
   };
 
   return (
     <div className="search-page">
-      <FilterBar onFilterSelect={handleFilterSelect}/>
+      <FilterBar onFilterSelect={handleFilterSelect} />
       <div className="display-area">
-        {games.length > 0 ? (
-          games.map((game) => (
-            <div key={game.id} className="game-card">
-              <h3 className="game-title">{game.title}</h3>
-              <p>{game.description}</p>
-              {/* will add more content here*/}
-            </div>
-          ))
-        ) : (
-          <p>No games to display</p>
-        )}
+        {games.map((game) => (
+          <div key={game.id} className="game-card">
+            <img src={gamePreview} alt="Game Preview" />
+            {/* title and description*/}
+          </div>
+        ))}
       </div>
     </div>
   );
