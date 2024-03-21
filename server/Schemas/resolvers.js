@@ -26,7 +26,15 @@ const resolvers = {
       review: async (_, { id }) => {
         return await Review.findById(id);
       },
+      // Fetch all reviews made by a user
+      userReviews: async (_, { id }) => {
+        return await Review.find(
+          {
+            user: { id: id},
+          }
+        ).populate("user", "game");
+      },
     },
 };
-  
+
 module.exports = resolvers;
