@@ -1,44 +1,60 @@
+const fetch = require('node-fetch');
 const db = require('./connection');
 const { User, Game, Review } = require('../models');
+const path = require("path");
+
+require("dotenv").config({ path: path.join(__dirname, "../../.env") });
+
+//Create games
+const apiKey = process.env.RAWG_API_KEY;
+
+async function fetchGameData(gameName, apiKey) {
+    const searchUrl = `https://api.rawg.io/api/games?key=${apiKey}&search=${encodeURIComponent(gameName)}`;
+    try {
+      const searchResponse = await fetch(searchUrl);
+      const searchData = await searchResponse.json();
+      const game = searchData.results[0];
+
+      if (!game) {
+        return null
+      };
+
+      return {
+        title: game.name,
+        averageRating: game.rating,
+        releaseDate: game.released,
+        genre: game.genres.map(genre => genre.name),
+        platforms: game.platforms.map(platform => platform.platform.name),
+        pictureUrl: game.background_image,
+        reviews: []
+      };
+    } catch (error) {
+      console.error("Error fetching game data for " + gameName, error);
+      return null;
+    }
+}
 
 db.once('open', async () => {
     await User.deleteMany();
     await Game.deleteMany();
     await Review.deleteMany();
 
-    // Create games
-    const gameData = [
-        { 
-            title: 'Epic Adventure', 
-            averageRating: 4.5, 
-            releaseDate: new Date(), 
-            genre: ['Adventure', 'RPG'], 
-            platforms: ['PC', 'Console'], 
-            pictureUrl: 'https://images.gog-statics.com/3e1987178b1eec9554958ec8027e7714fb0acd0fc8ef69bb192e16662b61f3a0.jpg',
-            reviews: [] 
-        },
-        { 
-            title: 'Space Quest', 
-            averageRating: 4.0, 
-            releaseDate: new Date(), 
-            genre: ['Action', 'Sci-Fi'], 
-            platforms: ['PC'], 
-            pictureUrl: 'https://images.gog-statics.com/3e1987178b1eec9554958ec8027e7714fb0acd0fc8ef69bb192e16662b61f3a0.jpg',
-            reviews: []  
-        },
-        { 
-            title: 'Mystery Island', 
-            averageRating: 4.8, 
-            releaseDate: new Date(), 
-            genre: ['Puzzle', 'Adventure'], 
-            platforms: ['Mobile'], 
-            pictureUrl: 'https://images.gog-statics.com/3e1987178b1eec9554958ec8027e7714fb0acd0fc8ef69bb192e16662b61f3a0.jpg', 
-            reviews: [] 
-        },
-    ];
+    const gameTitles = ['Red Dead Redemption', 'Portal 2', 'LA Noire', 'Call of Duty: Black Ops', 'Deathloop', 'Control', 'Journey', 'Hitman: World of Assassination', 'Uncharted 4', 'Battlefield 1'];
 
-    const games = await Game.insertMany(gameData);
-    const [game1, game2, game3] = games;
+    let fetchedGames = [];
+
+    for (const title of gameTitles) {
+        const gameData = await fetchGameData(title, apiKey);
+        if (gameData) {
+          fetchedGames.push(gameData);
+        } else {
+          console.log(`Game not found: ${title}`);
+        }
+    }
+
+    const gamesAdded = await Game.insertMany(fetchedGames);
+    const [game1, game2, game3] = gamesAdded;
+    console.log(`${gamesAdded.length} games created successfully.`);
 
     // Create users
     const userData = [
@@ -81,7 +97,7 @@ db.once('open', async () => {
     const reviewData = [
         { 
             user: user1._id, 
-            game: games[0]._id, 
+            game: gamesAdded[0]._id, 
             rating: 5, 
             reviewText: 'Incredible game!',
             likes: 3,
@@ -89,7 +105,7 @@ db.once('open', async () => {
         },
         { 
             user: user2._id, 
-            game: games[0]._id, 
+            game: gamesAdded[0]._id, 
             rating: 4, 
             reviewText: 'Great game!',
             likes: 8,
@@ -108,11 +124,11 @@ db.once('open', async () => {
     user1.friends.push(user2._id);
     user2.friends.push(user1._id);
     // Update game relationships
-    user1.gamesInBacklog.push(games[1]._id);
-    user1.games100Completed.push(games[2]._id);
-    user1.gamesInFavorites.push(games[0]._id);
-    user1.gamesCompleted.push(games[2]._id);
-    user1.gamesInProgress.push(games[1]._id);
+    user1.gamesInBacklog.push(gamesAdded[1]._id);
+    user1.games100Completed.push(gamesAdded[2]._id);
+    user1.gamesInFavorites.push(gamesAdded[0]._id);
+    user1.gamesCompleted.push(gamesAdded[2]._id);
+    user1.gamesInProgress.push(gamesAdded[1]._id);
     // Update review relationships
     user1.reviews.push(reviews[0]._id);
     user1.likedReviews.push(reviews[1]._id);
