@@ -23,10 +23,6 @@
   gap: clamp(1rem, 4vw, 6rem);
 }
 
-.artGen-content-between {
-  justify-content: space-evenly
-}
-
 .artGen-my-p5 {
   margin-top: .5rem;
   margin-bottom: .5rem;

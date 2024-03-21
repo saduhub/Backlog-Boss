@@ -11,6 +11,7 @@ const server = new ApolloServer({
     typeDefs,
     resolvers,
 });
+const { expressMiddleware } = require('@apollo/server/express4');
 
 app.use(express.urlencoded({ extended: false}));
 app.use(express.json());
@@ -27,6 +28,16 @@ app.get('/', async (req, res) => {
 const startApolloServer = async () => {
     await server.start();
     server.applyMiddleware({ app });
+    // app.use('/graphql', expressMiddleware(server));
+
+    // if we're in production, serve client/dist as static assets
+    if (process.env.NODE_ENV === 'production') {
+      app.use(express.static(path.join(__dirname, '../client/dist')));
+  
+      app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+      });
+    } 
     console.log(`Successfully started Apollo server at http://localhost:${PORT}/graphql.`);
     
     db.once("open", () => {

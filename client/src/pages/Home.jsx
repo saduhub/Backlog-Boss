@@ -1,29 +1,12 @@
 import '../assets/css/home.css';
 
-/* import { useEffect } from 'react';
-import dotenv from 'dotenv'; */
+import { useEffect, useState } from 'react';
+// import dotenv from 'dotenv';
 
 import HomeGameCard from '../components/Home-Game-Card';
 // import { getRawgKey } from '../../../server/utils/getKeys';
 
 const Home = () => {
-
-/*   useEffect(() => {
-    dotenv.config();
-  
-    const apiKey = process.env.RAWG_API_KEY;
-    const url = `https://api.rawg.io/api/games?ordering=-metacritic&page_size=9&key=${apiKey}`;
-    fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      const games = data.results;
-      console.log(games);
-
-      const gameInfo = games.map(({ id, name }) => ({ id, name}));
-      console.log(gameInfo);
-    });
-  }, []); */
-
   const gameObjs = [
     {
       id: 0,
@@ -100,26 +83,38 @@ const Home = () => {
   ];
 
   // const rawgKey = getRawgKey();
+  const [popularGames, setPopularGames] = useState([]);
 
-  const getGamesbyMeta = async (min, max) => {
-    const baseUrl = 'https://api.rawg.io/games';
-    const url = new URL(baseUrl);
-    url.searchParams.append('key', rawgKey);
-    url.searchParams.append('metacritic', `${min},${max}`);
-    url.searchParams.append('page_size', 9);
-
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`${response.status}`);
+  useEffect(() => {
+    const getGamesbyPopularity = async () => {
+/*       const baseUrl = 'https://api.rawg.io/games';
+      const url = new URL(baseUrl);
+      url.searchParams.append('key', rawgKey);
+      url.searchParams.append('metacritic', `${min},${max}`);
+      url.searchParams.append('page_size', 9);
+      console.log(url); */
+  
+      // const apiKey = getRawgKey();
+      const apiKey = 'e137fde8c0cb4534bc8647570b3ce764';
+  
+      const url = `https://api.rawg.io/api/games?page_size=9&key=${apiKey}`;
+      // console.log(url);
+  
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`${response.status}`);
+        }
+        const data = await response.json();
+        // console.log(data.results);
+        return data.results;
+      } catch (err) {
+        console.error(err);
       }
-      const data = await response.json();
-      return data.results;
-    } catch (err) {
-      console.error(err);
     }
-  }
-  console.log(getGamesbyMeta());
+    // popularGames.current = getGamesbyPopularity();
+    setPopularGames(getGamesbyPopularity());
+  }, [])
   
   return (
     <div className="home-flex home-content-center">
@@ -137,11 +132,9 @@ const Home = () => {
             </h3>
           </div>
           <div id="gameCard" className="home-flex home-flex-wrap home-gap home-content-center">
-            {gameObjs.map(game => {
-              return (
+{/*             {popularGames.map((game) => (
                 <HomeGameCard key={game.id} game={game} />
-              )
-            })}
+            ))} */}
           </div>
         </section>
       </div>

@@ -16,7 +16,7 @@ const resolvers = {
       },
       // Fetch a single game by ID
       game: async (_, { id }) => {
-        return await Game.findById(id);
+        return await Game.findById(id).populate({path: "reviews", populate:"user"})
       },
       // Fetch all reviews
       reviews: async () => {
