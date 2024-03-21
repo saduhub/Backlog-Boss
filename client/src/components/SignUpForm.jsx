@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import '../assets/css/signUpForm.css'
+import { useMutation } from "@apollo/client";
+import Auth from "../utils/auth";
+import { ADD_USER } from "../utils/mutations";
 // eslint-disable-next-line
 function SignUpForm({ onShowLogin }) {
 
@@ -9,7 +12,17 @@ function SignUpForm({ onShowLogin }) {
     const [visible, setVisible] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
-    const handleFormSubmit = (e) => {
+    const [addUser] = useMutation(ADD_USER, {
+    onError: (error) => {
+        setErrorMessage(error.message);
+        setVisible(true);
+    },
+    onCompleted: (data) => {
+        Auth.login(data.addUser.token);
+    }
+    });
+
+    const handleFormSubmit = async (e) => {
         e.preventDefault();
     
         if (!email || !username || !password) {
@@ -18,11 +31,18 @@ function SignUpForm({ onShowLogin }) {
           return;
         }
 
-        setUsername('');
-        setEmail('');
-        setPassword('');
-        setErrorMessage('');
-        setVisible(false);
+        try {
+            await addUser({
+                variables: { email, username, password }
+            })
+            setUsername('');
+            setEmail('');
+            setPassword('');
+            setErrorMessage('');
+            setVisible(false);
+        } catch (e) {
+            console.error(e);
+        }
     };
 
     const handleUsernameChange = (e) => {
