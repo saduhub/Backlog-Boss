@@ -1,18 +1,26 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-
 import '../assets/css/social.css';
+
+import { useQuery } from '@apollo/client';
+import { QUERY_USER_REVIEWS } from '../utils/queries';
 
 import FriendSearch from '../components/FriendSearch';
 import FriendRequest from '../components/FriendRequest';
 import FriendList from '../components/FriendList';
 import FriendSuggestion from '../components/FriendSuggestion';
+import UserReviews from '../components/UserReviews';
 
 import profilePic from '../assets/images/png/icons8-male-user-16.png';
-import star from '../assets/images/png/simplistic-star-icon.png';
-import heart from '../assets/images/png/juicy-heart-1.png';
 
 const Social = () => {
+
+  //// Need User context to grab User ID
+  const { data } = useQuery(QUERY_USER_REVIEWS, {
+    variables: {
+      userId: context.id
+    }
+  })
+  const userReviews = data?.userReviews;
+
   let friendRequests = [
     {
       id: 0,
@@ -23,7 +31,17 @@ const Social = () => {
       id: 1,
       username: 'Jackie',
       profilePictureUrl: profilePic,
-    }
+    },
+    {
+      id: 2,
+      username: 'Bonnie',
+      profilePictureUrl: profilePic,
+    },
+    {
+      id: 3,
+      username: 'Josh',
+      profilePictureUrl: profilePic,
+    },
   ];
 
   let gameReviews = [
@@ -46,6 +64,7 @@ const Social = () => {
   ];
 
   //// Need function to get friend requests
+  //// Keep track of friend requests sent, incoming friend requests, friends on friend list, all user reviews
   //// Need function to get user context
 
   return (
@@ -58,55 +77,7 @@ const Social = () => {
 
       <FriendSuggestion friendRequests={friendRequests} />
 
-      <section className="social-font">
-        <h3 className="social-my-p5">
-          My Reviews
-        </h3>
-
-        <div className="social-review-box social-inner-box social-border-radius social-flex social-flex-wrap social-content-center social-gap">
-          {gameReviews &&
-            gameReviews.map(review => {
-              return (
-                <div key={review.id} className="social-card">
-                  <div className="social-flex social-items-center">
-                    <img src={profilePic} alt="profile pic" className="social-profile-pic" />
-                    
-                    <div className="social-font">
-                      <h5>
-                        Username
-                      </h5>
-                      <p>
-                        {review.description}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div>
-                    <Link to={`/Games/${review.id}`} className="social-font">
-                      {review.game}
-                    </Link>
-                  </div>
-
-                  <div className="social-flex social-font social-my-p5">
-                    <div className="social-flex">
-                      <img src={star} alt="star" className="social-icon" />
-                      <h5>
-                        {review.rating}
-                      </h5>
-                    </div>
-                    <div className="social-flex">
-                      <img src={heart} alt="heart" className="social-icon" />
-                      <h5>
-                        {review.likes}
-                      </h5>
-                    </div>
-                  </div>
-                </div>
-              )
-            })
-          }
-        </div>
-      </section>
+      <UserReviews gameReviews={gameReviews} />
     </div>
   )
 }
