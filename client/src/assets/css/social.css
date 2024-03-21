@@ -41,6 +41,10 @@
   margin-right: auto;
 }
 
+.social-w-40 {
+  width: 40%;
+}
+
 .social-w-80 {
   width: 80%;
 }
@@ -136,4 +140,16 @@
 .social-review-box {
   padding-left: 4rem;
   padding-right: 4rem;
+}
+
+@media (min-width: 760px) {
+  .social-col-2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .social-box-col-2 {
+    width: 49%;
+  }
 }

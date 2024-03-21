@@ -46,6 +46,7 @@ const typeDefs = gql`
     game(id: ID!): Game
     reviews: [Review]
     review(id: ID!): Review
+    userReviews(id: ID!): [Review]
   }
 `;
 
