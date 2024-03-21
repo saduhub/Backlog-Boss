@@ -37,29 +37,31 @@ function LoginForm({onShowSignUp}) {
 
     return (
         <> 
-            <h2 className="loginform-login-header">Log In</h2>
-            <h3 className="loginform-login-sub-header">Sign in to access your profile</h3>
-            <form action="submit" className="loginform-login-form" onSubmit={handleFormSubmit}>
-                <label htmlFor="email">Enter Username</label>
-                <input type="email" name="email" id="email" value={email} onChange={handleEmailChange} />
-                <label htmlFor="password">Enter Password</label>
-                <input type="password" name="password" id="password" value={password} onChange={handlePasswordChange} />
-                <button type="submit">Log In</button>
-            </form>
-            <h4 className='login-link-to-signup'>
-                Already a member?
-                <span onClick={onShowSignUp}>
-                    Sign Up
-                </span>
-            </h4>
-            {visible && (
-                <div className="loginform-modal">
-                    <div className="loginform-modal-content">
-                        <p>{errorMessage}</p>
-                        <span className="loginform-close-button" onClick={closeModal}>x</span>
+            <div className="loginform-container">
+                <h2 className="loginform-login-header">Log In</h2>
+                <h3 className="loginform-login-sub-header">Sign in to access your profile</h3>
+                <form action="submit" className="loginform-login-form" onSubmit={handleFormSubmit}>
+                    <label htmlFor="email">Enter Username</label>
+                    <input type="email" name="email" id="email" value={email} onChange={handleEmailChange} />
+                    <label htmlFor="password">Enter Password</label>
+                    <input type="password" name="password" id="password" value={password} onChange={handlePasswordChange} />
+                    <button type="submit">Log In</button>
+                </form>
+                <h4 className='login-link-to-signup'>
+                    Already a member?
+                    <span onClick={onShowSignUp}>
+                        Sign Up
+                    </span>
+                </h4>
+                {visible && (
+                    <div className="loginform-modal">
+                        <div className="loginform-modal-content">
+                            <p>{errorMessage}</p>
+                            <span className="loginform-close-button" onClick={closeModal}>x</span>
+                        </div>
                     </div>
-                </div>
-            )}
+                )}
+            </div>
         </>
     );
 }

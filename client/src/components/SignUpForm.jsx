@@ -42,32 +42,34 @@ function SignUpForm({ onShowLogin }) {
     };
 
     return (
-        <> 
-            <h2 className="signupform-signup-header">Sign Up</h2>
-            <h3 className="signupform-signup-sub-header">Join the gaming community by providing your details!</h3>
-            <form action="submit" className="signupform-signup-form" onSubmit={handleFormSubmit}>
-                <label htmlFor="email">Email</label>
-                <input type="email" name="email" id="email" value={email} onChange={handleEmailChange} />
-                <label htmlFor="username">Username</label>
-                <input type="text" name="username" id="username" value={username} onChange={handleUsernameChange} />
-                <label htmlFor="password">Set up Password</label>
-                <input type="password" name="password" id="password" value={password} onChange={handlePasswordChange} />
-                <button type="submit">Join</button>
-            </form>
-            <h4 className='signup-link-to-login'>
-                Already a member?
-                <span onClick={onShowLogin}>
-                    Log in
-                </span>
-            </h4>
-            {visible && (
-                <div className="signupform-modal">
-                    <div className="signupform-modal-content">
-                        <p>{errorMessage}</p>
-                        <span className="signupform-close-button" onClick={closeModal}>x</span>
+        <>
+            <div className="signupform-container">
+                <h2 className="signupform-signup-header">Sign Up</h2>
+                <h3 className="signupform-signup-sub-header">Join the gaming community by providing your details!</h3>
+                <form action="submit" className="signupform-signup-form" onSubmit={handleFormSubmit}>
+                    <label htmlFor="email">Email</label>
+                    <input type="email" name="email" id="email" value={email} onChange={handleEmailChange} />
+                    <label htmlFor="username">Username</label>
+                    <input type="text" name="username" id="username" value={username} onChange={handleUsernameChange} />
+                    <label htmlFor="password">Set up Password</label>
+                    <input type="password" name="password" id="password" value={password} onChange={handlePasswordChange} />
+                    <button type="submit">Join</button>
+                </form>
+                <h4 className='signup-link-to-login'>
+                    Already a member?
+                    <span onClick={onShowLogin}>
+                        Log in
+                    </span>
+                </h4>
+                {visible && (
+                    <div className="signupform-modal">
+                        <div className="signupform-modal-content">
+                            <p>{errorMessage}</p>
+                            <span className="signupform-close-button" onClick={closeModal}>x</span>
+                        </div>
                     </div>
-                </div>
-            )}
+                )}
+            </div>
         </>
     );
 }

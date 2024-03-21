@@ -7,7 +7,7 @@ import LoginForm from '../components/LoginForm';
 function Profile() {
   const [showLogin, setShowLogin] = useState(false);
   // Will remove
-  const isAuthenticated = true;
+  const isAuthenticated = false;
   const handleShowLogin = () => setShowLogin(true);
   const handleShowSignUp = () => setShowLogin(false);
 
