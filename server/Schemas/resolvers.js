@@ -58,8 +58,25 @@ const resolvers = {
         const token = signToken(user);
   
         return { token, user };
-    },
-  }
+      },
+      login: async (parent, { username, password }) => {
+        const user = await User.findOne({ username });
+  
+        if (!user) {
+          throw AuthenticationError;
+        }
+  
+        const correctPw = await user.isPasswordCorrect(password);
+  
+        if (!correctPw) {
+          throw AuthenticationError;
+        }
+  
+        const token = signToken(user);
+        console.log(token, user)
+        return { token, user };
+      },
+    }
 };
 
 module.exports = resolvers;
