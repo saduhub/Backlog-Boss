@@ -8,31 +8,13 @@ import Auth from '../utils/auth';
 function Profile() {
   const [showLogin, setShowLogin] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  
   const handleShowLogin = () => setShowLogin(true);
   const handleShowSignUp = () => setShowLogin(false);
+  const handleLogOut = () => Auth.logout();
 
   useEffect(() => {
     setIsAuthenticated(Auth.loggedIn());
   }, []);
-
-  if (!isAuthenticated) {
-    if (!Auth.getToken()) {
-      return (
-        <section className='profile-main-section'>
-          <SignUpForm onShowLogin={handleShowLogin} />
-        </section>
-      );
-    }
-
-    if (Auth.getToken() && Auth.isTokenExpired(Auth.getToken())) {
-      return (
-        <section className='profile-main-section'>
-          <LoginForm onShowSignUp={handleShowSignUp} />
-        </section>
-      );
-    }
-  }
 
   if (isAuthenticated) {
     return (
@@ -46,6 +28,7 @@ function Profile() {
                 <div className="profile-username-since">
                   <h2>Username</h2>
                   <h3>Member since 2024</h3>
+                  <button className='profile-logout-button' onClick={handleLogOut}>Log Out</button>
                 </div>
                 <div className="profile-user-stats">
                   <div className="profile-user-games">
@@ -254,6 +237,12 @@ function Profile() {
       </section>
     );
   }
+
+  return (
+    <section className='profile-main-section'>
+      {!showLogin ? (<SignUpForm onShowLogin={handleShowLogin} />) : (<LoginForm onShowSignUp={handleShowSignUp} />)}
+    </section>
+  );
 }
   
 export default Profile;
