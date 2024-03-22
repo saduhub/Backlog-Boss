@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; 
 import FilterBar from '../components/FilterBar';
 import gamePreview from '../assets/images/png/game-preview.png'; 
 import '../assets/css/searchPage.css';
@@ -26,10 +27,10 @@ const SearchPage = () => {
       <FilterBar onFilterSelect={handleFilterSelect} />
       <div className="display-area">
         {games.map((game) => (
-          <div key={game.id} className="game-card">
-            <img src={gamePreview} alt="Game Preview" />
-            {/* title and description*/}
-          </div>
+          <Link key={game.id} to={`/game/${game.id}`} className="game-card">
+            <img src={gamePreview} alt={game.title} />
+            {/* Optionally, you can add more game details here */}
+          </Link>
         ))}
       </div>
     </div>
