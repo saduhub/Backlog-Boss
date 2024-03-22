@@ -3,8 +3,9 @@ import '../assets/css/Game.css';
 
 import {useParams} from 'react-router-dom';
 import GameCard from '../components/GameCard';
-import {useQuery} from '@apollo/client'
+import {useQuery, useMutation} from '@apollo/client'
 import {QUERY_GAME} from '../utils/queries'
+import {ADD_REVIEW} from '../utils/mutations'
 
 
 
@@ -19,7 +20,7 @@ function Game() {
         }
     })
     const game = data?.game
-
+    const [addReview] = useMutation(ADD_REVIEW);
 
     const handleReviewSubmit = async (event) => {
         event.preventDefault();

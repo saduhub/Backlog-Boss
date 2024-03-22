@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import '../assets/css/GameCard.css'
 import gamePreview from '../assets/images/png/game-preview.png';
-import profileIcon from '../assets/images/png/icons8-male-user-16.png'
 
 const GameCard = ({game}) => {
     return (
@@ -10,12 +9,12 @@ const GameCard = ({game}) => {
                 <h1><span id="title">{game.title}</span> ⭐ 5.0</h1>
             </div>
             <div className="game-card-image">
-                <img src={gamePreview}/>
+                <img src={game.pictureUrl}/>
             </div>
             <div className="game-card-info">
-                <h4><span id="release-date">Release Date:</span> </h4>
-                <h4><span id="genre">Genre:</span> </h4>
-                <h4><span id="platform">Platform:</span> </h4>
+                <h4><span id="release-date">Release Date:</span> {game.releaseDate} </h4>
+                <h4><span id="genre">Genre:</span> {game.genre} </h4>
+                <h4><span id="platform">Platform:</span> {game.platforms} </h4>
                 <p>Brief description of the game</p>
             </div>
             <div className="game-card-buttons">
@@ -45,7 +44,7 @@ const GameCard = ({game}) => {
                 <div className="game-card-reviews">
                     <img /*profilepic*//>
                     <h4>Username Date of Review</h4>
-                    <h4>⭐5.0  ❤️ 100</h4>
+                    <h4>⭐5.0 </h4>
                     <p>Great Game!</p>
                 </div>
             </div>

@@ -25,7 +25,7 @@ const typeDefs = gql`
     rating: Float!
     likes: Int
     dateOfReview: String
-    reviewText: String!
+    reviewText: String
   }
 
   type Game {
@@ -46,6 +46,11 @@ const typeDefs = gql`
     game(id: ID!): Game
     reviews: [Review]
     review(id: ID!): Review
+  }
+
+  type Mutation {
+    addReview(id: String!, reviewNum: Int!, reviewText: String!): Game
+    
   }
 `;
 
