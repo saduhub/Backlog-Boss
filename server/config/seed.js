@@ -49,12 +49,14 @@ db.once('open', async () => {
           fetchedGames.push(gameData);
         } else {
           console.log(`Game not found: ${title}`);
+          
         }
     }
 
     const gamesAdded = await Game.insertMany(fetchedGames);
     const [game1, game2, game3] = gamesAdded;
     console.log(`${gamesAdded.length} games created successfully.`);
+    console.log(fetchedGames);
 
     // Create users
     const userData = [

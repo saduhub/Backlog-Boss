@@ -1,4 +1,5 @@
 const { User, Game, Review } = require('../models');
+const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
     Query: {
@@ -12,11 +13,18 @@ const resolvers = {
       },
       // Fetch all games
       games: async () => {
-        return await Game.find({});
+        return await Game.find({}).populate({path: "reviews", populate:"user"});
       },
       // Fetch a single game by ID
       game: async (_, { id }) => {
-        return await Game.findById(id).populate({path: "reviews", populate:"user"})
+        try {
+          const game = await Game.findById(id).populate({path: "reviews", populate:"user"})
+          console.log(game)
+           return game
+        } catch(error) {
+          console.log(error)
+        }
+        
       },
       // Fetch all reviews
       reviews: async () => {
@@ -33,6 +41,22 @@ const resolvers = {
             user: { id: id},
           }
         ).populate("user", "game");
+      },
+      // Fetch a user and all review/games documents related to the user on login. (However, specify on client side what should be returned)
+      me: async (parent, args, context) => {
+        if (context.user) {
+          return User.findOne({ _id: context.user._id })
+            .populate([
+              { path: 'reviews' }, 
+              { path: 'gamesInFavorites' }, 
+              { path: 'gamesInBacklog' },
+              { path: 'gamesCompleted' }, 
+              { path: 'gamesInProgress' }, 
+              { path: 'friends' }, 
+              { path: 'likedReviews' }
+            ])
+        }
+        throw AuthenticationError;
       },
     },
 
@@ -73,6 +97,48 @@ const resolvers = {
           )
         }
       },
+      addUser: async (parent, { password, email, username }) => {
+        const user = await User.create({ password, email, username });
+        const token = signToken(user);
+  
+        return { token, user };
+      },
+      login: async (parent, { username, password }) => {
+        const user = await User.findOne({ username });
+  
+        if (!user) {
+          throw AuthenticationError;
+        }
+  
+        const correctPw = await user.isPasswordCorrect(password);
+  
+        if (!correctPw) {
+          throw AuthenticationError;
+        }
+  
+        const token = signToken(user);
+        console.log(token, user)
+        return { token, user };
+      },
+      addReview: async (_, {id, reviewNum, reviewText}) => {
+        //user property comes from session/authentication
+        console.log(reviewText)
+        const review = await Review.create({
+          user: "65fcf698c6dd7dd3ed6afd31", //replace later
+          game: id,
+          rating: reviewNum,
+          reviewText: reviewText
+        })
+        console.log(review);
+        const game = await Game.findOneAndUpdate({_id: id}, {$push: {reviews: review._id}}, {new: true, populate: {path: "reviews", populate: {path: "user"}}} )
+            // Handle case where game is not found
+        if (!game) {
+          throw new Error("Game not found");
+        }
+
+        console.log(game.reviews[0])
+        return game
+      }
     }
 };
 
