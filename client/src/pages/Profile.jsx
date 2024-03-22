@@ -1,15 +1,38 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../assets/css/profile.css';
 import logo from '../assets/images/svg/backlogbosslogowhite.svg'
 import SignUpForm from '../components/SignUpForm';
 import LoginForm from '../components/LoginForm';
+import Auth from '../utils/auth';
 
 function Profile() {
   const [showLogin, setShowLogin] = useState(false);
-  // Will remove
-  const isAuthenticated = false;
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  
   const handleShowLogin = () => setShowLogin(true);
   const handleShowSignUp = () => setShowLogin(false);
+
+  useEffect(() => {
+    setIsAuthenticated(Auth.loggedIn());
+  }, []);
+
+  if (!isAuthenticated) {
+    if (!Auth.getToken()) {
+      return (
+        <section className='profile-main-section'>
+          <SignUpForm onShowLogin={handleShowLogin} />
+        </section>
+      );
+    }
+
+    if (Auth.getToken() && Auth.isTokenExpired(Auth.getToken())) {
+      return (
+        <section className='profile-main-section'>
+          <LoginForm onShowSignUp={handleShowSignUp} />
+        </section>
+      );
+    }
+  }
 
   if (isAuthenticated) {
     return (
@@ -231,12 +254,6 @@ function Profile() {
       </section>
     );
   }
-
-  return (
-    <section className='profile-main-section'>
-      {!showLogin ? (<SignUpForm onShowLogin={handleShowLogin} />) : (<LoginForm onShowSignUp={handleShowSignUp} />)}
-    </section>
-  );
 }
   
 export default Profile;
