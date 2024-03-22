@@ -1,4 +1,5 @@
 const { User, Game, Review } = require('../models');
+const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
     Query: {
@@ -34,7 +35,31 @@ const resolvers = {
           }
         ).populate("user", "game");
       },
+      // Fetch a user and all review/games documents related to the user on login. (However, specify on client side what should be returned)
+      me: async (parent, args, context) => {
+        if (context.user) {
+          return User.findOne({ _id: context.user._id })
+            .populate([
+              { path: 'reviews' }, 
+              { path: 'gamesInFavorites' }, 
+              { path: 'gamesInBacklog' },
+              { path: 'gamesCompleted' }, 
+              { path: 'gamesInProgress' }, 
+              { path: 'friends' }, 
+              { path: 'likedReviews' }
+            ])
+        }
+        throw AuthenticationError;
+      },
     },
+    Mutation: {
+      addUser: async (parent, { password, email, username }) => {
+        const user = await User.create({ password, email, username });
+        const token = signToken(user);
+  
+        return { token, user };
+    },
+  }
 };
 
 module.exports = resolvers;
