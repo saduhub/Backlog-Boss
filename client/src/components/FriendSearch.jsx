@@ -21,7 +21,7 @@ const FriendSearch = ({ friendRequests }) => {
   const handleFriendRequest = () => {
     const { data } = useMutation(REQUEST_FRIEND, {
       variables: {
-        friendRequests: 
+        friendRequests: id,
       }
     })
   }

@@ -1,10 +1,8 @@
 import '../assets/css/home.css';
 
 import { useEffect, useState } from 'react';
-// import dotenv from 'dotenv';
 
 import HomeGameCard from '../components/Home-Game-Card';
-// import { getRawgKey } from '../../../server/utils/getKeys';
 
 const Home = () => {
   const gameObjs = [

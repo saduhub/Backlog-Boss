@@ -50,6 +50,10 @@ const ArtGen = () => {
     //// Access user profile pic property (may need global user context), then change current img to new AI-generated image
   }
 
+  const handleSaveDevice = () => {
+
+  }
+
 /*   const handleSaveDevice = async () => {
     // Save image URL to img folder
     const imgResult = await fetch(imgUrl);

@@ -1,4 +1,4 @@
-const dotenv = require('dotenv').config();
+// const dotenv = require('dotenv').config();
 
 const getRawgKey = () => {
   const rawgApiKey = process.env.RAWG_API_KEY;
