@@ -1,6 +1,6 @@
 import '../assets/css/social.css';
 
-import FriendSearch from '../components/FriendSearch';
+// import FriendSearch from '../components/FriendSearch';
 import FriendRequest from '../components/FriendRequest';
 import FriendList from '../components/FriendList';
 import FriendSuggestion from '../components/FriendSuggestion';
@@ -57,7 +57,7 @@ const Social = () => {
 
   return (
     <div className="social-container social-flex social-flex-col">
-      <FriendSearch friendRequests={friendRequests} />
+      {/* <FriendSearch friendRequests={friendRequests} /> */}
 
       <FriendRequest friendRequests={friendRequests} />
 
