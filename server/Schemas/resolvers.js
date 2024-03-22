@@ -13,11 +13,18 @@ const resolvers = {
       },
       // Fetch all games
       games: async () => {
-        return await Game.find({});
+        return await Game.find({}).populate({path: "reviews", populate:"user"});
       },
       // Fetch a single game by ID
       game: async (_, { id }) => {
-        return await Game.findById(id).populate({path: "reviews", populate:"user"})
+        try {
+          const game = await Game.findById(id).populate({path: "reviews", populate:"user"})
+          console.log(game)
+           return game
+        } catch(error) {
+          console.log(error)
+        }
+        
       },
       // Fetch all reviews
       reviews: async () => {
@@ -52,7 +59,44 @@ const resolvers = {
         throw AuthenticationError;
       },
     },
+
     Mutation: {
+      addFriend: async (_, { id }, context) => {
+        if (context.user) {
+          return await User.findByIdAndUpdate(
+            context.user._id,
+            { $push: { friends: id } },
+            { new: true }
+          )
+        }
+      },
+      removeFriend: async (_, { id }, context) => {
+        if (context.user) {
+          return await User.findByIdAndUpdate(
+            context.user._id,
+            { $pull : { friends: id } },
+            { new: true }
+          )
+        }
+      },
+      requestFriend: async (_, { id }, context) => {
+        if (context.user) {
+          return await User.findByIdAndUpdate(
+            context.user._id,
+            { $push: { friendRequests: id } },
+            { new: true }
+          )
+        }
+      },
+      rejectFriend: async (_, { id }, context) => {
+        if (context.user) {
+          return await User.findByIdAndUpdate(
+            context.user._id,
+            { $pull : { friendRequests : id } },
+            { new: true }
+          )
+        }
+      },
       addUser: async (parent, { password, email, username }) => {
         const user = await User.create({ password, email, username });
         const token = signToken(user);
@@ -76,6 +120,25 @@ const resolvers = {
         console.log(token, user)
         return { token, user };
       },
+      addReview: async (_, {id, reviewNum, reviewText}) => {
+        //user property comes from session/authentication
+        console.log(reviewText)
+        const review = await Review.create({
+          user: "65fcf698c6dd7dd3ed6afd31", //replace later
+          game: id,
+          rating: reviewNum,
+          reviewText: reviewText
+        })
+        console.log(review);
+        const game = await Game.findOneAndUpdate({_id: id}, {$push: {reviews: review._id}}, {new: true, populate: {path: "reviews", populate: {path: "user"}}} )
+            // Handle case where game is not found
+        if (!game) {
+          throw new Error("Game not found");
+        }
+
+        console.log(game.reviews[0])
+        return game
+      }
     }
 };
 

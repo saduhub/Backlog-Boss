@@ -1,12 +1,22 @@
 import '../assets/css/social.css';
 
 import { Link } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { QUERY_USER_REVIEWS } from '../utils/queries';
 
 import profilePic from '../assets/images/png/icons8-male-user-16.png';
 import star from '../assets/images/png/simplistic-star-icon.png';
 import heart from '../assets/images/png/juicy-heart-1.png';
 
 const UserReviews = ({ gameReviews }) => {
+  //// Need User context to grab User ID
+/*   const { data } = useQuery(QUERY_USER_REVIEWS, {
+    variables: {
+      userId: context.id
+    }
+  })
+  const userReviews = data?.userReviews; */
+
   return (
     <div>
       <section className="social-font">
