@@ -18,7 +18,8 @@ function LoginForm({onShowSignUp}) {
         },
         onCompleted: (data) => {
             console.log(data)
-            Auth.login(data.login.token);
+            const userData = JSON.stringify(data.login.user);
+            Auth.login(data.login.token, userData);
         }
     });
 
