@@ -35,6 +35,45 @@ const resolvers = {
         ).populate("user", "game");
       },
     },
+
+    Mutation: {
+      addFriend: async (_, { id }, context) => {
+        if (context.user) {
+          return await User.findByIdAndUpdate(
+            context.user._id,
+            { $push: { friends: id } },
+            { new: true }
+          )
+        }
+      },
+      removeFriend: async (_, { id }, context) => {
+        if (context.user) {
+          return await User.findByIdAndUpdate(
+            context.user._id,
+            { $pull : { friends: id } },
+            { new: true }
+          )
+        }
+      },
+      requestFriend: async (_, { id }, context) => {
+        if (context.user) {
+          return await User.findByIdAndUpdate(
+            context.user._id,
+            { $push: { friendRequests: id } },
+            { new: true }
+          )
+        }
+      },
+      rejectFriend: async (_, { id }, context) => {
+        if (context.user) {
+          return await User.findByIdAndUpdate(
+            context.user._id,
+            { $pull : { friendRequests : id } },
+            { new: true }
+          )
+        }
+      },
+    }
 };
 
 module.exports = resolvers;

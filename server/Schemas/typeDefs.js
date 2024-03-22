@@ -12,6 +12,7 @@ const typeDefs = gql`
     gamesCompleted: [Game]
     gamesInProgress: [Game]
     friends: [User]
+    friendRequests: [User]
     likedReviews: [Review]
     reviews: [Review]
     hoursPlayed: Int
@@ -47,6 +48,13 @@ const typeDefs = gql`
     reviews: [Review]
     review(id: ID!): Review
     userReviews(id: ID!): [Review]
+  }
+
+  type Mutation {
+    addFriend(id: ID!): User
+    removeFriend(id: ID!): User
+    requestFriend(id: ID!): User
+    rejectFriend(id: ID!): User
   }
 `;
 
