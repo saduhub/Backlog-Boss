@@ -1,12 +1,17 @@
 import { Link } from 'react-router-dom';
+import {useState} from 'react';
 import '../assets/css/GameCard.css'
 import gamePreview from '../assets/images/png/game-preview.png';
 
 const GameCard = ({game}) => {
+
+
+
+
     return (
         <div className="game-card-main">
             <div className="game-card-title">
-                <h1><span id="title">{game.title}</span> ⭐ 5.0</h1>
+                <h1><span id="title">{game.title}</span> ⭐{game.rating}</h1>
             </div>
             <div className="game-card-image">
                 <img src={game.pictureUrl}/>
