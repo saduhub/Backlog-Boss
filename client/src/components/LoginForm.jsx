@@ -1,30 +1,52 @@
 import { useState } from 'react';
 import '../assets/css/loginForm.css'
+import { useMutation } from "@apollo/client";
+import Auth from "../utils/auth";
+import { LOGIN_USER } from "../utils/mutations";
 // eslint-disable-next-line
 function LoginForm({onShowSignUp}) {
 
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [visible, setVisible] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
-    const handleFormSubmit = (e) => {
+    const [loginUser] = useMutation(LOGIN_USER, {
+        onError: (error) => {
+            setErrorMessage(error.message);
+            setVisible(true);
+        },
+        onCompleted: (data) => {
+            console.log(data)
+            const userData = JSON.stringify(data.login.user);
+            Auth.login(data.login.token, userData);
+        }
+    });
+
+    const handleFormSubmit = async (e) => {
         e.preventDefault();
     
-        if (!email || !password) {
+        if (!username || !password) {
           setErrorMessage('All Fields Required');
           setVisible(true);
           return;
         }
 
-        setEmail('');
-        setPassword('');
-        setErrorMessage('');
-        setVisible(false);
+        try {
+            await loginUser({
+                variables: { username, password }
+            })
+            setUsername('');
+            setPassword('');
+            setErrorMessage('');
+            setVisible(false);
+        } catch (e) {
+            console.error(e);
+        }
     };
 
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
+    const handleUsernameChange = (e) => {
+        setUsername(e.target.value);
     };
 
     const handlePasswordChange = (e) => {
@@ -42,7 +64,7 @@ function LoginForm({onShowSignUp}) {
                 <h3 className="loginform-login-sub-header">Sign in to access your profile</h3>
                 <form action="submit" className="loginform-login-form" onSubmit={handleFormSubmit}>
                     <label htmlFor="email">Enter Username</label>
-                    <input type="email" name="email" id="email" value={email} onChange={handleEmailChange} />
+                    <input type="text" name="email" id="email" value={username} onChange={handleUsernameChange} />
                     <label htmlFor="password">Enter Password</label>
                     <input type="password" name="password" id="password" value={password} onChange={handlePasswordChange} />
                     <button type="submit">Log In</button>

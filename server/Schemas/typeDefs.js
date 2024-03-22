@@ -25,7 +25,7 @@ const typeDefs = gql`
     rating: Float!
     likes: Int
     dateOfReview: String
-    reviewText: String!
+    reviewText: String
   }
 
   type Game {
@@ -57,6 +57,12 @@ const typeDefs = gql`
 
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
+    login(username: String!, password: String!): Auth
+  }
+
+  type Mutation {
+    addReview(id: String!, reviewNum: Int!, reviewText: String!): Game
+    
   }
 `;
 
