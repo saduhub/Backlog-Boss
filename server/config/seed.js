@@ -61,15 +61,16 @@ db.once('open', async () => {
     // Create users
     const userData = [
         {
-            email: 'john.doe@example.com',
-            username: 'johndoe',
-            password: 'password123',
+            email: 'user@example.com',
+            username: 'user',
+            password: 'user',
             profilePictureUrl: 'https://cdn-icons-png.flaticon.com/512/1077/1077114.png',
             gamesInFavorites: [],
             gamesInBacklog: [],
             gamesCompleted: [],
             gamesInProgress: [],
             friends: [],
+            friendRequests: [],
             likedReviews: [],
             reviews: [],
             hoursPlayed: 100,
@@ -85,6 +86,7 @@ db.once('open', async () => {
             gamesCompleted: [],
             gamesInProgress: [],
             friends: [],
+            friendRequests: [],
             likedReviews: [],
             reviews: [],
             hoursPlayed: 150,

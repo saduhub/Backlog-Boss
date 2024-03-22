@@ -4,7 +4,7 @@ import '../assets/css/Game.css';
 import {useParams} from 'react-router-dom';
 import GameCard from '../components/GameCard';
 import {useQuery, useMutation} from '@apollo/client'
-import {QUERY_GAME} from '../utils/queries'
+import {GAME_PAGE_QUERY} from '../utils/queries'
 import {ADD_REVIEW} from '../utils/mutations'
 
 
@@ -13,15 +13,16 @@ function Game() {
     const [formState, setFormState] = useState({rating: '', reviewText: ''});
     const {id} = useParams()
     console.log(id)
-    const {data} = useQuery(QUERY_GAME, {
+    const {data} = useQuery(GAME_PAGE_QUERY, {
         
         variables: {
             gameId: id
         }
     })
     const game = data?.game
+    const user = data?.me
     const [addReview] = useMutation(ADD_REVIEW);
-
+    console.log(data)
     const handleReviewSubmit = async (event) => {
         event.preventDefault();
         try {
@@ -30,6 +31,7 @@ function Game() {
                     gameId: game.id,
                     rating: parseInt(formState.rating),
                     reviewText: formState.reviewText
+                    
                 }
             });
             console.log('Review added successfully:', response);
