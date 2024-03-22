@@ -1,3 +1,9 @@
+.loginform-container {
+    width: 100%;
+    max-width: 425px;
+    margin: 0 auto;
+}
+
 .loginform-login-header {
     font-size: 2rem;
     font-style: normal;

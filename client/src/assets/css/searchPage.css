@@ -12,9 +12,10 @@
 .display-area {
   flex-grow: 1;
   padding: 20px;
-  grid-gap: 20px;
   display: grid;
-  grid-template-columns: 1fr; 
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  justify-items: center;
 }
 
 .game-card {
@@ -22,23 +23,26 @@
   padding: 20px;
   margin-bottom: 15px;
   border-radius: 10px;
-  text-align: center; 
+  align-self: start;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.game-title {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
+.game-card img {
+  width: 100%;
+  display: block;
+  border-radius: 10px;
 }
 
 @media (min-width: 281px) and (max-width: 653px) {
   .display-area {
-    grid-template-columns: repeat(2, 1fr); 
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 654px) and (max-width: 1024px) {
   .display-area {
-    grid-template-columns: repeat(3, 1fr); 
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -50,10 +54,6 @@
   }
   
   .display-area {
-    grid-template-columns: repeat(4, 1fr); 
-  }
-
-  .game-card {
-    text-align: left; 
+    grid-template-columns: repeat(4, 1fr);
   }
 }

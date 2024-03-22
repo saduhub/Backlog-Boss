@@ -23,7 +23,9 @@
     
 }
 
-
+.game-card-info h4 {
+    margin-bottom: 10px;
+}
 
 #release-date {
     color: var(--purple);
@@ -39,9 +41,20 @@
 
 .game-card-buttons {
     display: flex;
+    margin: 20px 0px;
+}
+
+.game-card-buttons button {
+    font-size: 20px;
+    margin-right: 30px;
+    padding: 10px;
+    color: var(--font-color);
+    background-color: var(--light-purple);
+    border-radius: 10px;
 }
 
 .game-card-related-div {
+    width: 75%;
     background-color: var(--grey);
     border-radius: 20px;
     padding: 1%;
@@ -51,6 +64,8 @@
 
 .game-card-related img {
     max-width: 30%;
+    border-radius: 20px;
+    
 }
 
 .game-card-related button {
@@ -62,11 +77,3 @@
     border-radius: 10px;
 }
 
-.game-card-buttons button {
-    font-size: 20px;
-    margin-right: 30px;
-    padding: 10px;
-    color: var(--font-color);
-    background-color: var(--light-purple);
-    border-radius: 10px;
-}

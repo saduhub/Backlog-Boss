@@ -14,11 +14,11 @@ const FriendSuggestion = ({ friendRequests }) => {
           Suggested Friends
         </h3>
 
-        <div>
+        <div className="social-col-2">
           {friendRequests &&
             friendRequests.map(req => {
               return (
-                <div key={req.id} className="social-inner-box social-flex social-flex-wrap social-my-p5 social-border-radius social-content-between">
+                <div key={req.id} className="social-inner-box social-box-col-2 social-flex social-flex-wrap social-my-p5 social-border-radius social-content-between">
                   <div className="social-flex social-items-center">
                     <img src={req.profilePictureUrl} alt="profile pic" className="social-profile-pic" />
                     <p>

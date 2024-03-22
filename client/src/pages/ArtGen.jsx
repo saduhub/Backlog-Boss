@@ -37,14 +37,14 @@ const ArtGen = () => {
     }
   }
 
-  const handlePromptInput = () => {
-    setPrompt(document.querySelector('#promptInput').value);
-  }
-
   const handleGen = () => {
     generateImage();
   }
   
+  const handlePromptInput = () => {
+    setPrompt(document.querySelector('#promptInput').value);
+  }
+
   const handleSaveProfile = () => {
     //// Can only be done after image is converted to png (like shown in handleSaveDevice)
     //// Access user profile pic property (may need global user context), then change current img to new AI-generated image
@@ -69,7 +69,10 @@ const ArtGen = () => {
       <div className="artGen-inner-box artGen-border-radius artGen-flex artGen-flex-col artGen-items-center">
         <img src={imgUrl} alt="image preview" id="imagePreview" className="artGen-preview artGen-border-radius" />
 
-        <input type="text" onChange={handlePromptInput} id="promptInput" name="promptInput" value={prompt} />
+        <div className="artGen-flex artGen-content-center">
+          <textarea name="promptInput" id="promptInput" cols="30" rows="2" onChange={handlePromptInput} value={prompt} placeholder="Enter a prompt" className="artGen-inputBox"></textarea>
+          {/* <input type="text" onChange={handlePromptInput} id="promptInput" name="promptInput" value={prompt} placeholder="Prompt" className="artGen-inputBox" /> */}
+        </div>
 
         <button onClick={handleGen} className="artGen-gen-button artGen-font artGen-border-radius artGen-my-p5">
           Generate
