@@ -1,4 +1,13 @@
+import { useMutation } from '@apollo/client';
+import { ADD_FRIEND, REJECT_FRIEND } from '../utils/mutations';
+
 const FriendRequest = ({ friendRequests }) => {
+  const { data } = useMutation(ADD_FRIEND, {
+    variables: {
+      friends: friendRequests.id
+    }
+  });
+
   const handleFriendAccept = () => {
 
   }

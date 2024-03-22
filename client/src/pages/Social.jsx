@@ -1,8 +1,5 @@
 import '../assets/css/social.css';
 
-import { useQuery } from '@apollo/client';
-import { QUERY_USER_REVIEWS } from '../utils/queries';
-
 import FriendSearch from '../components/FriendSearch';
 import FriendRequest from '../components/FriendRequest';
 import FriendList from '../components/FriendList';
@@ -12,15 +9,6 @@ import UserReviews from '../components/UserReviews';
 import profilePic from '../assets/images/png/icons8-male-user-16.png';
 
 const Social = () => {
-
-  //// Need User context to grab User ID
-  const { data } = useQuery(QUERY_USER_REVIEWS, {
-    variables: {
-      userId: context.id
-    }
-  })
-  const userReviews = data?.userReviews;
-
   let friendRequests = [
     {
       id: 0,
