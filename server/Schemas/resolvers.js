@@ -81,11 +81,12 @@ const resolvers = {
       },
       requestFriend: async (_, { id }, context) => {
         if (context.user) {
-          return await User.findByIdAndUpdate(
+          const updatedUser = await User.findByIdAndUpdate(
             context.user._id,
-            { $push: { friendRequests: id } },
+            { $push: { friendRequests: {id} }},
             { new: true }
-          )
+          ).populate('friendRequests');
+          return updatedUser;
         }
       },
       rejectFriend: async (_, { id }, context) => {
@@ -120,11 +121,12 @@ const resolvers = {
         console.log(token, user)
         return { token, user };
       },
-      addReview: async (_, {id, reviewNum, reviewText}) => {
+      addReview: async (_, {id, reviewNum, reviewText}, context) => {
+        console.log(context)
         //user property comes from session/authentication
         console.log(reviewText)
         const review = await Review.create({
-          user: "65fcf698c6dd7dd3ed6afd31", //replace later
+          user: context.user._id, //replace later
           game: id,
           rating: reviewNum,
           reviewText: reviewText

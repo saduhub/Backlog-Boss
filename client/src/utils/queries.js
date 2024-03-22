@@ -44,3 +44,39 @@ export const QUERY_USER_REVIEWS = gql`
     }
   }
 `;
+
+export const GAME_PAGE_QUERY = gql`
+query gamePage($gameId: ID!) {
+  game(id: $gameId) {
+    pictureUrl
+    platforms
+    releaseDate
+    reviews {
+      reviewText
+      user {
+        username
+        profilePictureUrl
+      }
+      rating
+    }
+    averageRating
+    genre
+    title
+  }
+  me {
+    gamesCompleted {
+      id
+    }
+    gamesInBacklog {
+      id
+    }
+    gamesInFavorites {
+      id
+    }
+    gamesInProgress {
+      id
+    }
+  }
+}
+
+`
