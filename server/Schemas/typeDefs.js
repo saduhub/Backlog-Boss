@@ -39,6 +39,11 @@ const typeDefs = gql`
     reviews: [Review]
   }
 
+  type Auth {
+    token: ID!
+    user: User
+  }
+
   type Query {
     users: [User]
     user(id: ID!): User
@@ -46,6 +51,13 @@ const typeDefs = gql`
     game(id: ID!): Game
     reviews: [Review]
     review(id: ID!): Review
+    userReviews(id: ID!): [Review]
+    me: User
+  }
+
+  type Mutation {
+    addUser(username: String!, email: String!, password: String!): Auth
+    login(username: String!, password: String!): Auth
   }
 
   type Mutation {

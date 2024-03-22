@@ -73,6 +73,10 @@
   background-color: var(--background-color);
 }
 
+.artGen-inputBox {
+  width: 100%;
+}
+
 .artGen-gen-button {
   background-color: var(--purple);
   min-width: 5rem;

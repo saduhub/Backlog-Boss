@@ -1,7 +1,7 @@
 import {gql} from '@apollo/client';
 
 export const QUERY_GAME = gql`
-query Query($gameId: ID!) {
+  query Query($gameId: ID!) {
     game(id: $gameId) {
       title
       averageRating
@@ -27,4 +27,20 @@ query Query($gameId: ID!) {
     }
   }
 `;
-  
+
+export const QUERY_USER_REVIEWS = gql`
+  query userReviews($userId: ID!) {
+    userReviews(id: $userId) {
+      user {
+        username
+      }
+      game {
+        title
+        pictureUrl
+      }
+      rating
+      likes
+      reviewText
+    }
+  }
+`;
