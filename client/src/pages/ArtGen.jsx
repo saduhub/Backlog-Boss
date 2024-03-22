@@ -2,9 +2,10 @@ import '../assets/css/artGen.css';
 
 import { useState } from 'react';
 // import dotenv from 'dotenv';
-import { OpenAI } from 'openai';
+// import { OpenAI } from 'openai';
 // import { writeFileSync } from 'fs';
 // import { getOpenAiKey } from '../../../server/utils/getKeys';
+// import { generateImage } from '../../../server/utils/getKeys';
 
 import gamePreview from '../assets/images/png/game-preview.png';
 
@@ -16,7 +17,7 @@ const ArtGen = () => {
     apiKey: getOpenAiKey(),
   }); */
 
-  const generateImage = async () => {
+/*   const generateImage = async () => {
     try {
       const image = await openai.images.generate({
         model: "dall-e-2",  // dall-e-2 (default) or dall-e-3
@@ -35,10 +36,12 @@ const ArtGen = () => {
     } catch (err) {
       console.log(err);
     }
-  }
+  } */
 
   const handleGen = () => {
-    generateImage();
+    const url = generateImage();
+    console.log(url);
+    setImgUrl(url);
   }
   
   const handlePromptInput = () => {

@@ -1,6 +1,7 @@
 import '../assets/css/home.css';
 
 import { useEffect, useState } from 'react';
+// import { getRawgKey, fetchPopularGames } from '../../../server/utils/getKeys';
 
 import HomeGameCard from '../components/Home-Game-Card';
 
@@ -84,16 +85,10 @@ const Home = () => {
   const [popularGames, setPopularGames] = useState([]);
 
   useEffect(() => {
-    const getGamesbyPopularity = async () => {
-/*       const baseUrl = 'https://api.rawg.io/games';
-      const url = new URL(baseUrl);
-      url.searchParams.append('key', rawgKey);
-      url.searchParams.append('metacritic', `${min},${max}`);
-      url.searchParams.append('page_size', 9);
-      console.log(url); */
-  
+/*     const getGamesbyPopularity = async () => {
       // const apiKey = getRawgKey();
-      const apiKey = 'e137fde8c0cb4534bc8647570b3ce764';
+      // const apiKey = 'e137fde8c0cb4534bc8647570b3ce764';
+      const apiKey = env.RAWG_API_KEY;
   
       const url = `https://api.rawg.io/api/games?page_size=9&key=${apiKey}`;
       // console.log(url);
@@ -104,14 +99,17 @@ const Home = () => {
           throw new Error(`${response.status}`);
         }
         const data = await response.json();
-        // console.log(data.results);
+        console.log(data.results);
         return data.results;
       } catch (err) {
         console.error(err);
       }
-    }
-    // popularGames.current = getGamesbyPopularity();
-    setPopularGames(getGamesbyPopularity());
+    } */
+
+    // setPopularGames(getGamesbyPopularity());
+
+    // const games = fetchPopularGames(getRawgKey());
+    // setPopularGames(games);
   }, [])
   
   return (
@@ -130,9 +128,9 @@ const Home = () => {
             </h3>
           </div>
           <div id="gameCard" className="home-flex home-flex-wrap home-gap home-content-center">
-{/*             {popularGames.map((game) => (
+            {popularGames.map((game) => (
                 <HomeGameCard key={game.id} game={game} />
-            ))} */}
+            ))}
           </div>
         </section>
       </div>
