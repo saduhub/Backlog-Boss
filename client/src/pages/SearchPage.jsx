@@ -29,7 +29,6 @@ const SearchPage = () => {
         {games.map((game) => (
           <Link key={game.id} to={`/game/${game.id}`} className="game-card">
             <img src={gamePreview} alt={game.title} />
-            {/* Optionally, you can add more game details here */}
           </Link>
         ))}
       </div>
