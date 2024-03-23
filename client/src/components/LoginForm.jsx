@@ -17,9 +17,11 @@ function LoginForm({onShowSignUp}) {
             setVisible(true);
         },
         onCompleted: (data) => {
-            console.log(data)
-            const userData = JSON.stringify(data.login.user);
-            Auth.login(data.login.token, userData);
+            const email = data.login.user.email;
+            const username = data.login.user.username;
+            const _id = data.login.user._id;
+            const token = data.login.token;
+            Auth.login(email, username, _id, token);
         }
     });
 

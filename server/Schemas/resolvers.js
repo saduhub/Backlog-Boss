@@ -26,6 +26,10 @@ const resolvers = {
         }
         
       },
+      // Game Suggestions
+      gameSuggestions: async() => {
+        return await Game.find({}).populate("reviews");
+      },
       // Fetch all reviews
       reviews: async () => {
         return await Review.find({});
@@ -38,7 +42,7 @@ const resolvers = {
       userReviews: async (_, { id }) => {
         return await Review.find(
           {
-            user: { id: id},
+            user: { _id: id},
           }
         ).populate("user", "game");
       },
@@ -48,9 +52,11 @@ const resolvers = {
           return User.findOne({ _id: context.user._id })
             .populate([
               { path: 'reviews' }, 
+              { path: 'friendRequests' }, 
               { path: 'gamesInFavorites' }, 
               { path: 'gamesInBacklog' },
               { path: 'gamesCompleted' }, 
+              { path: 'games100Completed' }, 
               { path: 'gamesInProgress' }, 
               { path: 'friends' }, 
               { path: 'likedReviews' }

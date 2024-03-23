@@ -1,9 +1,11 @@
-import {jwtDecode} from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 
 class AuthService {
-  login(idToken, userFound) {
-    localStorage.setItem('id_token', idToken);
-    localStorage.setItem('user_found', userFound);
+  login(email, username, _id, token) {
+    localStorage.setItem('email', email);
+    localStorage.setItem('username', username);
+    localStorage.setItem('id_token', token);
+    localStorage.setItem('_id', _id);
     window.location.assign('/home');
   }
 
@@ -29,6 +31,9 @@ class AuthService {
 
   logout() {
     localStorage.removeItem('id_token');
+    localStorage.removeItem('email');
+    localStorage.removeItem('username');
+    localStorage.removeItem('_id');
     window.location.assign('/');
   }
 }
