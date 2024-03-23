@@ -3,18 +3,30 @@ import '../assets/css/profile.css';
 import logo from '../assets/images/svg/backlogbosslogowhite.svg'
 import SignUpForm from '../components/SignUpForm';
 import LoginForm from '../components/LoginForm';
+import ProfileUserCard from '../components/profile/ProfileUserCard';
+import GameSuggestions from '../components/profile/GameSuggestions';
 import Auth from '../utils/auth';
+import { useQuery } from "@apollo/client";
+import { ME } from "../utils/queries";
 
 function Profile() {
   const [showLogin, setShowLogin] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const handleShowLogin = () => setShowLogin(true);
   const handleShowSignUp = () => setShowLogin(false);
-  const handleLogOut = () => Auth.logout();
+
+  const { data, loading, error } = useQuery(ME);
+
+  console.log(error);
+
+  const meData = data?.me || {}
+  console.log(meData);
 
   useEffect(() => {
     setIsAuthenticated(Auth.loggedIn());
   }, []);
+
+  if (loading) return <p>Loading...</p>
 
   if (isAuthenticated) {
     return (
@@ -22,30 +34,7 @@ function Profile() {
           {/* User Card, Game Stats, Challenges */}
           <div className='profile-user-stats-challenges'>
             {/* User Card */}
-            <div className="profile-user">
-              <img src={logo} alt="Placeholder" />
-              <div className='profile-user-since-stats'>
-                <div className="profile-username-since">
-                  <h2>Username</h2>
-                  <h3>Member since 2024</h3>
-                  <button className='profile-logout-button' onClick={handleLogOut}>Log Out</button>
-                </div>
-                <div className="profile-user-stats">
-                  <div className="profile-user-games">
-                    <h3 className='profile-highlighted-text'>5</h3>
-                    <h3>Backlogged</h3>
-                  </div>
-                  <div className="profile-favorite-games">
-                    <h3 className='profile-highlighted-text'>3</h3>
-                    <h3>Favorites</h3>
-                  </div>
-                  <div className="profile-rated-games">
-                    <h3 className='profile-highlighted-text'>45</h3>
-                    <h3>Played</h3>
-                  </div>
-                </div>
-              </div>
-            </div>
+            < ProfileUserCard username={meData.username} profile={meData.profilePictureUrl} />
               {/* Game Stats */}
               <div className="profile-games">
                 <h2>Game Stats</h2>
@@ -123,40 +112,7 @@ function Profile() {
           <div className='profile-suggestions-friends'>
             {/* Game Suggestions */}
             <h2>Game Suggestions</h2>
-            <div className="profile-game-suggestions">
-              {/* Game */}
-              <div className="profile-game-suggested">
-                <img src={logo} alt="placeholder" />
-                <h3>Game 1</h3>
-                <button>+</button>
-              </div>
-              {/* Game */}
-              <div className="profile-game-suggested">
-                <img src={logo} alt="placeholder" />
-                <h3>Game 2</h3>
-                <button>+</button>
-              </div>
-              {/* Game */}
-              <div className="profile-game-suggested">
-                <img src={logo} alt="placeholder" />
-                <h3>Game 3</h3>
-                <button>+</button>
-              </div>
-              {/* Game */}
-              <div className="profile-game-suggested">
-                <img src={logo} alt="placeholder" />
-                <h3>Game 4</h3>
-                <button>+</button>
-              </div>
-              {/* Game */}
-              <div className="profile-game-suggested">
-                <img src={logo} alt="placeholder" />
-                <h3>Game 5</h3>
-                <button>+</button>
-              </div>
-              {/* Explore */}
-              <button className='profile-explore-button'>Explore</button>
-            </div>
+            < GameSuggestions />
             {/* Friends */}
             <h2>Friend List</h2>
             <div className="profile-friend-list">

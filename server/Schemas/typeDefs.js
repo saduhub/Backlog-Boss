@@ -2,7 +2,7 @@ const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
   type User {
-    id: ID!
+    _id: ID!
     email: String!
     username: String!
     password: String!
@@ -20,7 +20,7 @@ const typeDefs = gql`
   }
 
   type Review {
-    id: ID!
+    _id: ID!
     user: User!
     game: Game!
     rating: Float!
@@ -30,7 +30,7 @@ const typeDefs = gql`
   }
 
   type Game {
-    id: ID!
+    _id: ID!
     title: String!
     averageRating: Float
     releaseDate: String
@@ -50,6 +50,7 @@ const typeDefs = gql`
     user(id: ID!): User
     games: [Game]
     game(id: ID!): Game
+    gameSuggestions: [Game]
     reviews: [Review]
     review(id: ID!): Review
     userReviews(id: ID!): [Review]

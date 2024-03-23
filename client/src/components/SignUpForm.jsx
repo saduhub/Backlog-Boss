@@ -18,8 +18,11 @@ function SignUpForm({ onShowLogin }) {
         setVisible(true);
     },
     onCompleted: (data) => {
-        const userData = JSON.stringify(data.addUser.user);
-        Auth.login(data.addUser.token, userData);
+        const email = data.addUser.user.email;
+        const username = data.addUser.user.username;
+        const _id = data.addUser.user._id;
+        const token = data.addUser.token;
+        Auth.login(email, username, _id, token);
     }
     });
 
