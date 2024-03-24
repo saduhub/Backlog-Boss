@@ -176,10 +176,90 @@ db.once('open', async () => {
             hoursPlayed: 150,
             games100Completed: []
         },
+        {
+            email: 'jane.smith2@example.com',
+            username: 'janesmith2',
+            password: 'password123',
+            profilePictureUrl: 'https://cdn-icons-png.flaticon.com/512/1077/1077114.png',
+            gamesInFavorites: [],
+            gamesInBacklog: [],
+            gamesCompleted: [],
+            gamesInProgress: [],
+            friends: [],
+            friendRequests: [],
+            likedReviews: [],
+            reviews: [],
+            hoursPlayed: 150,
+            games100Completed: []
+        },
+        {
+            email: 'jane.smith3@example.com',
+            username: 'janesmith3',
+            password: 'password123',
+            profilePictureUrl: 'https://cdn-icons-png.flaticon.com/512/1077/1077114.png',
+            gamesInFavorites: [],
+            gamesInBacklog: [],
+            gamesCompleted: [],
+            gamesInProgress: [],
+            friends: [],
+            friendRequests: [],
+            likedReviews: [],
+            reviews: [],
+            hoursPlayed: 150,
+            games100Completed: []
+        },
+        {
+            email: 'jane.smith4@example.com',
+            username: 'janesmith4',
+            password: 'password123',
+            profilePictureUrl: 'https://cdn-icons-png.flaticon.com/512/1077/1077114.png',
+            gamesInFavorites: [],
+            gamesInBacklog: [],
+            gamesCompleted: [],
+            gamesInProgress: [],
+            friends: [],
+            friendRequests: [],
+            likedReviews: [],
+            reviews: [],
+            hoursPlayed: 150,
+            games100Completed: []
+        },
+        {
+            email: 'jane.smith5@example.com',
+            username: 'janesmith5',
+            password: 'password123',
+            profilePictureUrl: 'https://cdn-icons-png.flaticon.com/512/1077/1077114.png',
+            gamesInFavorites: [],
+            gamesInBacklog: [],
+            gamesCompleted: [],
+            gamesInProgress: [],
+            friends: [],
+            friendRequests: [],
+            likedReviews: [],
+            reviews: [],
+            hoursPlayed: 150,
+            games100Completed: []
+        },
+        {
+            email: 'jane.smith6@example.com',
+            username: 'janesmith6',
+            password: 'password123',
+            profilePictureUrl: 'https://cdn-icons-png.flaticon.com/512/1077/1077114.png',
+            gamesInFavorites: [],
+            gamesInBacklog: [],
+            gamesCompleted: [],
+            gamesInProgress: [],
+            friends: [],
+            friendRequests: [],
+            likedReviews: [],
+            reviews: [],
+            hoursPlayed: 150,
+            games100Completed: []
+        },
     ];
 
     const users = await User.create(userData);
-    const [user1, user2] = users;
+    const [user1, user2, user3, user4, user5, user6, user7] = users;
 
     // Create reviews
     const reviewData = [
@@ -210,7 +290,18 @@ db.once('open', async () => {
     await game1.save();
     // Update user relationships
     user1.friends.push(user2._id);
-    user2.friends.push(user1._id);
+    user1.friends.push(user3._id);
+    user1.friends.push(user4._id);
+    user1.friends.push(user5._id);
+    user1.friends.push(user6._id);
+    user1.friends.push(user7._id);
+
+    // user2.friends.push(user1._id);
+    // user3.friends.push(user1._id);
+    // user4.friends.push(user1._id);
+    // user5.friends.push(user1._id);
+    // user6.friends.push(user1._id);
+    // user7.friends.push(user1._id);
     // Update game relationships
     user1.gamesInBacklog.push(gamesAdded[1]._id);
     user1.games100Completed.push(gamesAdded[2]._id);

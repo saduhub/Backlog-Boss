@@ -10,6 +10,7 @@ export const ME = gql`
       profilePictureUrl
       friends {
         _id
+        username
       }
       games100Completed {
         _id
