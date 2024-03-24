@@ -112,7 +112,7 @@ function Profile() {
           <div className='profile-suggestions-friends'>
             {/* Game Suggestions */}
             <h2>Game Suggestions</h2>
-            < GameSuggestions />
+            < GameSuggestions gamesInBacklog={meData.gamesInBacklog.map(game => game._id)} />
             {/* Friends */}
             <h2>Friend List</h2>
             <div className="profile-friend-list">
