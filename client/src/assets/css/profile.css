@@ -119,13 +119,13 @@
 }
 
 .profile-reviewed {
-    width: calc(37/50 * 100%);
+    /* width: calc(37/50 * 100%); */
     background-color: #E1CDF2;
     border-radius: 0.3rem;
 }
 
 .profile-likes {
-    width: calc(1/200 * 100%);
+    /* width: calc(1/200 * 100%); */
     background-color: #E1CDF2;
     border-radius: 0.3rem;
 }
