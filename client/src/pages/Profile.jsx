@@ -10,6 +10,7 @@ import userIcon from '../assets/images/svg/user.svg'
 import SignUpForm from '../components/SignUpForm';
 import LoginForm from '../components/LoginForm';
 import ProfileUserCard from '../components/profile/ProfileUserCard';
+import GameStats from '../components/profile/GameStats';
 import GameSuggestions from '../components/profile/GameSuggestions';
 // Utilities
 import Auth from '../utils/auth';
@@ -44,79 +45,51 @@ function Profile() {
               profile={meData.profilePictureUrl ? meData.profilePictureUrl : userIcon}
               otherData={meData} 
             />
-              {/* Game Stats */}
-              <div className="profile-games">
-                <h2>Game Stats</h2>
-                <div className="profile-game-stats">
-                  {/* Completed Games */}
-                  <div className="profile-completed-games profile-stat-card">
-                    <div className='profile-completed-image'>
-                      <img src={logo} alt="placeholder" />
-                    </div>
-                    <h3>Games</h3>
-                    <h3>Completed</h3>
-                    <h3 className='profile-highlighted-text'>5</h3>
+            {/* Game Stats */}
+            < GameStats 
+              otherData={meData} 
+              logo={logo}
+            />
+            {/* Challenges Mobile */}
+            <div className="profile-challenges">
+              <h2>Challenges</h2>
+              {/* Reviewed */}
+              <div className="profile-games-reviewed">
+                <div className="profile-reviewed-image">
+                  <img src={logo} alt="placeholder" />
+                </div>
+                <div className="profile-progress">
+                  <div className="profile-title-number">
+                    <h3>Games Reviewed</h3>
+                    <h4><span className='profile-highlighted-text'>37</span>/50</h4>
                   </div>
-                  {/* User Score */}
-                  <div className="profile-score-games profile-stat-card">
-                    <div className='profile-score-image'>
-                      <img src={logo} alt="placeholder" />
+                  <div className='profile-progress-bar'>
+                    <div className='profile-reviewed'>
+                      <p>.</p>
                     </div>
-                    <h3>User</h3>
-                    <h3>Score</h3>
-                    <h3 className='profile-highlighted-text'>500</h3>
                   </div>
-                  {/* 100% Completion  */}
-                  <div className="profile-onehundred-games profile-stat-card">
-                    <div className='profile-onehundred-image'>
-                      <img src={logo} alt="placeholder" />
-                    </div>
-                    <h3>100%</h3>
-                    <h3>Completed</h3>
-                    <h3 className='profile-highlighted-text'>8</h3>
-                  </div>
+                  <h5>Takes the time!</h5>
                 </div>
               </div>
-              {/* Challenges Mobile */}
-              <div className="profile-challenges">
-                <h2>Challenges</h2>
-                {/* Reviewed */}
-                <div className="profile-games-reviewed">
-                  <div className="profile-reviewed-image">
-                    <img src={logo} alt="placeholder" />
-                  </div>
-                  <div className="profile-progress">
-                    <div className="profile-title-number">
-                      <h3>Games Reviewed</h3>
-                      <h4><span className='profile-highlighted-text'>37</span>/50</h4>
-                    </div>
-                    <div className='profile-progress-bar'>
-                      <div className='profile-reviewed'>
-                        <p>.</p>
-                      </div>
-                    </div>
-                    <h5>Takes the time!</h5>
-                  </div>
+              {/* Likes */}
+              <div className="profile-likes-gardnered">
+                <div className="profile-likes-image">
+                  <img src={logo} alt="placeholder" />
                 </div>
-                {/* Likes */}
-                <div className="profile-likes-gardnered">
-                  <div className="profile-likes-image">
-                    <img src={logo} alt="placeholder" />
+                <div className="profile-progress">
+                  <div className="profile-title-number">
+                    <h3>Likes Gardnered</h3>
+                    <h4><span className='profile-highlighted-text'>1</span>/200</h4>
                   </div>
-                  <div className="profile-progress">
-                    <div className="profile-title-number">
-                      <h3>Likes Gardnered</h3>
-                      <h4><span className='profile-highlighted-text'>1</span>/200</h4>
+                  <div className='profile-progress-bar'>
+                    <div className='profile-likes'>
+                      <p>.</p>
                     </div>
-                    <div className='profile-progress-bar'>
-                      <div className='profile-likes'>
-                        <p>.</p>
-                      </div>
-                    </div>
-                    <h5>Popular!</h5>
                   </div>
+                  <h5>Popular!</h5>
                 </div>
               </div>
+            </div>
           </div>
           <div className='profile-suggestions-friends'>
             {/* Game Suggestions */}
