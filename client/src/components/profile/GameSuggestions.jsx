@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useQuery, useMutation } from "@apollo/client";
 import { GAME_SUGGESTIONS } from "../../utils/queries";
 import { ADD_TO_BACKLOG } from "../../utils/mutations";
+import { Link } from 'react-router-dom';
 // eslint-disable-next-line
 function GameSuggestions({ gamesInBacklog }) {
     const { data, loading, error } = useQuery(GAME_SUGGESTIONS);
@@ -60,7 +61,7 @@ function GameSuggestions({ gamesInBacklog }) {
                 </div>
         ))}
         {/* Explore */}
-        <button className='profile-explore-button'>Explore</button>
+        <Link to='/search' className='profile-explore-button'>Explore</Link>
       </div>
     )
 }

@@ -1,13 +1,18 @@
 import { useState, useEffect } from 'react';
+import { useQuery } from "@apollo/client";
+import { ME } from "../utils/queries";
+// Style
 import '../assets/css/profile.css';
+// Images
 import logo from '../assets/images/svg/backlogbosslogowhite.svg'
+import userIcon from '../assets/images/svg/user.svg'
+// Components
 import SignUpForm from '../components/SignUpForm';
 import LoginForm from '../components/LoginForm';
 import ProfileUserCard from '../components/profile/ProfileUserCard';
 import GameSuggestions from '../components/profile/GameSuggestions';
+// Utilities
 import Auth from '../utils/auth';
-import { useQuery } from "@apollo/client";
-import { ME } from "../utils/queries";
 
 function Profile() {
   const [showLogin, setShowLogin] = useState(false);
@@ -34,7 +39,11 @@ function Profile() {
           {/* User Card, Game Stats, Challenges */}
           <div className='profile-user-stats-challenges'>
             {/* User Card */}
-            < ProfileUserCard username={meData.username} profile={meData.profilePictureUrl} />
+            < ProfileUserCard 
+              username={meData.username} 
+              profile={meData.profilePictureUrl ? meData.profilePictureUrl : userIcon}
+              otherData={meData} 
+            />
               {/* Game Stats */}
               <div className="profile-games">
                 <h2>Game Stats</h2>

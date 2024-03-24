@@ -1,6 +1,6 @@
 import Auth from '../../utils/auth';
 // eslint-disable-next-line
-function ProfileUserCard({username, profile}) {
+function ProfileUserCard({username, profile, otherData}) {
     const handleLogOut = () => Auth.logout();
     console.log(profile)
 
@@ -14,16 +14,19 @@ function ProfileUserCard({username, profile}) {
             <button className='profile-logout-button' onClick={handleLogOut}>Log Out</button>
         </div>
         <div className="profile-user-stats">
-            <div className="profile-user-games">
-            <h3 className='profile-highlighted-text'>5</h3>
+            <div className="profile-user-games">  
+            {/* eslint-disable-next-line */}
+            <h3 className='profile-highlighted-text'>{otherData.gamesInBacklog.length}</h3>
             <h3>Backlogged</h3>
             </div>
             <div className="profile-favorite-games">
-            <h3 className='profile-highlighted-text'>3</h3>
+            {/* eslint-disable-next-line */}
+            <h3 className='profile-highlighted-text'>{otherData.gamesInFavorites.length}</h3>
             <h3>Favorites</h3>
             </div>
             <div className="profile-rated-games">
-            <h3 className='profile-highlighted-text'>45</h3>
+            {/* eslint-disable-next-line */}
+            <h3 className='profile-highlighted-text'>{otherData.gamesCompleted.length + otherData.gamesInProgress.length}</h3>
             <h3>Played</h3>
             </div>
         </div>

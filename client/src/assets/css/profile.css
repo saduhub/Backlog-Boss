@@ -48,7 +48,8 @@
 
 .profile-user img {
     border-radius: 50%;
-    border: #ffffff solid 1px;
+    width: 100px;
+    background-color: #282828;
 }
 
 .profile-username-since {
@@ -157,6 +158,7 @@
     border: 1px solid #ffffff;
     border-radius: 0.75rem;
     color: #ffffff;
+    text-decoration: none;
 }
 /* Game */
 .profile-game-suggested {
@@ -328,6 +330,7 @@
     }
 
     .profile-user img {
+        width: 200px;
         max-height: 200px;
         max-width: 200px;
         margin: 0;
