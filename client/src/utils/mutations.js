@@ -86,6 +86,16 @@ export const LOGIN_USER = gql`
   }
 `;
 
+export const ADD_TO_BACKLOG = gql`
+  mutation addToBacklog($gameId: ID!) {
+    addToBacklog(gameId: $gameId) {
+      gamesInBacklog {
+        _id
+      }
+    }
+  }
+`;
+
 export const ADD_REVIEW = gql`
     mutation addReview($_id: String!, $reviewNum: Int!, $reviewText: String!) {
         addReview(_id: $_id, reviewNum: $reviewNum, reviewText: $reviewText) {

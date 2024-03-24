@@ -146,6 +146,16 @@ const resolvers = {
 
         console.log(game.reviews[0])
         return game
+      },
+      addToBacklog: async (_, { gameId }, context) => {
+        if (!context.user) throw AuthenticationError;
+    
+        return await User.findByIdAndUpdate(
+          context.user._id,
+           // $addToSet will avoid duplicates
+          { $addToSet: { gamesInBacklog: gameId } },
+          { new: true }
+        );
       }
     }
 };

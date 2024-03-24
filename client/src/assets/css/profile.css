@@ -37,9 +37,19 @@
     margin-bottom: 3rem;
 }
 
+.profile-user button {
+    width: 100px;
+    padding: 0.25rem 0;
+    background-color: #000000;
+    border: 1px solid #ffffff;
+    border-radius: 0.75rem;
+    color: #ffffff;
+}
+
 .profile-user img {
     border-radius: 50%;
-    border: #ffffff solid 1px;
+    width: 100px;
+    background-color: #282828;
 }
 
 .profile-username-since {
@@ -109,13 +119,13 @@
 }
 
 .profile-reviewed {
-    width: calc(37/50 * 100%);
+    /* width: calc(37/50 * 100%); */
     background-color: #E1CDF2;
     border-radius: 0.3rem;
 }
 
 .profile-likes {
-    width: calc(1/200 * 100%);
+    /* width: calc(1/200 * 100%); */
     background-color: #E1CDF2;
     border-radius: 0.3rem;
 }
@@ -148,12 +158,13 @@
     border: 1px solid #ffffff;
     border-radius: 0.75rem;
     color: #ffffff;
+    text-decoration: none;
 }
 /* Game */
 .profile-game-suggested {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     margin: 0.1rem 1rem;
     padding: 0.5rem 0;
@@ -161,11 +172,14 @@
 }
 
 .profile-game-suggested img {
-    height: auto;
-    width: 30px;
+    height: 40px;
+    width: 50px;
     margin: 0;
-    border-radius: 50%;
-    border: solid wheat 1px;
+    border-radius: 0.4rem;
+}
+
+.profile-game-suggested h3 {
+    margin: 0 0.1rem;
 }
 
 .profile-game-suggested button {
@@ -316,6 +330,7 @@
     }
 
     .profile-user img {
+        width: 200px;
         max-height: 200px;
         max-width: 200px;
         margin: 0;
@@ -326,13 +341,26 @@
     }
 
     .profile-username-since {
+        display: flex;
+        flex-direction: column;
         margin: 0;
+        justify-content: start;
     }
 
     .profile-username-since h2,
     .profile-username-since h3 {
         text-align: left;
         margin-left: 0.5rem;
+    }
+
+    .profile-user button {
+        width: 100px;
+        margin-left: 0.5rem;
+        padding: 0.25rem 0;
+        background-color: #000000;
+        border: 1px solid #ffffff;
+        border-radius: 0.75rem;
+        color: #ffffff;
     }
 
     .profile-games h2, .profile-challenges h2 {
