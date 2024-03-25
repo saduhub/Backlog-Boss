@@ -18,13 +18,13 @@
 //     setFriend('');
 //   }
 
-//   const handleFriendRequest = () => {
-//     const { data } = useMutation(REQUEST_FRIEND, {
-//       variables: {
-//         friendRequests: 
-//       }
-//     })
-//   }
+  const handleFriendRequest = () => {
+    const { data } = useMutation(REQUEST_FRIEND, {
+      variables: {
+        friendRequests: id,
+      }
+    })
+  }
 
 //   return (
 //     <div>

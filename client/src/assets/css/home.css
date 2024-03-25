@@ -27,6 +27,10 @@
   width: 100%;
 } */
 
+.home-max-w12 {
+  max-width: 12rem;
+}
+
 /* .home-mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -62,6 +66,13 @@
   font-family: Poppins, sans-serif;
 }
 
+.home-overflow-ellipses {
+  white-space: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 2.5rem;
+}
+
 /* //// Example for @supports structure */
 /* @supports (font-family: Poppins) {
   .home-font {
@@ -93,27 +104,14 @@
 }
 
 /* Game Cards */
-/* .home-game-card {
-  outline-width: 2px;
-  outline-style: solid;
-  outline-color: #9F34FF;
-} */
+.home-game-card {
+  width: 12rem;
+  height: 20rem;
+}
 
 .home-game-preview-image {
   width: 12rem;
   height: 8rem;
-}
-
-.home-user-review-rating {
-
-}
-
-.home-user-review {
-
-}
-
-.home-user-rating {
-
 }
 
 .home-profile-pic {
@@ -130,11 +128,18 @@
 
 .home-game-button {
   background-color: var(--purple);
+  margin-bottom: .5rem;
 }
 
 @media (max-width: 759px) {
   #gameCard {
     flex-direction: column;
     align-items: center;
+  }
+}
+
+@media (min-width: 760px) {
+  .home-w-33 {
+    width: 33%;
   }
 }

@@ -5,7 +5,6 @@ const typeDefs = gql`
     _id: ID!
     email: String!
     username: String!
-    password: String!
     profilePictureUrl: String
     gamesInFavorites: [Game]
     gamesInBacklog: [Game]
@@ -17,6 +16,7 @@ const typeDefs = gql`
     reviews: [Review]
     hoursPlayed: Int
     games100Completed: [Game]
+    aiImages: [String]
   }
 
   type Review {
@@ -40,6 +40,19 @@ const typeDefs = gql`
     reviews: [Review]
   }
 
+  type PopularGame {
+    id: ID!
+    name: String!
+    background_image: String!
+    rating: Float!
+    ratings_count: Int!
+    metacritic: Int
+  }
+
+  type imageURL {
+    url: String!
+  }
+
   type Auth {
     token: ID!
     user: User
@@ -56,6 +69,8 @@ const typeDefs = gql`
     userReviews(id: ID!): [Review]
     me: User
     userVisitedInfo(id: ID!): User
+    getPopularGames: [PopularGame]
+    getAiImage(prompt: String!): imageURL
   }
 
   type Mutation {

@@ -8,28 +8,28 @@ import heart from '../assets/images/png/juicy-heart-1.png';
 const HomeGameCard = ({game}) => {
   return (
     // Testing a card container (div) to use flex and gap for each card
-    <div>
-      <article>
-        <img src={gamePreview} alt="game preview" className="home-game-preview-image home-border-radius home-object-cover" />
+    <div className="home-w-33 home-flex home-content-center home-items-center">
+      <article className="home-game-card">
+        <img src={game.background_image} alt="game preview" className="home-game-preview-image home-border-radius home-object-cover" />
 
         <h4 className="home-font home-my-p5">
           {game.name}
         </h4>
 
-        <div className="home-user-review home-flex home-items-center">
+        <div className="home-flex home-items-center">
           <img src={profilePic} alt="profile pic" className="home-profile-pic" />
           
           <div className="home-font">
             <h5>
               Username
             </h5>
-            <p>
-              Review
+            <p className="home-overflow-ellipses">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, officia repellat temporibus iusto, ratione enim, nemo doloribus ipsum ea omnis veniam inventore qui deleniti?
             </p>
           </div>
         </div>
 
-        <div className="home-user-rating home-flex home-font home-my-p5">
+        <div className="home-flex home-font home-my-p5">
           <div className="home-flex">
             <img src={star} alt="star" className="home-icon" />
             <h5>
