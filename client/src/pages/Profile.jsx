@@ -66,6 +66,7 @@ function Profile() {
             <FriendList
               otherData={meData} 
               logo={logo}
+              username={meData.username}
             /> 
             {/* Challenges Desktop */}
             <ChallengesDesktop
