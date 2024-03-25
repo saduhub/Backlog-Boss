@@ -78,5 +78,24 @@ query gamePage($gameId: ID!) {
     }
   }
 }
+`;
 
-`
+export const POPULAR_GAMES = gql`
+  query getPopularGames {
+    getPopularGames {
+      id
+      name
+      background_image
+      rating
+      ratings_count
+    }
+  }
+`;
+
+export const GET_AI_IMAGE = gql`
+  query getAiImage($prompt: String!) {
+    getAiImage(prompt: $prompt) {
+      url
+    }
+  }
+`;

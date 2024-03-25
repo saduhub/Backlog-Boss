@@ -1,47 +1,28 @@
 import '../assets/css/artGen.css';
 
 import { useState } from 'react';
-// import dotenv from 'dotenv';
-// import { OpenAI } from 'openai';
+import { useLazyQuery } from '@apollo/client';
 // import { writeFileSync } from 'fs';
-// import { getOpenAiKey } from '../../../server/utils/getKeys';
-// import { generateImage } from '../../../server/utils/getKeys';
 
 import gamePreview from '../assets/images/png/game-preview.png';
+import { GET_AI_IMAGE } from '../utils/queries';
 
 const ArtGen = () => {
   const [prompt, setPrompt ] = useState('');
   const [imgUrl, setImgUrl ] = useState(gamePreview);
   
-/*   const openai = new OpenAI({
-    apiKey: getOpenAiKey(),
-  }); */
+  const [getAiImage] = useLazyQuery(GET_AI_IMAGE);
 
-/*   const generateImage = async () => {
-    try {
-      const image = await openai.images.generate({
-        model: "dall-e-2",  // dall-e-2 (default) or dall-e-3
-        prompt,
-        n: 1, // dall-e-2 can generate up to n: 10, dall-e-3 can only use n: 1
-        size: "256x256",  // dall-e-2 sizes: "256x256", "512x512", "1024x1024" || dall-e-3 sizes: "1024x1024", "1024x1792", 1792x1024"
-        style: "natural", // vivid (default) or natural
-        // quality: "standard",  // standard (default) or hd
-        // response_format: "url", // url (default) or b64_json
-        // user: 'insertUsername' // keeps track of user who generated the image
-      });
-      
-      const url = image.data[0].url;
-      setImgUrl(url);
-      // console.log(image.data);
-    } catch (err) {
-      console.log(err);
-    }
-  } */
+  const handleGen = async () => {
+    if(!prompt) return;
 
-  const handleGen = () => {
-    const url = generateImage();
-    console.log(url);
-    setImgUrl(url);
+    const { data } = await getAiImage({
+      variables: {
+        prompt
+      }
+    });
+    // console.log(data);
+    setImgUrl(data.getAiImage.url);
   }
   
   const handlePromptInput = () => {
