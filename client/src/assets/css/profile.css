@@ -204,7 +204,7 @@
     flex-direction: row; */
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     margin: 0.1rem 1rem;
     padding: 0.5rem 0;
@@ -221,8 +221,8 @@
 }
 
 .profile-friend-listed img {
-    height: auto;
-    width: 30px;
+    height: 50px;
+    width: 50px;
     margin: 0;
     border-radius: 50%;
     border: solid wheat 1px;

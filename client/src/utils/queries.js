@@ -1,7 +1,7 @@
 import {gql} from '@apollo/client';
 
 export const ME = gql`
-query me {
+  query me {
     me {
       _id
       email
@@ -10,6 +10,7 @@ query me {
       profilePictureUrl
       friends {
         _id
+        username
       }
       games100Completed {
         _id
@@ -40,13 +41,22 @@ query me {
 `;
 
 export const GAME_SUGGESTIONS = gql`
-query gameSuggestions {
-  gameSuggestions {
-    _id
-    title
-    pictureUrl
+  query gameSuggestions {
+    gameSuggestions {
+      _id
+      title
+      pictureUrl
+    }
   }
-}
+`;
+
+export const USER_LIKES = gql`
+  query userReviews($userReviewsId: ID!) {
+    userReviews(id: $userReviewsId) {
+      _id
+      likes
+    }
+  }
 `;
 
 export const QUERY_GAME = gql`
