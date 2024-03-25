@@ -81,7 +81,7 @@ const Home = () => {
     }
   ]; */
 
-  const { data } = useQuery(POPULAR_GAMES);
+  const { loading, data } = useQuery(POPULAR_GAMES);
   const popularGames = data?.getPopularGames;
   // console.log(popularGames);
   
@@ -100,11 +100,12 @@ const Home = () => {
               Trending Games
             </h3>
           </div>
-          <div id="gameCard" className="home-flex home-flex-wrap">
-            {popularGames?.map((game) => (
-                <HomeGameCard key={game.id} game={game} />
-            ))}
-          </div>
+          {loading ? <div className="home-font">Loading...</div> :
+            <div id="gameCard" className="home-flex home-flex-wrap">
+              {popularGames?.map((game) => (
+                  <HomeGameCard key={game.id} game={game} />
+              ))}
+            </div>}
         </section>
       </div>
     </div>
