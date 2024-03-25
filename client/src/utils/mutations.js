@@ -65,49 +65,35 @@ export const ADD_USER = gql`
     addUser(username: $username, email: $email, password: $password) {
       token
       user {
-        id
+        _id
         username
+        email
       }
     }
   }
 `;
 
 export const LOGIN_USER = gql`
-    mutation Mutation($username: String!, $password: String!) {
-        login(username: $username, password: $password) {
-            token
-            user {
-                username
-                profilePictureUrl
-                hoursPlayed
-                friends {
-                    id
-                }
-                games100Completed {
-                    id
-                }
-                gamesCompleted {
-                    id
-                }
-                gamesInBacklog {
-                    id
-                }
-                gamesInFavorites {
-                    id
-                }
-                gamesInProgress {
-                    id
-                }
-                likedReviews {
-                    id
-                }
-                reviews {
-                    id
-                    likes
-                }
-            }
-        }
+  mutation login($username: String!, $password: String!) {
+    login(username: $username, password: $password) {
+      token
+      user {
+        _id
+        username
+        email
+      }
     }
+  }
+`;
+
+export const ADD_TO_BACKLOG = gql`
+  mutation addToBacklog($gameId: ID!) {
+    addToBacklog(gameId: $gameId) {
+      gamesInBacklog {
+        _id
+      }
+    }
+  }
 `;
 
 export const ADD_REVIEW = gql`

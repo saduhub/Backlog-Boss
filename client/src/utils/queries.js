@@ -1,5 +1,64 @@
 import {gql} from '@apollo/client';
 
+export const ME = gql`
+  query me {
+    me {
+      _id
+      email
+      hoursPlayed
+      username
+      profilePictureUrl
+      friends {
+        _id
+        username
+      }
+      games100Completed {
+        _id
+      }
+      gamesCompleted {
+        _id
+      }
+      gamesInBacklog {
+        _id
+      }
+      gamesInFavorites {
+        _id
+      }
+      gamesInProgress {
+        _id
+      }
+      likedReviews {
+        _id
+      }
+      reviews {
+        _id
+      }
+      friendRequests {
+        _id
+      }
+    }
+  }
+`;
+
+export const GAME_SUGGESTIONS = gql`
+  query gameSuggestions {
+    gameSuggestions {
+      _id
+      title
+      pictureUrl
+    }
+  }
+`;
+
+export const USER_LIKES = gql`
+  query userReviews($userReviewsId: ID!) {
+    userReviews(id: $userReviewsId) {
+      _id
+      likes
+    }
+  }
+`;
+
 export const QUERY_GAME = gql`
   query Query($gameId: ID!) {
     game(id: $gameId) {
