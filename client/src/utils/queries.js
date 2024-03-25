@@ -107,11 +107,13 @@ export const QUERY_USER_REVIEWS = gql`
 export const GAME_PAGE_QUERY = gql`
 query gamePage($gameId: ID!) {
   game(id: $gameId) {
+    _id
     pictureUrl
     platforms
     releaseDate
     reviews {
       reviewText
+      dateOfReview
       user {
         username
         profilePictureUrl
@@ -124,16 +126,16 @@ query gamePage($gameId: ID!) {
   }
   me {
     gamesCompleted {
-      id
+      _id
     }
     gamesInBacklog {
-      id
+      _id
     }
     gamesInFavorites {
-      id
+      _id
     }
     gamesInProgress {
-      id
+      _id
     }
   }
 }

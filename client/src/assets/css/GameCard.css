@@ -16,10 +16,13 @@
 
 .game-card-image {
     margin-bottom: 20px;
+
 }
 
 .game-card-image img{
     border-radius: 20px;
+    max-width: 90%;
+    padding-left: 10%;
     
 }
 
@@ -77,3 +80,12 @@
     border-radius: 10px;
 }
 
+.game-card-single-review {
+   display: flex;
+   margin: 20px 0px;
+}
+
+.game-card-review-profile-picture {
+    max-width: 50px;
+    max-height: 50px;
+}

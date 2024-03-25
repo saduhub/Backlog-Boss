@@ -60,12 +60,15 @@ const typeDefs = gql`
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(username: String!, password: String!): Auth
-    addToBacklog(gameId: ID!): User
     addFriend(id: ID!): User
     removeFriend(id: ID!): User
     requestFriend(id: ID!): User
     rejectFriend(id: ID!): User
-    addReview(id: String!, reviewNum: Int!, reviewText: String!): Game
+    addReview(id: ID!, reviewNum: Int!, reviewText: String!): Game
+    addToBacklog(gameId: ID!): User
+    addToFavorites(gameId: ID!): User
+    addToInProgress(gameId: ID!): User
+    addToCompleted(gameId: ID!): User
   }`
 ;
 
