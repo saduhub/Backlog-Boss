@@ -1,5 +1,7 @@
+import { useNavigate } from 'react-router-dom';
 // eslint-disable-next-line
 function FriendList({logo, otherData}) {
+  const navigate = useNavigate();
   // eslint-disable-next-line
   const { friends } = otherData;
   // eslint-disable-next-line
@@ -7,6 +9,8 @@ function FriendList({logo, otherData}) {
 
   const handleVisit = (friendId) => {
     console.log(`Visiting friend: ${friendId}`);
+    localStorage.setItem('_idUserVisited', friendId);
+    navigate('/ProfileOther');
   };
 
   return (

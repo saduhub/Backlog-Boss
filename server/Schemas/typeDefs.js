@@ -55,6 +55,7 @@ const typeDefs = gql`
     review(id: ID!): Review
     userReviews(id: ID!): [Review]
     me: User
+    userVisitedInfo(id: ID!): User
   }
 
   type Mutation {

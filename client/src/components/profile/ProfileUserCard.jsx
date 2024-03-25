@@ -3,6 +3,7 @@ import Auth from '../../utils/auth';
 function ProfileUserCard({username, profile, otherData}) {
     const handleLogOut = () => Auth.logout();
     console.log(profile)
+    const currentUsername = localStorage.getItem('username');
 
     return (
     <div className="profile-user">
@@ -11,7 +12,9 @@ function ProfileUserCard({username, profile, otherData}) {
         <div className="profile-username-since">
             <h2>{username}</h2>
             <h3>Member since 2024</h3>
-            <button className='profile-logout-button' onClick={handleLogOut}>Log Out</button>
+            {currentUsername === username && (
+                <button className='profile-logout-button' onClick={handleLogOut}>Log Out</button>
+            )}
         </div>
         <div className="profile-user-stats">
             <div className="profile-user-games">  

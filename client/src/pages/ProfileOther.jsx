@@ -1,7 +1,6 @@
-import { Navigate } from "react-router-dom";
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 import { useQuery } from "@apollo/client";
-import { ME } from "../utils/queries";
+import { USER_VISITED_INFO } from "../utils/queries";
 // Style
 import '../assets/css/profile.css';
 // Images
@@ -17,74 +16,77 @@ import ChallengesDesktop from '../components/profile/ChallengesDesktop';
 import FriendList from '../components/profile/FriendList';
 import GameSuggestions from '../components/profile/GameSuggestions';
 // Utilities
-import Auth from '../utils/auth';
+// import Auth from '../utils/auth';
 
 function Profile() {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
-
-  const { data, loading, error } = useQuery(ME);
+//   const [showLogin, setShowLogin] = useState(false);
+//   const [isAuthenticated, setIsAuthenticated] = useState(false);
+//   const handleShowLogin = () => setShowLogin(true);
+//   const handleShowSignUp = () => setShowLogin(false);
+  const userVisitedId = localStorage.getItem('_idUserVisited');
+//   const userVisitedId = "660086a8868c8a1873a78541";
+  const { data, loading, error } = useQuery(USER_VISITED_INFO, {
+    variables: {id: userVisitedId}
+  });
 
   console.log(error);
 
-  const meData = data?.me || {}
-  console.log(meData);
+  const userVisitedData = data?.userVisitedInfo || {}
+  console.log(userVisitedData);
 
-  useEffect(() => {
-    setIsAuthenticated(Auth.loggedIn());
-  }, []);
+//   useEffect(() => {
+//     setIsAuthenticated(Auth.loggedIn());
+//   }, []);
 
   if (loading) return <p>Loading...</p>
 
-  if (isAuthenticated) {
+//   if (isAuthenticated) {
     return (
       <section className='profile-main-section'>
           {/* User Card, Game Stats, Challenges */}
           <div className='profile-user-stats-challenges'>
             {/* User Card */}
             < ProfileUserCard 
-              username={meData.username} 
-              profile={meData.profilePictureUrl ? meData.profilePictureUrl : userIcon}
-              otherData={meData} 
+              username={userVisitedData.username} 
+              profile={userVisitedData.profilePictureUrl ? userVisitedData.profilePictureUrl : userIcon}
+              otherData={userVisitedData} 
             />
             {/* Game Stats */}
             < GameStats 
-              otherData={meData} 
+              otherData={userVisitedData} 
               logo={logo}
             />
             {/* Challenges Mobile */}
             <Challenges
-              otherData={meData} 
+              otherData={userVisitedData} 
               logo={logo}
              />  
           </div>
           <div className='profile-suggestions-friends'>
             {/* Game Suggestions */}
             <h2>Game Suggestions</h2>
-            < GameSuggestions gamesInBacklog={meData.gamesInBacklog.map(game => game._id)} />
+            < GameSuggestions gamesInBacklog={userVisitedData.gamesInBacklog.map(game => game._id)} />
             {/* Friends */}
             <h2>Friend List</h2>
             <FriendList
-              otherData={meData} 
+              otherData={userVisitedData} 
               logo={logo}
             /> 
             {/* Challenges Desktop */}
             <ChallengesDesktop
-              otherData={meData} 
+              otherData={userVisitedData} 
               logo={logo}
             /> 
           </div>
       </section>
     );
-  }
+//   }
 
-  return (
-    <Navigate to="/login" replace={true} />
-  );
-  // return (
-  //   <section className='profile-main-section'>
-  //     {!showLogin ? (<SignUpForm onShowLogin={handleShowLogin} />) : (<LoginForm onShowSignUp={handleShowSignUp} />)}
-  //   </section>
-  // );
+//   return (
+//     <section className='profile-main-section'>
+//       {!showLogin ? (<SignUpForm onShowLogin={handleShowLogin} />) : (<LoginForm onShowSignUp={handleShowSignUp} />)}
+//     </section>
+//   );
 }
   
 export default Profile;

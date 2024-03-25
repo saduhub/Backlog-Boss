@@ -59,6 +59,43 @@ export const USER_LIKES = gql`
   }
 `;
 
+export const USER_VISITED_INFO = gql`
+  query userVisitedInfo($id: ID!) {
+    userVisitedInfo(id: $id) {
+      _id
+      username
+      profilePictureUrl
+      username
+      hoursPlayed
+      friends {
+        _id
+        username
+      }
+      games100Completed {
+        _id
+      }
+      gamesCompleted {
+        _id
+      }
+      gamesInBacklog {
+        _id
+      }
+      gamesInFavorites {
+        _id
+      }
+      gamesInProgress {
+        _id
+      }
+      likedReviews {
+        _id
+      }
+      reviews {
+        _id
+      }
+    }
+  }
+`;
+
 export const QUERY_GAME = gql`
   query Query($gameId: ID!) {
     game(id: $gameId) {

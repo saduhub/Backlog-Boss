@@ -5,12 +5,14 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App.jsx'
 import { setContext } from '@apollo/client/link/context'
 import Profile from './pages/Profile';
+import ProfileOther from './pages/ProfileOther';
 import Home from './pages/Home';
 import Landing from './pages/Landing';
 import Game from './pages/Game';
 import SearchPage from './pages/SearchPage';
 import ArtGen from './pages/ArtGen';
 import Social from './pages/Social';
+import Login from './pages/login.jsx';
 const httpLink = createHttpLink({
   uri: "/graphql"
 
@@ -40,6 +42,8 @@ const router = createBrowserRouter([
       { path: 'ArtGen', element: <ArtGen /> },
       { path: 'Social', element: <Social /> },
       { path: 'search', element: <SearchPage /> },
+      { path: 'ProfileOther', element: <ProfileOther /> },
+      { path: 'login', element: <Login /> },
     ],
   },
 ]);

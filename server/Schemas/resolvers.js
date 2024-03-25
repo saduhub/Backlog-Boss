@@ -64,6 +64,25 @@ const resolvers = {
         }
         throw AuthenticationError;
       },
+      userVisitedInfo: async (parent, args, context) => {
+        const { id } = args;
+
+        if (context.user) {
+          return User.findOne({ _id: id })
+            .populate([
+              { path: 'reviews' }, 
+              { path: 'friendRequests' }, 
+              { path: 'gamesInFavorites' }, 
+              { path: 'gamesInBacklog' },
+              { path: 'gamesCompleted' }, 
+              { path: 'games100Completed' }, 
+              { path: 'gamesInProgress' }, 
+              { path: 'friends' }, 
+              { path: 'likedReviews' }
+            ])
+        }
+        throw AuthenticationError;
+      },
     },
 
     Mutation: {
