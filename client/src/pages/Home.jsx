@@ -1,13 +1,12 @@
 import '../assets/css/home.css';
 
-import { useEffect, useState } from 'react';
-// import dotenv from 'dotenv';
+import { useQuery } from '@apollo/client';
+import { POPULAR_GAMES } from '../utils/queries';
 
 import HomeGameCard from '../components/Home-Game-Card';
-// import { getRawgKey } from '../../../server/utils/getKeys';
 
 const Home = () => {
-  const gameObjs = [
+/*   const gameObjs = [
     {
       id: 0,
       title: 'Game Title',
@@ -80,41 +79,11 @@ const Home = () => {
       rating: 3.2,
       likes: 18,
     }
-  ];
+  ]; */
 
-  // const rawgKey = getRawgKey();
-  const [popularGames, setPopularGames] = useState([]);
-
-  useEffect(() => {
-    const getGamesbyPopularity = async () => {
-/*       const baseUrl = 'https://api.rawg.io/games';
-      const url = new URL(baseUrl);
-      url.searchParams.append('key', rawgKey);
-      url.searchParams.append('metacritic', `${min},${max}`);
-      url.searchParams.append('page_size', 9);
-      console.log(url); */
-  
-      // const apiKey = getRawgKey();
-      const apiKey = 'e137fde8c0cb4534bc8647570b3ce764';
-  
-      const url = `https://api.rawg.io/api/games?page_size=9&key=${apiKey}`;
-      // console.log(url);
-  
-      try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(`${response.status}`);
-        }
-        const data = await response.json();
-        // console.log(data.results);
-        return data.results;
-      } catch (err) {
-        console.error(err);
-      }
-    }
-    // popularGames.current = getGamesbyPopularity();
-    setPopularGames(getGamesbyPopularity());
-  }, [])
+  const { data } = useQuery(POPULAR_GAMES);
+  const popularGames = data?.getPopularGames;
+  // console.log(popularGames);
   
   return (
     <div className="home-flex home-content-center">
@@ -131,10 +100,10 @@ const Home = () => {
               Trending Games
             </h3>
           </div>
-          <div id="gameCard" className="home-flex home-flex-wrap home-gap home-content-center">
-{/*             {popularGames.map((game) => (
+          <div id="gameCard" className="home-flex home-flex-wrap">
+            {popularGames?.map((game) => (
                 <HomeGameCard key={game.id} game={game} />
-            ))} */}
+            ))}
           </div>
         </section>
       </div>

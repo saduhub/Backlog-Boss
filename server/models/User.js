@@ -59,6 +59,9 @@ const userSchema = new Schema({
     games100Completed: [{ 
         type: Schema.Types.ObjectId, 
         ref: 'Game' 
+    }],
+    aiImages: [{
+        type: String
     }]
 });
 
