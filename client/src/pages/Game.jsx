@@ -13,7 +13,7 @@ function Game() {
     const [formState, setFormState] = useState({rating: '', reviewText: ''});
     const {id} = useParams()
     console.log(id)
-    const {data} = useQuery(GAME_PAGE_QUERY, {
+    const {data, refetch} = useQuery(GAME_PAGE_QUERY, {
         
         variables: {
             gameId: id
@@ -23,13 +23,14 @@ function Game() {
     const user = data?.me
     const [addReview] = useMutation(ADD_REVIEW);
     console.log(data)
+    console.log(user)
     const handleReviewSubmit = async (event) => {
         event.preventDefault();
         try {
             const response = await addReview({
                 variables: {
-                    gameId: game.id,
-                    rating: parseInt(formState.rating),
+                    id: game._id,
+                    reviewNum: parseInt(formState.rating),
                     reviewText: formState.reviewText
                     
                 }
@@ -43,17 +44,23 @@ function Game() {
     
 
     const handleChange = (event) => {
-        const {name, value} = event.target;
+        const { name, value } = event.target;
         setFormState(prevState => ({
             ...prevState,
-            [name]:value
-        }))
+            [name]: value
+        }));
     };
 
 return (
     <div className="game-main">
         <div className="game-card">
-            {game?<GameCard game={game}/>:"loading"}
+            {game&&user?<GameCard 
+            Backlog={!!user.gamesInBacklog.find(backloggame=> backloggame._id === game._id)} 
+            Favorites={!!user.gamesInFavorites.find(favoritegame=> favoritegame._id === game._id)}
+            Progress={!!user.gamesInProgress.find(progressgame=> progressgame._id === game._id)}
+            Completed={!!user.gamesCompleted.find(completedgame=> completedgame._id === game._id)}
+            refetch={refetch}
+            game={game}/>:"loading"}
         </div>
         
         <form className="game-form" onSubmit={handleReviewSubmit}>
@@ -69,8 +76,9 @@ return (
                 </select>
             </div>
             <div >
-                <textarea
+                <input
                     className="game-form-input"
+                    name="reviewText"
                     type= "text"
                     placeholder="Write your review here..."
                     value={formState.reviewText}

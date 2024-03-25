@@ -96,12 +96,45 @@ export const ADD_TO_BACKLOG = gql`
   }
 `;
 
+export const ADD_TO_FAVORITES = gql`
+  mutation addToFavorites($gameId: ID!) {
+    addToFavorites(gameId: $gameId) {
+      gamesInFavorites {
+        _id
+      }
+    }
+  }
+`
+export const ADD_TO_IN_PROGRESS = gql`
+  mutation addToInProgress($gameId: ID!) {
+    addToInProgress(gameId: $gameId) {
+      gamesInProgress {
+        _id
+      }
+    }
+  }
+`
+
+export const ADD_TO_COMPLETED = gql`
+  mutation addToCompleted($gameId: ID!) {
+    addToCompleted(gameId: $gameId) {
+      gamesCompleted {
+        _id
+      }
+    }
+  }
+`
+
+
 export const ADD_REVIEW = gql`
-    mutation addReview($_id: String!, $reviewNum: Int!, $reviewText: String!) {
-        addReview(_id: $_id, reviewNum: $reviewNum, reviewText: $reviewText) {
-          id
-          reviewNum
+    mutation addReview($id: ID!, $reviewNum: Int!, $reviewText: String!) {
+        addReview(id: $id, reviewNum: $reviewNum, reviewText: $reviewText) {
+          _id
+          reviews{
+              rating
           reviewText
+          }
         }
     }
 `;
+
