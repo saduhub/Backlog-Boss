@@ -2,16 +2,12 @@ import React from 'react';
 import '../assets/css/filterBar.css';
 
 const FilterBar = ({ onFilterSelect }) => {
-  const filters = ['Top 100', 'Best Rated', 'Indies', 'Newest', 'Top PC']; 
+  const filters = ['Alphabetical', 'Rating', 'Release Date', 'Platform', 'Genre'];
 
   return (
     <div className="filter-bar">
-      {filters.map((filter, index) => (
-        <button
-          key={index}
-          className="filter-button"
-          onClick={() => onFilterSelect(filter)}
-        >
+      {filters.map(filter => (
+        <button key={filter} className="filter-button" onClick={() => onFilterSelect(filter)}>
           {filter}
         </button>
       ))}
