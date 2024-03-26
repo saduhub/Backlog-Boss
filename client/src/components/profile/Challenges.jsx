@@ -1,8 +1,14 @@
 import { useQuery} from "@apollo/client";
 import { USER_LIKES } from "../../utils/queries";
 // eslint-disable-next-line
-function Challenges({logo, otherData}) {
-    const userId = localStorage.getItem('_id');
+function Challenges({username, logo, otherData}) {
+    let userId = localStorage.getItem('_id');
+    const visitedId = localStorage.getItem('_idUserVisited');
+    const currentUsername = localStorage.getItem('username');
+
+    if (currentUsername != username) {
+        userId = visitedId
+    }
     const { data, loading, error } = useQuery(USER_LIKES, {
         variables: { userReviewsId: userId },
     });
