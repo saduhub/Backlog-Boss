@@ -148,11 +148,11 @@ export const CHANGE_PROFILE_PIC = gql`
 `;
 
 export const SAVE_AI_PIC = gql`
-mutation saveAiPic($url: String!) {
-  saveAiPic(url: $url) {
-    username
-    _id
-    aiImages
+  mutation saveAiPic($url: String!) {
+    saveAiPic(url: $url) {
+      username
+      _id
+      aiImages
+    }
   }
-}
 `;

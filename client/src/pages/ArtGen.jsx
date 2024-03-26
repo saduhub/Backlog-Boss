@@ -41,6 +41,7 @@ const ArtGen = () => {
         url: imgUrl
       }
     })
+    // console.log("Profile pic changed")
   }
 
   // Save to account button
@@ -51,6 +52,7 @@ const ArtGen = () => {
         url: imgUrl
       }
     })
+    // console.log("Saved to account")
   }
 
 /*   const handleSaveDevice = async () => {

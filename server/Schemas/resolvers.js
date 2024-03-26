@@ -274,7 +274,8 @@ const resolvers = {
       const { user } = context;
       
       if(!user){
-        throw new AuthenticationError('You must be logged in to perform this action');
+        // throw new AuthenticationError('You must be logged in to perform this action');
+        return
       }
 
       const updatedUser = await User.findByIdAndUpdate(
@@ -282,7 +283,7 @@ const resolvers = {
         { $set: { profilePictureUrl: url } },
         { new: true }
       );
-
+      
       return updatedUser;
     },
 
@@ -290,7 +291,8 @@ const resolvers = {
       const { user } = context;
 
       if(!user) {
-        throw new AuthenticationError('You must be logged in to perform this action');
+        // throw new AuthenticationError('You must be logged in to perform this action');
+        return
       }
 
       const updatedUser = await User.findByIdAndUpdate(
@@ -299,7 +301,6 @@ const resolvers = {
         { new: true }
       );
       
-      console.log(updatedUser);
       return updatedUser;
     }
 }

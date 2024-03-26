@@ -20,6 +20,7 @@ async function fetchGameData(gameName, apiKey) {
       };
 
       return {
+        id: game.id,
         title: game.name,
         averageRating: game.rating,
         releaseDate: game.released,
