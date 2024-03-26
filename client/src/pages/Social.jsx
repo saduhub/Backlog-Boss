@@ -1,10 +1,10 @@
 import '../assets/css/social.css';
 
 // import FriendSearch from '../components/FriendSearch';
-import FriendRequest from '../components/FriendRequest';
-import FriendList from '../components/FriendList';
-import FriendSuggestion from '../components/FriendSuggestion';
-import UserReviews from '../components/UserReviews';
+import FriendRequest from '../components/social/FriendRequest';
+import FriendList from '../components/social/FriendList';
+import FriendSuggestion from '../components/social/FriendSuggestion';
+import UserReviews from '../components/social/UserReviews';
 
 import profilePic from '../assets/images/png/icons8-male-user-16.png';
 

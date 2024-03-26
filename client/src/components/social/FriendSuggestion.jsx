@@ -1,17 +1,21 @@
-const FriendList = ({ friendRequests }) => {
-  const handleFriendRemove = () => {
-    
+const FriendSuggestion = ({ friendRequests }) => {
+  const handleFriendAccept = () => {
+
+  }
+  const handleFriendDecline = () => {
+      
   }
 
   return (
     <div>
       <section className="social-font">
         <h3 className="social-my-p5">
-          Friend List
+          Suggested Friends
         </h3>
 
-        <div className="social-col-2">
+        <div className="social-col-2 social-suggested-friends">
           {friendRequests &&
+            // eslint-disable-next-line
             friendRequests.map(req => {
               return (
                 <div key={req.id} className="social-inner-box social-box-col-2 social-flex social-flex-wrap social-my-p5 social-border-radius social-content-between">
@@ -21,9 +25,9 @@ const FriendList = ({ friendRequests }) => {
                       {req.username}
                     </p>
                   </div>
-                  <div className="social-gap-p5">
-                    <button onClick={handleFriendRemove} className="social-button social-border-radius social-font">
-                      Remove Friend
+                  <div className="social-flex social-gap-p5">
+                    <button onClick={handleFriendAccept} className="social-button social-font social-border-radius">
+                      Add
                     </button>
                   </div>
                 </div>
@@ -36,4 +40,4 @@ const FriendList = ({ friendRequests }) => {
   )
 }
 
-export default FriendList
+export default FriendSuggestion
