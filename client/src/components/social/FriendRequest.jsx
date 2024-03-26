@@ -1,12 +1,12 @@
-import { useMutation } from '@apollo/client';
-import { ADD_FRIEND } from '../../utils/mutations';
-
+// import { useMutation } from '@apollo/client';
+// import { ADD_FRIEND } from '../../utils/mutations';
+// eslint-disable-next-line
 const FriendRequest = ({ friendRequests }) => {
-  const { data } = useMutation(ADD_FRIEND, {
-    variables: {
-      friends: friendRequests.id
-    }
-  });
+  // const { data } = useMutation(ADD_FRIEND, {
+  //   variables: {
+  //     friends: friendRequests._id
+  //   }
+  // });
 
   const handleFriendAccept = () => {
 
@@ -26,13 +26,13 @@ const FriendRequest = ({ friendRequests }) => {
         <div className='social-friend-requests'>
           {friendRequests &&
             // eslint-disable-next-line
-            friendRequests.map(req => {
+            friendRequests.map(request => {
               return (
-                <div key={req.id} className="social-inner-box social-my-p5 social-flex social-flex-wrap social-content-between social-border-radius">
+                <div key={request._id} className="social-inner-box social-my-p5 social-flex social-flex-wrap social-content-between social-border-radius">
                   <div className="social-flex social-items-cente social-image-name-div">
-                    <img src={req.profilePictureUrl} alt="profile pic" className="social-profile-pic" />
+                    <img src={request.profilePictureUrl} alt="profile pic" className="social-profile-pic" />
                     <p>
-                      {req.username}
+                      {request.username}
                     </p>
                   </div>
                   <div className="social-flex social-gap-p5">

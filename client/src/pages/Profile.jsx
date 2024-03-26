@@ -25,7 +25,7 @@ function Profile() {
   const { data, loading, error } = useQuery(ME);
   // console.log(error);
   const meData = data?.me || {}
-  // console.log(meData);
+  console.log(meData);
 
   useEffect(() => {
     setIsAuthenticated(Auth.loggedIn());
