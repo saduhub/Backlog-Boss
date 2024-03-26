@@ -26,29 +26,12 @@ const Social = () => {
 
   if (loading) return <p>Loading...</p>
 
-  const friendRequestData = meData.friendRequests
+  const friendRequestData = meData.friendRequests;
   console.log(friendRequestData);
-  const friendsData = meData.friends
+  const friendsData = meData.friends;
   console.log(friendsData);
-
-  let gameReviews = [
-    {
-      id: 0,
-      game: 'Game',
-      description: 'Review',
-      rating: 78,
-      likes: 34,
-      created: 3/25/2024,
-    },
-    {
-      id: 1,
-      game: 'Game 2',
-      description: 'Review 2',
-      rating: 78,
-      likes: 34,
-      created: 2/14/2024,
-    }
-  ];
+  let gameReviews = meData.reviews;
+  console.log(gameReviews);
 
   //// Need function to get friend requests
   //// Keep track of friend requests sent, incoming friend requests, friends on friend list, all user reviews
@@ -65,7 +48,7 @@ const Social = () => {
 
         <FriendSuggestion friendSuggestions={usersData} friends={friendsData} />
 
-        <UserReviews gameReviews={gameReviews} />
+        <UserReviews gameReviews={gameReviews} username={meData.username} profile={meData.profilePictureUrl} />
       </div>
     )
   }

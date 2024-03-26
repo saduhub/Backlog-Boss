@@ -312,6 +312,14 @@ db.once('open', async () => {
             likes: 8,
             dateOfReview: new Date()  
         },
+        { 
+          user: user1._id, 
+          game: gamesAdded[1]._id, 
+          rating: 4, 
+          reviewText: 'Good game!',
+          likes: 17,
+          dateOfReview: new Date() 
+        },
     ];
 
     const reviews = await Review.insertMany(reviewData);
@@ -319,8 +327,9 @@ db.once('open', async () => {
     // Update reviews added to games
     game1.reviews.push(reviews[0]._id);
     game1.reviews.push(reviews[1]._id);
-    
     await game1.save();
+    game2.reviews.push(reviews[2]._id);
+    await game2.save();
     // Update user relationships
     user1.friends.push(user2._id);
     user1.friends.push(user3._id);
@@ -349,6 +358,7 @@ db.once('open', async () => {
     user1.gamesInProgress.push(gamesAdded[1]._id);
     // Update review relationships
     user1.reviews.push(reviews[0]._id);
+    user1.reviews.push(reviews[2]._id);
     user1.likedReviews.push(reviews[1]._id);
     user2.likedReviews.push(reviews[0]._id);
     user2.reviews.push(reviews[1]._id);
