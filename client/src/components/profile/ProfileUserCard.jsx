@@ -2,7 +2,7 @@ import Auth from '../../utils/auth';
 // eslint-disable-next-line
 function ProfileUserCard({username, profile, otherData}) {
     const handleLogOut = () => Auth.logout();
-    console.log(profile)
+    // console.log(profile)
     const currentUsername = localStorage.getItem('username');
 
     return (
