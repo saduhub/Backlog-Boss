@@ -212,12 +212,13 @@
 }
 
 .profile-all-friends-button {
-    margin: 1rem 4.5rem;
+    margin: 1rem 5rem;
     padding: 0.25rem 0;
     background-color: #000000;
     border: 1px solid #ffffff;
     border-radius: 0.75rem;
     color: #ffffff;
+    text-decoration: none;
 }
 
 .profile-friend-listed img {

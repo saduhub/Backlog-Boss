@@ -1,12 +1,24 @@
+// import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 // eslint-disable-next-line
-function FriendList({logo, otherData}) {
+function FriendList({username, logo, otherData}) {
+  // const navigate = useNavigate();
   // eslint-disable-next-line
   const { friends } = otherData;
+  const currentUsername = localStorage.getItem('username');
+  console.log(currentUsername);
+  console.log(username)
   // eslint-disable-next-line
-  const randomFriends = [...friends].sort(() => 0.5 - Math.random()).slice(0, 5);
+  const randomFriends = [...friends]
+    .filter(friend => friend.username !== currentUsername)
+    .sort(() => 0.5 - Math.random())
+    .slice(0, 5);
 
   const handleVisit = (friendId) => {
     console.log(`Visiting friend: ${friendId}`);
+    localStorage.setItem('_idUserVisited', friendId);
+    // navigate('/ProfileOther');
+    window.location = '/ProfileOther'
   };
 
   return (
@@ -21,7 +33,10 @@ function FriendList({logo, otherData}) {
                 </div>
             ))}
             {/* All Friends */}
-            <button className='profile-all-friends-button'>All Friends</button>
+            {currentUsername == username && (
+              // <button className='profile-all-friends-button'>All Friends</button>
+              <Link to='/Social' className='profile-all-friends-button'>All Friends</Link>
+            )}
       </div>
   )
 }
