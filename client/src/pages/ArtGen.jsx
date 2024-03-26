@@ -1,18 +1,22 @@
 import '../assets/css/artGen.css';
 
 import { useState } from 'react';
-import { useLazyQuery } from '@apollo/client';
+import { useLazyQuery, useMutation } from '@apollo/client';
 // import { writeFileSync } from 'fs';
 
 import gamePreview from '../assets/images/png/game-preview.png';
 import { GET_AI_IMAGE } from '../utils/queries';
+import { CHANGE_PROFILE_PIC, SAVE_AI_PIC } from '../utils/mutations';
 
 const ArtGen = () => {
   const [prompt, setPrompt ] = useState('');
   const [imgUrl, setImgUrl ] = useState(gamePreview);
   
   const [getAiImage] = useLazyQuery(GET_AI_IMAGE);
+  const [changeProfilePic] = useMutation(CHANGE_PROFILE_PIC);
+  const [saveAiPic] = useMutation(SAVE_AI_PIC);
 
+  // Generate button
   const handleGen = async () => {
     if(!prompt) return;
 
@@ -29,13 +33,24 @@ const ArtGen = () => {
     setPrompt(document.querySelector('#promptInput').value);
   }
 
-  const handleSaveProfile = () => {
-    //// Can only be done after image is converted to png (like shown in handleSaveDevice)
-    //// Access user profile pic property (may need global user context), then change current img to new AI-generated image
+  // Use as profile picture button
+  const handleSaveProfile = async () => {
+    if(!imgUrl) return;
+    const { data } = await changeProfilePic({
+      variables: {
+        url: imgUrl
+      }
+    })
   }
 
-  const handleSaveDevice = () => {
-
+  // Save to account button
+  const handleSavePic = async () => {
+    if(!imgUrl) return;
+    const { data } = await saveAiPic({
+      variables: {
+        url: imgUrl
+      }
+    })
   }
 
 /*   const handleSaveDevice = async () => {
@@ -69,10 +84,10 @@ const ArtGen = () => {
 
       <div className="artGen-flex artGen-flex-wrap artGen-gap artGen-content-center">
         <button onClick={handleSaveProfile} className="artGen-save-button artGen-font">
-          Save as profile picture
+          Use as profile picture
         </button>
-        <button onClick={handleSaveDevice} className="artGen-save-button artGen-font">
-          Save to device
+        <button onClick={handleSavePic} className="artGen-save-button artGen-font">
+          Save to account
         </button>
       </div>
     </div>

@@ -125,7 +125,6 @@ export const ADD_TO_COMPLETED = gql`
   }
 `
 
-
 export const ADD_REVIEW = gql`
     mutation addReview($id: ID!, $reviewNum: Int!, $reviewText: String!) {
         addReview(id: $id, reviewNum: $reviewNum, reviewText: $reviewText) {
@@ -138,3 +137,22 @@ export const ADD_REVIEW = gql`
     }
 `;
 
+export const CHANGE_PROFILE_PIC = gql`
+  mutation changeProfilePic($url: String!) {
+    changeProfilePic(url: $url) {
+      username
+      _id
+      profilePictureUrl
+    }
+  }
+`;
+
+export const SAVE_AI_PIC = gql`
+mutation saveAiPic($url: String!) {
+  saveAiPic(url: $url) {
+    username
+    _id
+    aiImages
+  }
+}
+`;

@@ -220,7 +220,6 @@ const resolvers = {
 
       return updatedUser;
     },
-
     
     addToInProgress: async (_, { gameId }, context) => {
       const { user } = context;
@@ -249,6 +248,39 @@ const resolvers = {
         { new: true }
       );
 
+      return updatedUser;
+    },
+
+    changeProfilePic: async (_, { url }, context) => {
+      const { user } = context;
+      
+      if(!user){
+        throw new AuthenticationError('You must be logged in to perform this action');
+      }
+
+      const updatedUser = await User.findByIdAndUpdate(
+        { _id: user._id },
+        { $set: { profilePictureUrl: url } },
+        { new: true }
+      );
+
+      return updatedUser;
+    },
+
+    saveAiPic: async (_, { url }, context) => {
+      const { user } = context;
+
+      if(!user) {
+        throw new AuthenticationError('You must be logged in to perform this action');
+      }
+
+      const updatedUser = await User.findByIdAndUpdate(
+        { _id: user._id },
+        { $addToSet: { aiImages: url } },
+        { new: true }
+      );
+      
+      console.log(updatedUser);
       return updatedUser;
     }
 }
