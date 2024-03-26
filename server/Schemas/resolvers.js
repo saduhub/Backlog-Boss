@@ -24,9 +24,22 @@ const resolvers = {
       // Fetch a single game by ID
       game: async (_, { id }) => {
         try {
-          const game = await Game.findById(id).populate({path: "reviews", populate:"user"})
+          const url = `https://api.rawg.io/api/games/${id}?key=${process.env.RAWG_API_KEY}`;
+
+          try {
+            const response = await fetch(url);
+            if (!response.ok) {
+              throw new Error(`${response.status}`);
+            }
+            const data = await response.json();
+            // console.log(data.results);
+            return data.results;
+          } catch (err) {
+            console.error(err);
+          }
+/*           const game = await Game.findById(id).populate({path: "reviews", populate:"user"})
           console.log(game)
-           return game
+           return game */
         } catch(error) {
           console.log(error)
         }
@@ -194,10 +207,11 @@ const resolvers = {
         //user property comes from session/authentication
         console.log(reviewText)
         const review = await Review.create({
-          user: context.user._id, //replace later
+          user: context.user._id,
           game: id,
           rating: reviewNum,
           reviewText: reviewText
+          
         })
         console.log(review);
         const game = await Game.findOneAndUpdate({_id: id}, {$push: {reviews: review._id}}, {new: true, populate: {path: "reviews", populate: {path: "user"}}} )
@@ -239,7 +253,6 @@ const resolvers = {
 
       return updatedUser;
     },
-
     
     addToInProgress: async (_, { gameId }, context) => {
       const { user } = context;
@@ -268,6 +281,40 @@ const resolvers = {
         { new: true }
       );
 
+      return updatedUser;
+    },
+
+    changeProfilePic: async (_, { url }, context) => {
+      const { user } = context;
+      
+      if(!user){
+        // throw new AuthenticationError('You must be logged in to perform this action');
+        return
+      }
+
+      const updatedUser = await User.findByIdAndUpdate(
+        { _id: user._id },
+        { $set: { profilePictureUrl: url } },
+        { new: true }
+      );
+      
+      return updatedUser;
+    },
+
+    saveAiPic: async (_, { url }, context) => {
+      const { user } = context;
+
+      if(!user) {
+        // throw new AuthenticationError('You must be logged in to perform this action');
+        return
+      }
+
+      const updatedUser = await User.findByIdAndUpdate(
+        { _id: user._id },
+        { $addToSet: { aiImages: url } },
+        { new: true }
+      );
+      
       return updatedUser;
     }
 }

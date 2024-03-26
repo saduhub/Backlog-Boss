@@ -82,7 +82,7 @@ const GameCard = ({ game, Backlog, Favorites, Progress, Completed, refetch}) => 
               />
               <h4>
                 {review.user.username}{" "}
-                {new Date(review.dateOfReview).toLocaleDateString()}
+                {new Date(parseInt(review.dateOfReview)).toLocaleDateString()}
               </h4>
               <h4>⭐{review.rating} </h4>
               <br></br>

@@ -85,6 +85,8 @@ const typeDefs = gql`
     addToFavorites(gameId: ID!): User
     addToInProgress(gameId: ID!): User
     addToCompleted(gameId: ID!): User
+    changeProfilePic(url: String!): User
+    saveAiPic(url: String!): User
   }`
 ;
 

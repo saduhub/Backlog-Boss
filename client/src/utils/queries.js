@@ -197,3 +197,31 @@ export const GET_AI_IMAGE = gql`
     }
   }
 `;
+
+export const LIBRARY_QUERY = gql`
+query userLibrary {
+  me {
+    _id
+    gamesCompleted {
+      _id
+      pictureUrl
+      title
+    }
+    gamesInBacklog {
+      _id
+      pictureUrl
+      title
+    }
+    gamesInFavorites {
+      _id
+      pictureUrl
+      title
+    }
+    gamesInProgress {
+      _id
+      pictureUrl
+      title
+    }
+  }
+}
+`;
