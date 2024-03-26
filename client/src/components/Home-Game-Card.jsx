@@ -1,11 +1,21 @@
 import { Link } from 'react-router-dom';
+// import { useQuery } from '@apollo/client';
+// import { QUERY_GAME } from '../utils/queries';
 
-import gamePreview from '../assets/images/png/game-preview.png';
+// import gamePreview from '../assets/images/png/game-preview.png';
 import profilePic from '../assets/images/png/icons8-male-user-16.png';
 import star from '../assets/images/png/simplistic-star-icon.png';
 import heart from '../assets/images/png/juicy-heart-1.png';
 
 const HomeGameCard = ({game}) => {
+/*   const { data } = useQuery(QUERY_GAME, {
+    variables: {
+      id: game.id
+    }
+  });
+  const gameData = data;
+  console.log(gameData); */
+
   return (
     // Testing a card container (div) to use flex and gap for each card
     <div className="home-w-33 home-flex home-content-center home-items-center">

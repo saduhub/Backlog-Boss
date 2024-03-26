@@ -7,8 +7,6 @@ import {useQuery, useMutation} from '@apollo/client'
 import {GAME_PAGE_QUERY} from '../utils/queries'
 import {ADD_REVIEW} from '../utils/mutations'
 
-
-
 function Game() {
     const [formState, setFormState] = useState({rating: '', reviewText: ''});
     const {id} = useParams()
