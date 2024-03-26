@@ -56,12 +56,12 @@ const HomeGameCard = ({game}) => {
 
         <div>
           <button className="home-game-button home-border-radius">
-            <Link to={`/Game/${game.id}`} className="home-font">
+            <Link to={`/game/${game.id}`} className="home-font">
               View Details
             </Link>
           </button>
         </div>
-      </article>
+      </article> 
     </div>
   )
 }

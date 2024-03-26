@@ -18,7 +18,7 @@ const userSchema = new Schema({
         required: true 
     },
     profilePictureUrl: { 
-        type: String 
+        type: String,
     },
     gamesInFavorites: [{ 
         type: Schema.Types.ObjectId, 
