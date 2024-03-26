@@ -1,0 +1,48 @@
+:root {
+    --background-color: #161616;
+    --font-color: #FFFFFF;
+    --grey: #282828;
+    --purple: #9F34FF;
+    --light-purple: #E1CDF2;
+  }
+
+  .library-main {
+    color:white;
+    padding-left: 10%;
+  }
+
+  .library-favorites-div {
+    background-color: var(--grey);
+    width: 90%;
+    padding: 15px;
+    border-radius: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.library-in-progress-div {
+    background-color: var(--grey);
+    width: 90%;
+    padding: 15px;
+    border-radius: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.library-backlog-div {
+    background-color: var(--grey);
+    width: 90%;
+    padding: 15px;
+    border-radius: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.library-completed-div {
+    background-color: var(--grey);
+    width: 90%;
+    padding: 15px;
+    border-radius: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
