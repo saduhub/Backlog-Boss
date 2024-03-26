@@ -207,10 +207,11 @@ const resolvers = {
         //user property comes from session/authentication
         console.log(reviewText)
         const review = await Review.create({
-          user: context.user._id, //replace later
+          user: context.user._id,
           game: id,
           rating: reviewNum,
           reviewText: reviewText
+          
         })
         console.log(review);
         const game = await Game.findOneAndUpdate({_id: id}, {$push: {reviews: review._id}}, {new: true, populate: {path: "reviews", populate: {path: "user"}}} )
