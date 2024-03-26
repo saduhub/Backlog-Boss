@@ -68,6 +68,7 @@ const typeDefs = gql`
     review(id: ID!): Review
     userReviews(id: ID!): [Review]
     me: User
+    userVisitedInfo(id: ID!): User
     getPopularGames: [PopularGame]
     getAiImage(prompt: String!): imageURL
   }
