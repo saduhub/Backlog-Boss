@@ -60,12 +60,16 @@ function Profile() {
             <Challenges
               otherData={userVisitedData} 
               logo={logo}
+              username={userVisitedData.username}
              />  
           </div>
           <div className='profile-suggestions-friends'>
             {/* Game Suggestions */}
             <h2>Game Suggestions</h2>
-            < GameSuggestions gamesInBacklog={userVisitedData.gamesInBacklog.map(game => game._id)} />
+            < GameSuggestions 
+                gamesInBacklog={userVisitedData.gamesInBacklog.map(game => game._id)} 
+                username={userVisitedData.username}
+            />
             {/* Friends */}
             <h2>Friend List</h2>
             <FriendList
@@ -77,6 +81,7 @@ function Profile() {
             <ChallengesDesktop
               otherData={userVisitedData} 
               logo={logo}
+              username={userVisitedData.username}
             /> 
           </div>
       </section>
