@@ -29,13 +29,13 @@ Click on the following image to visit the deployed site:
 
 ## Credits
 
-Arthur Stone
+Arthur Stone - [OC-Kai](https://github.com/OC-Kai)
 
-Jarrett Delaney
+Jarrett Delaney - [J-Ross01](https://github.com/J-Ross01)
 
-Jorge Duarte - [Saduhub](https://github.com/saduhub)
+Jorge Duarte - [saduhub](https://github.com/saduhub)
 
-Tyler Odo
+Tyler Odo - [Kiyodosan](https://github.com/Kiyodosan)
 
 ## License
 
