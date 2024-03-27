@@ -5,11 +5,13 @@ import { ADD_FRIEND } from '../../utils/mutations';
 const FriendRequest = ({ friendRequests }) => {
   const [addFriend, { loading: adding }] = useMutation(ADD_FRIEND);
   const [requests, setRequests] = useState(friendRequests);
+  const myId = localStorage.getItem('_id');
+  console.log(myId)
   const handleFriendAccept = (userId) => {
     console.log(userId);
     if (adding) return;
     addFriend({
-      variables: {userId: userId}
+      variables: {userId: userId, myId: myId}
     }).then((response) => {
       console.log(`User added to friends and removed from requests. Response:${response}`)
       const updatedFriendRequests = requests.filter(request => request._id !==userId);

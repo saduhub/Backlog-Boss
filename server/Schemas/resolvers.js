@@ -144,23 +144,17 @@ const resolvers = {
     },
 
     Mutation: {
-      addFriend: async (_, { userId }, context) => {
-        if (context.user) {
-          console.log(userId)
-          console.log(context.user._id)
-          console.log(context.user)
-          return await User.findByIdAndUpdate(
-            context.user._id,
-            { $push: { friends: userId },
-              $pull: { friendRequests: userId } 
-            }
-          );
-        }
-
-        if(!context.user) {
-          
-        }
-        throw new Error(context.user, context.user._id);
+      // Issues with context prompted dirrect passing of id from local storage.
+      addFriend: async (_, { userId, myId }, context) => {
+        // console.log(myId);
+        // console.log(userId);
+        return await User.findByIdAndUpdate(
+          myId,
+          { $push: { friends: userId },
+            $pull: { friendRequests: userId } 
+          },
+          { new: true }
+        );
       },
       removeFriend: async (_, { id }, context) => {
         if (context.user) {
