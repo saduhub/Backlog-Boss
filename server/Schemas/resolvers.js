@@ -144,14 +144,23 @@ const resolvers = {
     },
 
     Mutation: {
-      addFriend: async (_, { id }, context) => {
+      addFriend: async (_, { userId }, context) => {
         if (context.user) {
+          console.log(userId)
+          console.log(context.user._id)
+          console.log(context.user)
           return await User.findByIdAndUpdate(
             context.user._id,
-            { $push: { friends: id } },
-            { new: true }
-          )
+            { $push: { friends: userId },
+              $pull: { friendRequests: userId } 
+            }
+          );
         }
+
+        if(!context.user) {
+          
+        }
+        throw new Error(context.user, context.user._id);
       },
       removeFriend: async (_, { id }, context) => {
         if (context.user) {
@@ -171,6 +180,7 @@ const resolvers = {
           ).populate('friendRequests');
           return updatedUser;
         }
+        throw new Error("User not updated");
       },
       rejectFriend: async (_, { id }, context) => {
         if (context.user) {
@@ -180,6 +190,7 @@ const resolvers = {
             { new: true }
           )
         }
+        throw new Error("User not updated");
       },
       addUser: async (parent, { password, email, username }) => {
         const user = await User.create({ password, email, username });

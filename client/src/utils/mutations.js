@@ -1,16 +1,10 @@
 import { gql } from '@apollo/client';
 
 export const ADD_FRIEND = gql`
-  mutation addFriend($friendId: ID!) {
-    addFriend(id: $friendId) {
+  mutation addFriend($userId: ID!) {
+    addFriend(userId: $userId) {
       id
       username
-      profilePictureUrl
-      friends {
-        id
-        username
-        profilePictureUrl
-      }
     }
   }
 `;
