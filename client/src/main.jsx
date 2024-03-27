@@ -13,7 +13,7 @@ import SearchPage from './pages/SearchPage';
 import ArtGen from './pages/ArtGen';
 import Social from './pages/Social';
 import Library from './pages/Library.jsx';
-import Login from './pages/login.jsx';
+import Login from './pages/Login.jsx';
 const httpLink = createHttpLink({
   uri: "/graphql"
 
