@@ -40,16 +40,10 @@ export const REQUEST_FRIEND = gql`
 `;
 
 export const REJECT_FRIEND = gql`
-  mutation rejectFriend($friendId: ID!) {
-    rejectFriend(id: $friendId) {
-      id
+  mutation rejectFriend($userId: ID!, $myId: ID!) {
+    rejectFriend(userId: $userId, myId: $myId) {
+      _id
       username
-      profilePictureUrl
-      friendRequests {
-        id
-        username
-        profilePictureUrl
-      }
     }
   }
 `;

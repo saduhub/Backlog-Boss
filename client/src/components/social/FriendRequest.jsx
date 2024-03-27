@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { ADD_FRIEND } from '../../utils/mutations';
+import { ADD_FRIEND, REJECT_FRIEND } from '../../utils/mutations';
 // eslint-disable-next-line
 const FriendRequest = ({ friendRequests }) => {
   const [addFriend, { loading: adding }] = useMutation(ADD_FRIEND);
+  const [rejectFriend, { loading: rejecting }] = useMutation(REJECT_FRIEND);
   const [requests, setRequests] = useState(friendRequests);
   const myId = localStorage.getItem('_id');
   console.log(myId)
@@ -21,8 +22,18 @@ const FriendRequest = ({ friendRequests }) => {
     });
   }
 
-  const handleFriendDecline = () => {
-
+  const handleFriendDecline = (userId) => {
+    console.log(userId);
+    if (rejecting) return;
+    rejectFriend({
+      variables: {userId: userId, myId: myId}
+    }).then((response) => {
+      console.log(`User removed from requests. Response:${response}`)
+      const updatedFriendRequests = requests.filter(request => request._id !==userId);
+      setRequests(updatedFriendRequests);
+    }).catch (error => {
+      console.error(error, userId)
+    });
   }
 
   return (
@@ -48,7 +59,7 @@ const FriendRequest = ({ friendRequests }) => {
                     <button onClick={() => handleFriendAccept(request._id)} className="social-button social-font social-border-radius">
                       Accept
                     </button>
-                    <button onClick={handleFriendDecline} className="social-button social-font social-border-radius">
+                    <button onClick={() =>handleFriendDecline(request._id)} className="social-button social-font social-border-radius">
                       Decline
                     </button>
                   </div>

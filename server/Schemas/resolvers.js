@@ -176,15 +176,15 @@ const resolvers = {
         }
         throw new Error("User not updated");
       },
-      rejectFriend: async (_, { id }, context) => {
-        if (context.user) {
-          return await User.findByIdAndUpdate(
-            context.user._id,
-            { $pull : { friendRequests : id } },
-            { new: true }
-          )
-        }
-        throw new Error("User not updated");
+      // Issues with context prompted direct passing of id from local storage.
+      rejectFriend: async (_, { userId, myId }, context) => {
+        console.log(myId);
+        console.log(userId);
+        return await User.findByIdAndUpdate(
+          myId,
+          { $pull : { friendRequests : userId } },
+          { new: true }
+        )
       },
       addUser: async (parent, { password, email, username }) => {
         const user = await User.create({ password, email, username });
