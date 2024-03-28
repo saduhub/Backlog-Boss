@@ -1,7 +1,7 @@
 
 # Backlog Boss
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/license/mit/)
-[![Deployed Application](https://img.shields.io/badge/Render-Deployed_Application-46E3B7?logo=render)](https://render.com/)
+[![Deployed Application](https://img.shields.io/badge/Render-Deployed_Application-46E3B7?logo=render)](https://backlog-boss.onrender.com/)
 
 ## Description
 
