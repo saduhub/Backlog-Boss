@@ -33,10 +33,6 @@ const Social = () => {
   let gameReviews = meData.reviews;
   console.log(gameReviews);
 
-  //// Need function to get friend requests
-  //// Keep track of friend requests sent, incoming friend requests, friends on friend list, all user reviews
-  //// Need function to get user context
-
   if (isAuthenticated) {
     return (
       <div className="social-container social-flex social-flex-col">
