@@ -80,13 +80,14 @@ const GameCard = ({ game, Backlog, Favorites, Progress, Completed, refetch}) => 
                 src={review.user.profilePictureUrl}
                 alt={review.user.username}
               />
+              <div className="game-card-review">
               <h4>
                 {review.user.username}{" "}
                 {new Date(parseInt(review.dateOfReview)).toLocaleDateString()}
+                ⭐{review.rating}
               </h4>
-              <h4>⭐{review.rating} </h4>
-              <br></br>
               <p>{review.reviewText}</p>
+              </div>
             </div>
           ))}
         </div>
