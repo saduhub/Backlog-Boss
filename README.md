@@ -14,6 +14,7 @@ Discover new titles, rate games, manage your backlog, document your gaming journ
   - [Table of Contents](#table-of-contents)
   - [Summary](#summary)
   - [Visit the site](#visit-the-site)
+  - [Usage](#usage)
   - [Credits](#credits)
   - [License](#license)
 
@@ -26,6 +27,19 @@ This application allows users to keep a digital catalogue of their gaming journe
 Click on the following image to visit the deployed site:
 
 [![BacklogBoss Landing Page](/client/src/assets/images/png/backlogbosslanding.png)](https://render.com/)
+
+## Usage
+
+1. Check Your User Info at a Glance Using the Profile Page: Check user info, friend list, game suggestions, user stats, challenges.
+2. Check Friend Info at a Glance Using the Profile Page: Check user info, friend list, game suggestions, user stats, challenges for that user.
+3. Follow Trending Games Using the Home Page: Check out the trending games on RAWG using the Home tab. 
+4. Manage Friendships, Reviews, and Friend Requests Usinf the Social Tab: Keep tabs on your friends, suggested friends, requests, and likes on your reviews. 
+5. Track Your Game Collection Through the Library Tab: Keep a virtual backlog of your video game collection.
+6. Create Lists Through the Library Tab: Organize your games into different lists favorites, in progress, etc.
+7. Rate Games Using the Game Page: You can rate the games to share your opinion on them.
+8. Review Games Using the Game Page: Write reviews of the games you've played.
+9. Explore New Games using the Search Page: Discover a continously updated list of games that can be sorted to find the rght game for you. 
+10. Generate Your Very Own AI Art Using the AI Tab: Make use of Open AI's image generation model and save these images to your device or as your profile picture. 
 
 ## Credits
 
