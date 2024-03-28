@@ -26,7 +26,7 @@ s
 
 Click on the following image to visit the deployed site:
 
-[![BacklogBoss Landing Page](/client/src/assets/images/png/backlogbosslanding.png)](https://render.com/)
+[![BacklogBoss Landing Page](/client/src/assets/images/png/backlogbosslanding.png)](https://backlog-boss.onrender.com/)
 
 ## Usage
 
