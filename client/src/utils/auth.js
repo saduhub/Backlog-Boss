@@ -1,4 +1,4 @@
-import jwtDecode from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 
 class AuthService {
   login(email, username, _id, token) {
