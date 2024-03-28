@@ -30,7 +30,8 @@
     margin-top: 20px;
     margin-bottom: 20px;
     overflow-x: auto;
-    scrollbar-color: var(--grey)
+    scrollbar-color: var(--grey);
+    
 }
 
 .library-backlog-div {
@@ -41,7 +42,7 @@
     margin-top: 20px;
     margin-bottom: 20px;
     overflow-x: auto;
-    scrollbar-color: var(--grey)
+    scrollbar-color: var(--grey);
 }
 
 .library-completed-div {
@@ -52,7 +53,8 @@
     margin-top: 20px;
     margin-bottom: 20px;
     overflow-x: auto;
-    scrollbar-color: var(--grey)
+    scrollbar-color: var(--grey);
+    
 }
 
 .library-image {
