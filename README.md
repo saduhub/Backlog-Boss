@@ -20,8 +20,8 @@ Discover new titles, rate games, manage your backlog, document your gaming journ
 
 ## Summary
 
-This application allows users to keep a digital catalogue of their gaming journey. The motivation behind building this projects was to create a webiste that allowed users to not only keep a backlog but to also connect with others sharing the same gaming interests. By creating this application, we demonstrated proficiency in collaboration with others as well as in working with React, Vite, MongoDB, GraphQL, Apollo Server, and JWT .
-
+This application allows users to keep a digital catalogue of their gaming journey. The motivation behind building this project was to create a website that allowed users to not only keep a backlog but to also connect with others sharing the same gaming interests. By creating this application, we demonstrated proficiency in collaboration with others as well as in working with React, Vite, MongoDB, GraphQL, Apollo Server, and JWT in a MERN stack application.
+s
 ## Visit the site
 
 Click on the following image to visit the deployed site:
@@ -30,16 +30,39 @@ Click on the following image to visit the deployed site:
 
 ## Usage
 
-1. Check Your User Info at a Glance Using the Profile Page: Check user info, friend list, game suggestions, user stats, challenges.
-2. Check Friend Info at a Glance Using the Profile Page: Check user info, friend list, game suggestions, user stats, challenges for that user.
-3. Follow Trending Games Using the Home Page: Check out the trending games on RAWG using the Home tab. 
-4. Manage Friendships, Reviews, and Friend Requests Usinf the Social Tab: Keep tabs on your friends, suggested friends, requests, and likes on your reviews. 
-5. Track Your Game Collection Through the Library Tab: Keep a virtual backlog of your video game collection.
-6. Create Lists Through the Library Tab: Organize your games into different lists favorites, in progress, etc.
-7. Rate Games Using the Game Page: You can rate the games to share your opinion on them.
-8. Review Games Using the Game Page: Write reviews of the games you've played.
-9. Explore New Games using the Search Page: Discover a continously updated list of games that can be sorted to find the rght game for you. 
-10. Generate Your Very Own AI Art Using the AI Tab: Make use of Open AI's image generation model and save these images to your device or as your profile picture. 
+### Profile Page
+
+Check user info, friend list, game suggestions, user stats, challenges.
+
+### Friend Page
+
+Check user info, friend list, game suggestions, user stats, challenges for that user.
+
+### Home Page
+
+Check out some of the top trending games on RAWG using the Home tab.
+
+### Social Page
+
+Manage your current friends, suggested friends, friend requests, and likes on your reviews.
+
+### Library Page
+
+Keep a virtual backlog of your video game collection.
+
+Create Lists Through the Library Tab: Organize your games into different lists: favorites, in progress, etc.
+
+### Search Page
+
+Explore new games! Discover a continously updated list of games that can be sorted to find games you might love.
+
+### Ai Art Generation Page
+
+Make use of Open AI's image generation model to create your own images save them to your account or as your profile picture.
+
+### Game Page
+
+Rate games and share your opinion. Leave reviews for the games you've played.
 
 ## Credits
 
