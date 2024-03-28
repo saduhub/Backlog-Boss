@@ -21,11 +21,9 @@ import Auth from '../utils/auth';
 
 function Profile() {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
-
+  // eslint-disable-next-line
   const { data, loading, error } = useQuery(ME);
-
-  console.log(error);
-
+  // console.log(error);
   const meData = data?.me || {}
   console.log(meData);
 
@@ -86,11 +84,6 @@ function Profile() {
   return (
     <Navigate to="/login" replace={true} />
   );
-  // return (
-  //   <section className='profile-main-section'>
-  //     {!showLogin ? (<SignUpForm onShowLogin={handleShowLogin} />) : (<LoginForm onShowSignUp={handleShowSignUp} />)}
-  //   </section>
-  // );
 }
   
 export default Profile;

@@ -1,16 +1,10 @@
 import { gql } from '@apollo/client';
 
 export const ADD_FRIEND = gql`
-  mutation addFriend($friendId: ID!) {
-    addFriend(id: $friendId) {
-      id
+  mutation addFriend($userId: ID!, $myId: ID!) {
+    addFriend(userId: $userId, myId: $myId) {
+      _id
       username
-      profilePictureUrl
-      friends {
-        id
-        username
-        profilePictureUrl
-      }
     }
   }
 `;
@@ -46,16 +40,10 @@ export const REQUEST_FRIEND = gql`
 `;
 
 export const REJECT_FRIEND = gql`
-  mutation rejectFriend($friendId: ID!) {
-    rejectFriend(id: $friendId) {
-      id
+  mutation rejectFriend($userId: ID!, $myId: ID!) {
+    rejectFriend(userId: $userId, myId: $myId) {
+      _id
       username
-      profilePictureUrl
-      friendRequests {
-        id
-        username
-        profilePictureUrl
-      }
     }
   }
 `;

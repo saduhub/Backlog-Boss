@@ -5,14 +5,15 @@ import { ADD_TO_BACKLOG } from "../../utils/mutations";
 import { Link } from 'react-router-dom';
 // eslint-disable-next-line
 function GameSuggestions({ gamesInBacklog }) {
+    // eslint-disable-next-line
     const { data, loading, error } = useQuery(GAME_SUGGESTIONS);
     const [addToBacklog, { loading: adding }] = useMutation(ADD_TO_BACKLOG);
     const [backlogIds, setBacklogIds] = useState(gamesInBacklog || []);
     const [suggestedGames, setSuggestedGames] = useState([]);
-    console.log(error);
-
+    // console.log(error);
+    // eslint-disable-next-line
     const gameData = data?.gameSuggestions || [] // depending on what I am expecting, it either an [] or an {}
-    console.log(gameData);
+    // console.log(gameData);
     // Only suggest 5 random titles that the user does n ot have backlogged
     const updateSuggestedGames = (games, backlog) => {
         const filteredGames = games.filter(game => !backlog.includes(game._id));
@@ -33,12 +34,13 @@ function GameSuggestions({ gamesInBacklog }) {
         addToBacklog({ 
             variables: { gameId: _id }
         }).then((response) => {
-            console.log('Game added to backlog');
+            // console.log('Game added to backlog');
             // Update the local backlogIds state with the new list from the mutation response
             const updatedBacklogIds = response.data.addToBacklog.gamesInBacklog.map(game => game._id);
             setBacklogIds(updatedBacklogIds);
+        // eslint-disable-next-line
         }).catch(error => {
-            console.error('Error adding game to backlog:', error);
+            // console.error('Error adding game to backlog:', error);
         });
     };
 

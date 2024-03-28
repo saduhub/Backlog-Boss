@@ -70,7 +70,9 @@ const resolvers = {
         if (context.user) {
           return User.findOne({ _id: context.user._id })
             .populate([
-              { path: 'reviews' }, 
+              { path: 'reviews',
+                populate: { path: 'game', select: '_id title' }
+              }, 
               { path: 'friendRequests' }, 
               { path: 'gamesInFavorites' }, 
               { path: 'gamesInBacklog' },
@@ -142,14 +144,17 @@ const resolvers = {
     },
 
     Mutation: {
-      addFriend: async (_, { id }, context) => {
-        if (context.user) {
-          return await User.findByIdAndUpdate(
-            context.user._id,
-            { $push: { friends: id } },
-            { new: true }
-          )
-        }
+      // Issues with context prompted dirrect passing of id from local storage.
+      addFriend: async (_, { userId, myId }, context) => {
+        // console.log(myId);
+        // console.log(userId);
+        return await User.findByIdAndUpdate(
+          myId,
+          { $push: { friends: userId },
+            $pull: { friendRequests: userId } 
+          },
+          { new: true }
+        );
       },
       removeFriend: async (_, { id }, context) => {
         if (context.user) {
@@ -169,15 +174,17 @@ const resolvers = {
           ).populate('friendRequests');
           return updatedUser;
         }
+        throw new Error("User not updated");
       },
-      rejectFriend: async (_, { id }, context) => {
-        if (context.user) {
-          return await User.findByIdAndUpdate(
-            context.user._id,
-            { $pull : { friendRequests : id } },
-            { new: true }
-          )
-        }
+      // Issues with context prompted direct passing of id from local storage.
+      rejectFriend: async (_, { userId, myId }, context) => {
+        console.log(myId);
+        console.log(userId);
+        return await User.findByIdAndUpdate(
+          myId,
+          { $pull : { friendRequests : userId } },
+          { new: true }
+        )
       },
       addUser: async (parent, { password, email, username }) => {
         const user = await User.create({ password, email, username });

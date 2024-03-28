@@ -81,11 +81,17 @@
 .social-inner-box {
   background-color: var(--grey);
   padding: .7rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Search Bar */
 .social-container {
-  padding: 3rem;
+  padding: 1rem;
+  max-width: 550px;
+  margin: 0 auto;
 }
 
 .social-search-box {
@@ -122,6 +128,8 @@
 .social-button {
   background-color: var(--purple);
   width: 5rem;
+  border: none;
+  margin-top: 0.3rem;
 }
 
 .social-sub-container {
@@ -133,13 +141,54 @@
 .social-icon {
   width: 1rem;
   height: 1rem;
-  margin-left: 1rem;
+  margin-left: 0.5rem;
   margin-right: .5rem;
 }
 
 .social-review-box {
-  padding-left: 4rem;
-  padding-right: 4rem;
+  /* padding-left: 4rem;
+  padding-right: 4rem; */
+  margin-bottom: 6rem;
+  background-color: #282828;
+}
+
+.social-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  width: 100%;
+  border-bottom: 1px solid #FFFFFF;
+}
+
+.social-username {
+  color: #9F34FF;
+  font-size: 1.5rem;
+}
+
+.social-game-link {
+  text-decoration: none;
+  color: #E1CDF2;
+  font-size: 1.1rem;
+}
+
+@media (min-width: 380px) {
+  .social-inner-box {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .social-suggested-friends {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0px;
+  }
+
+  .social-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0px;
+  }
 }
 
 @media (min-width: 760px) {
