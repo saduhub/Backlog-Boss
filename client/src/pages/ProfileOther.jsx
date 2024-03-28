@@ -19,28 +19,21 @@ import GameSuggestions from '../components/profile/GameSuggestions';
 // import Auth from '../utils/auth';
 
 function Profile() {
-//   const [showLogin, setShowLogin] = useState(false);
-//   const [isAuthenticated, setIsAuthenticated] = useState(false);
-//   const handleShowLogin = () => setShowLogin(true);
-//   const handleShowSignUp = () => setShowLogin(false);
-  const userVisitedId = localStorage.getItem('_idUserVisited');
-//   const userVisitedId = "660086a8868c8a1873a78541";
-  const { data, loading, error } = useQuery(USER_VISITED_INFO, {
-    variables: {id: userVisitedId}
-  });
+    //   const [showLogin, setShowLogin] = useState(false);
+    //   const [isAuthenticated, setIsAuthenticated] = useState(false);
+    //   const handleShowLogin = () => setShowLogin(true);
+    //   const handleShowSignUp = () => setShowLogin(false);
+    const userVisitedId = localStorage.getItem('_idUserVisited');
+    //   const userVisitedId = "660086a8868c8a1873a78541";
+    // eslint-disable-next-line
+    const { data, loading, error } = useQuery(USER_VISITED_INFO, {
+        variables: {id: userVisitedId}
+    });
+    //   console.log(error);
+    const userVisitedData = data?.userVisitedInfo || {}
+    //   console.log(userVisitedData);
+    if (loading) return <p>Loading...</p>
 
-  console.log(error);
-
-  const userVisitedData = data?.userVisitedInfo || {}
-  console.log(userVisitedData);
-
-//   useEffect(() => {
-//     setIsAuthenticated(Auth.loggedIn());
-//   }, []);
-
-  if (loading) return <p>Loading...</p>
-
-//   if (isAuthenticated) {
     return (
       <section className='profile-main-section'>
           {/* User Card, Game Stats, Challenges */}
@@ -86,13 +79,6 @@ function Profile() {
           </div>
       </section>
     );
-//   }
-
-//   return (
-//     <section className='profile-main-section'>
-//       {!showLogin ? (<SignUpForm onShowLogin={handleShowLogin} />) : (<LoginForm onShowSignUp={handleShowSignUp} />)}
-//     </section>
-//   );
 }
   
 export default Profile;

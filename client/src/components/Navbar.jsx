@@ -48,9 +48,6 @@ function App() {
             <Link to='/social' style={{ color: location.pathname === '/social' ? '#9F34FF' : '#ffffff','--item': '0' }}>
               <i className='bx bxs-group'></i>
             </Link>
-            <Link to='/game' style={{ color: location.pathname === '/game' ? '#9F34FF' : '#ffffff','--item': '0' }}>
-              <i className='bx bxs-game'></i>
-            </Link>
             <Link to='/library' style={{ color: location.pathname === '/library' ? '#9F34FF' : '#ffffff','--item': '0' }}>
               <i className='bx bx-library'></i>
             </Link>

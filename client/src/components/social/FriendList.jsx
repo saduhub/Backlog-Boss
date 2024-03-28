@@ -1,7 +1,9 @@
-const FriendList = ({ friendRequests }) => {
+// eslint-disable-next-line
+const FriendList = ({ friends }) => {
   const handleFriendRemove = () => {
     
   }
+  console.log(friends);
 
   return (
     <div>
@@ -11,19 +13,20 @@ const FriendList = ({ friendRequests }) => {
         </h3>
 
         <div className="social-col-2">
-          {friendRequests &&
-            friendRequests.map(req => {
+          {friends &&
+            // eslint-disable-next-line
+            friends.map(friend => {
               return (
-                <div key={req.id} className="social-inner-box social-box-col-2 social-flex social-flex-wrap social-my-p5 social-border-radius social-content-between">
+                <div key={friend._id} className="social-inner-box social-box-col-2 social-flex social-flex-wrap social-my-p5 social-border-radius social-content-between">
                   <div className="social-flex social-items-center">
-                    <img src={req.profilePictureUrl} alt="profile pic" className="social-profile-pic" />
+                    <img src={friend.profilePictureUrl} alt="profile pic" className="social-profile-pic" />
                     <p>
-                      {req.username}
+                      {friend.username}
                     </p>
                   </div>
                   <div className="social-gap-p5">
                     <button onClick={handleFriendRemove} className="social-button social-border-radius social-font">
-                      Remove Friend
+                      Remove
                     </button>
                   </div>
                 </div>

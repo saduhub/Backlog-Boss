@@ -6,8 +6,8 @@ function FriendList({username, logo, otherData}) {
   // eslint-disable-next-line
   const { friends } = otherData;
   const currentUsername = localStorage.getItem('username');
-  console.log(currentUsername);
-  console.log(username)
+  // console.log(currentUsername);
+  // console.log(username)
   // eslint-disable-next-line
   const randomFriends = [...friends]
     .filter(friend => friend.username !== currentUsername)
@@ -15,7 +15,7 @@ function FriendList({username, logo, otherData}) {
     .slice(0, 5);
 
   const handleVisit = (friendId) => {
-    console.log(`Visiting friend: ${friendId}`);
+    // console.log(`Visiting friend: ${friendId}`);
     localStorage.setItem('_idUserVisited', friendId);
     // navigate('/ProfileOther');
     window.location = '/ProfileOther'

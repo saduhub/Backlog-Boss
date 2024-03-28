@@ -9,11 +9,11 @@ function Challenges({username, logo, otherData}) {
     if (currentUsername != username) {
         userId = visitedId
     }
-
+    // eslint-disable-next-line
     const { data, loading, error } = useQuery(USER_LIKES, {
         variables: { userReviewsId: userId },
     });
-    console.log(error)
+    // console.log(error)
     const likesData = data?.userReviews || []
     // eslint-disable-next-line
     const reviewedGamesCount = otherData.reviews.length;

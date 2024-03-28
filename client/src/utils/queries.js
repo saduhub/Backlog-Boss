@@ -40,6 +40,47 @@ export const ME = gql`
   }
 `;
 
+export const SOCIAL = gql`
+  query social {
+    me {
+      _id
+      email
+      hoursPlayed
+      username
+      profilePictureUrl
+      friends {
+        _id
+        username
+        profilePictureUrl
+      }
+      likedReviews {
+        _id
+      }
+      reviews {
+        _id
+        game {
+          _id
+          title
+        }
+        rating
+        reviewText
+        likes
+        dateOfReview
+      }
+      friendRequests {
+        _id
+        username
+        profilePictureUrl
+      }
+    }
+    users {
+      _id
+      username
+      profilePictureUrl
+    }
+  }
+`;
+
 export const GAME_SUGGESTIONS = gql`
   query gameSuggestions {
     gameSuggestions {
