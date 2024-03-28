@@ -18,6 +18,8 @@
     border-radius: 20px;
     margin-top: 20px;
     margin-bottom: 20px;
+    overflow-x: auto;
+    scrollbar-color: var(--grey)
 }
 
 .library-in-progress-div {
@@ -27,6 +29,8 @@
     border-radius: 20px;
     margin-top: 20px;
     margin-bottom: 20px;
+    overflow-x: auto;
+    scrollbar-color: var(--grey)
 }
 
 .library-backlog-div {
@@ -36,6 +40,8 @@
     border-radius: 20px;
     margin-top: 20px;
     margin-bottom: 20px;
+    overflow-x: auto;
+    scrollbar-color: var(--grey)
 }
 
 .library-completed-div {
@@ -45,4 +51,31 @@
     border-radius: 20px;
     margin-top: 20px;
     margin-bottom: 20px;
+    overflow-x: auto;
+    scrollbar-color: var(--grey)
 }
+
+.library-image {
+  border-radius: 20px;
+  max-width: 400px;
+  min-width: 400px;
+  
+}
+
+.library-flex {
+  display: flex;
+
+}
+
+.library-game-div {
+  padding: 20px 20px 0px 20px;
+  max-width: 30%;
+  text-align: center;
+
+}
+
+.library-game-div p {
+  text-align: center;
+  margin-top: 15px;
+}
+

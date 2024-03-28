@@ -24,22 +24,22 @@ const resolvers = {
       // Fetch a single game by ID
       game: async (_, { id }) => {
         try {
-          const url = `https://api.rawg.io/api/games/${id}?key=${process.env.RAWG_API_KEY}`;
+        //   const url = `https://api.rawg.io/api/games/${id}?key=${process.env.RAWG_API_KEY}`;
 
-          try {
-            const response = await fetch(url);
-            if (!response.ok) {
-              throw new Error(`${response.status}`);
-            }
-            const data = await response.json();
-            // console.log(data.results);
-            return data.results;
-          } catch (err) {
-            console.error(err);
-          }
-/*           const game = await Game.findById(id).populate({path: "reviews", populate:"user"})
+        //   try {
+        //     const response = await fetch(url);
+        //     if (!response.ok) {
+        //       throw new Error(`${response.status}`);
+        //     }
+        //     const data = await response.json();
+        //     // console.log(data.results);
+        //     return data.results;
+        //   } catch (err) {
+        //     console.error(err);
+        //   }
+          const game = await Game.findById(id).populate({path: "reviews", populate:"user"})
           console.log(game)
-           return game */
+           return game
         } catch(error) {
           console.log(error)
         }
