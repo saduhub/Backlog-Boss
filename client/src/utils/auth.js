@@ -29,6 +29,15 @@ class AuthService {
     return localStorage.getItem('id_token');
   }
 
+  getUser() {
+    if (!this.loggedIn()) return null;
+
+    return {
+      username: localStorage.getItem('username'),
+      _id: localStorage.getItem('_id'),
+    };
+  }
+
   logout() {
     localStorage.removeItem('id_token');
     localStorage.removeItem('email');

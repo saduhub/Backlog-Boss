@@ -266,3 +266,26 @@ query userLibrary {
   }
 }
 `;
+
+export const REVIEWS_HOME = gql`
+query ReviewsHome {
+  reviews {
+    _id
+    dateOfReview
+    likes
+    rating
+    reviewText
+    user {
+      _id
+      profilePictureUrl
+      username
+    }
+    game {
+      _id
+      title
+      pictureUrl
+      averageRating
+    }
+  }
+}
+`;

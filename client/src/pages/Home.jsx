@@ -1,40 +1,36 @@
+import { useQuery } from "@apollo/client";
+import { REVIEWS_HOME } from "../utils/queries";
+// Style
 import '../assets/css/home.css';
+// Components
+import GameReviewCard from '../components/home/GameReviewCard';
+import WelcomeBanner from '../components/home/WelcomeBanner';
+import Auth from '../utils/auth';
 
-import { useQuery } from '@apollo/client';
-import { POPULAR_GAMES } from '../utils/queries';
+function Home() {
+  // eslint-disable-next-line
+  const { data, loading, error } = useQuery(REVIEWS_HOME);
+  // console.log(data);
+  const reviewData = data?.reviews || {}
+  console.log(reviewData);
+  const user = Auth.getUser();
+  console.log(user)
 
-import HomeGameCard from '../components/Home-Game-Card';
+  if (loading) return <p>Loading Latest Reviews...</p>
+  if (error) return <p className="p-8 text-red-600">Something Went Wrong</p>;
 
-const Home = () => {
-  const { loading, data } = useQuery(POPULAR_GAMES);
-  const popularGames = data?.getPopularGames;
-  // console.log(popularGames);
-  
   return (
-    <div className="home-flex home-content-center">
-      <div className="home-container">
-        <section className="home-main-header home-font">
-          <h2>
-            Hello, Username
-          </h2>
-        </section>
-
-        <section className="home-inner-box home-border-radius">
-          <div className="home-sub-header home-font">
-            <h3>
-              Trending Games
-            </h3>
-          </div>
-          {loading ? <div className="home-font">Loading...</div> :
-            <div id="gameCard" className="home-flex home-flex-wrap">
-              {popularGames?.map((game) => (
-                  <HomeGameCard key={game.id} game={game} />
-              ))}
-            </div>}
-        </section>
+    <section className="home-main-section">
+      <WelcomeBanner user={user} />
+      <div className='home-main-div'>
+        {
+          reviewData.map((review) => (
+            <GameReviewCard key={review._id} review={review} />
+          ))
+        }
       </div>
-    </div>
-  )
+    </section>
+  );
 }
-
+  
 export default Home;

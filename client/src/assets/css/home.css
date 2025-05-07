@@ -1,145 +1,19 @@
-:root {
-  --background-color: #161616;
-  --font-color: #FFFFFF;
-  --grey: #282828;
-  --purple: #9F34FF;
-  --light-purple: #E1CDF2;
-}
-
-.home-flex {
-  display: flex;
-}
-
-.home-flex-wrap {
-  flex-wrap: wrap;
-}
-
-.home-flex-col {
-  flex-direction: column;
-}
-
-.home-gap {
-  /* gap: 1rem; */
-  gap: clamp(1rem, 4vw, 6rem);
-}
-
-/* .home-w-100 {
-  width: 100%;
-} */
-
-.home-max-w12 {
-  max-width: 12rem;
-}
-
-/* .home-mx-auto {
-  margin-left: auto;
-  margin-right: auto;
-} */
-
-.home-my-p5 {
-  margin-top: .5rem;
-  margin-bottom: .5rem;
-}
-
-.home-items-start {
-  align-items: start;
-}
-
-.home-content-center {
-  justify-content: center;
-}
-
-.home-items-center {
+.home-main-section {
   align-items: center;
+  justify-content: center;
+  padding-top: 5%;
 }
 
-.home-border-radius {
-  border-radius: .5rem;
-}
-
-.home-object-cover {
-  object-fit: cover;
-}
-
-.home-font {
-  color: var(--font-color);
-  font-family: Poppins, sans-serif;
-}
-
-.home-overflow-ellipses {
-  white-space: none;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-height: 2.5rem;
-}
-
-/* //// Example for @supports structure */
-/* @supports (font-family: Poppins) {
-  .home-font {
-    font-family: Poppins;
-    font-weight: bold;
-  }
-} */
-
-/* Home Page */
-.home-container {
-  padding: 0 3rem;
-  height: 100%;
-  background-color: var(--background-color);
-}
-
-.home-main-header {
-  padding-top: 2rem;
-  padding-bottom: 1rem;
-}
-
-.home-inner-box {
-  background-color: var(--grey);
-  padding: .5rem;
-  max-width: 55rem;
-}
-
-.home-sub-header {
-  padding-bottom: .5rem;
-}
-
-/* Game Cards */
-.home-game-card {
-  width: 12rem;
-  height: 20rem;
-}
-
-.home-game-preview-image {
-  width: 12rem;
-  height: 8rem;
-}
-
-.home-profile-pic {
-  width: 3rem;
-  height: 3rem;
-}
-
-.home-icon {
-  width: 1rem;
-  height: 1rem;
-  margin-left: 1rem;
-  margin-right: .5rem;
-}
-
-.home-game-button {
-  background-color: var(--purple);
-  margin-bottom: .5rem;
-}
-
-@media (max-width: 759px) {
-  #gameCard {
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
-@media (min-width: 760px) {
-  .home-w-33 {
-    width: 33%;
-  }
+.home-main-div {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  max-width: 1600px;
+  padding: 0 5%; 
+  text-align: center;
+  margin: calc(5vh + 25px) auto 5%;
+  color: #ffffff;
+  min-width: 280px;
+  place-items: center;
+  border-radius: 1rem;
+  column-gap: 1rem; 
 }
