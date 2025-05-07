@@ -51,7 +51,16 @@ const resolvers = {
       },
       // Fetch all reviews
       reviews: async () => {
-        return await Review.find({});
+        // return await Review.find({});
+        return await Review.find({})
+         .populate({            // User
+           path: 'user',
+           select: 'username profilePictureUrl'  // only the fields needed
+         })
+         .populate({            // Game
+           path: 'game',
+           select: 'title pictureUrl averageRating'
+         });
       },
       // Fetch a single review by ID
       review: async (_, { id }) => {

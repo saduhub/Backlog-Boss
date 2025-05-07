@@ -1,0 +1,110 @@
+/* Outermost Container */
+.game-review-card {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-evenly;
+    /* border: 1px solid black; */
+    width: 400px;
+    height: 650px;
+    border-radius: 1rem;
+}
+
+.gamereviewcard-game-image-container {
+    width: 100%;
+    height: 250px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; 
+}
+
+.gamereviewcard-game-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 1rem;
+}
+
+.gamereviewcard-game-title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.gamereviewcard-review-container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: start;
+    justify-content: start;
+}
+
+.gamereviewcard-profile-image-container {
+    width: 100px;
+    height: 100px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; 
+}
+
+.gamereviewcard-profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.gamereviewcard-review-details-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.25rem;
+}
+
+.gamereviewcard-rating-likes-container {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: start;
+}
+
+.gamereviewcard-rating span {
+    color: yellow;
+}
+
+.gamereviewcard-likes span {
+    color: red;
+}
+
+.gamereviewcard-button {
+    padding: 0.5rem;
+    background-color: #000000;
+    border: 1px solid #000000;
+    border-radius: 0.75rem;
+    color: #ffffff;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.25rem;
+}
+
+.gamereviewcard-button:hover {
+    padding: 0.5rem;
+    background-color: #9F34FF;
+    border: 1px solid #9F34FF;
+    border-radius: 0.75rem;
+    color: #ffffff;
+    text-decoration: none;
+}
