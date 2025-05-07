@@ -88,7 +88,7 @@
 }
 
 .gamereviewcard-button {
-    padding: 0.5rem;
+    padding: 1rem;
     background-color: #000000;
     border: 1px solid #000000;
     border-radius: 0.75rem;
@@ -101,7 +101,7 @@
 }
 
 .gamereviewcard-button:hover {
-    padding: 0.5rem;
+    padding: 1rem;
     background-color: #9F34FF;
     border: 1px solid #9F34FF;
     border-radius: 0.75rem;

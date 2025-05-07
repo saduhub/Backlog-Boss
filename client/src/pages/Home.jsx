@@ -4,22 +4,24 @@ import { REVIEWS_HOME } from "../utils/queries";
 import '../assets/css/home.css';
 // Components
 import GameReviewCard from '../components/home/GameReviewCard';
+import WelcomeBanner from '../components/home/WelcomeBanner';
+import Auth from '../utils/auth';
 
-function HomeCopy() {
+function Home() {
   // eslint-disable-next-line
   const { data, loading, error } = useQuery(REVIEWS_HOME);
   // console.log(data);
   const reviewData = data?.reviews || {}
   console.log(reviewData);
+  const user = Auth.getUser();
+  console.log(user)
 
   if (loading) return <p>Loading Latest Reviews...</p>
   if (error) return <p className="p-8 text-red-600">Something Went Wrong</p>;
 
   return (
     <section className="home-main-section">
-      <div className="home-welcome-banner">
-        <h2>Hello, {}</h2>
-      </div>
+      <WelcomeBanner user={user} />
       <div className='home-main-div'>
         {
           reviewData.map((review) => (
@@ -31,4 +33,4 @@ function HomeCopy() {
   );
 }
   
-export default HomeCopy;
+export default Home;

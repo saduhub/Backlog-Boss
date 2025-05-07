@@ -1,8 +1,14 @@
+.home-main-section {
+  align-items: center;
+  justify-content: center;
+  padding-top: 5%;
+}
+
 .home-main-div {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   max-width: 1600px;
-  padding: 5%; 
+  padding: 0 5%; 
   text-align: center;
   margin: calc(5vh + 25px) auto 5%;
   color: #ffffff;

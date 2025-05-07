@@ -1,0 +1,21 @@
+.home-welcome-banner {
+    min-width: 280px;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    padding: 0 5%;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.home-welcome-banner h2, p {
+    text-align: center;
+}
+
+.home-welcome-banner span {
+    color: #9F34FF;
+}
+
+.home-welcome-banner a {
+    color: #9F34FF;
+}
