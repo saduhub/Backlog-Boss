@@ -60,6 +60,8 @@
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
+    aspect-ratio: 1;
+    display: block;
 }
 
 .gamereviewcard-review-details-container {
@@ -70,6 +72,23 @@
     font-style: normal;
     font-weight: 400;
     font-size: 1.25rem;
+}
+
+.gamereviewcard-username a {
+    color: #9F34FF;
+    text-decoration: underline;
+    font-size: 1.5rem;
+}
+
+.gamereviewcard-review-text {
+    max-height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+
+.gamereviewcard-review-text a {
+    color: #9F34FF;
+    text-decoration: none;
 }
 
 .gamereviewcard-rating-likes-container {

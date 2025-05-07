@@ -7,10 +7,29 @@ function GameReviewCard({ review }) {
         rating,
         likes,
         reviewText,
-        user: { username, profilePictureUrl },
-        game: { title, pictureUrl, _id },
+        user: { username, profilePictureUrl, _id: userId },
+        game: { title, pictureUrl, _id: gameId },
         dateOfReview,
     } = review;
+
+    const handleVisitProfile = () => {
+        localStorage.setItem('_idUserVisited', userId);
+    };
+    
+    const formattedDate = (() => {
+        try {
+          const date = new Date(Number(dateOfReview));
+          return isNaN(date.getTime()) ? 'Invalid Date' : date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+          });
+        } catch {
+          return 'Invalid Date';
+        }
+    })();
+
+    const isTextLong = reviewText.length > 21;
 
     return (
     <div className="game-review-card">
@@ -20,19 +39,33 @@ function GameReviewCard({ review }) {
         <h4 className="gamereviewcard-game-title">{title}</h4>
         <div className='gamereviewcard-review-container'>
             <div className="gamereviewcard-profile-image-container">
-                <img className="gamereviewcard-profile-image" src={profilePictureUrl} alt={`Picture of ${title}`} />
+                <Link to={`/ProfileOther`} onClick={handleVisitProfile}>
+                    <img className="gamereviewcard-profile-image" src={profilePictureUrl} alt={`Picture of ${title}`} />
+                </Link>
             </div>
             <div className="gamereviewcard-review-details-container">
-                <p className="gamereviewcard-username">{username}</p>
-                <p className="gamereviewcard-review-date">Reviewed: {dateOfReview}</p>
-                <p className="gamereviewcard-review-text">{reviewText}</p>
+                <p className="gamereviewcard-username">
+                    <Link to={`/ProfileOther`} onClick={handleVisitProfile}>
+                        {username}
+                    </Link>
+                </p>
+                <p className="gamereviewcard-review-date">Reviewed: {formattedDate}</p>
+                {/* <p className="gamereviewcard-review-text">{reviewText}</p> */}
+                <p className="gamereviewcard-review-text">
+                    {isTextLong ? `${reviewText.substring(0, 21)}... ` : reviewText}
+                    {isTextLong && (
+                        <Link to={`/game/${gameId}`} className="gamereviewcard-readmore-link">
+                        more
+                        </Link>
+                    )}
+                </p>
                 <div className="gamereviewcard-rating-likes-container">
                     <p className="gamereviewcard-rating"><span>&#9733;</span> {rating}</p>
                     <p className="gamereviewcard-likes"><span>&#10084;</span> {likes}</p>
                 </div>
             </div>
         </div>
-        <Link to={`/game/${_id}`} className="gamereviewcard-button">
+        <Link to={`/game/${gameId}`} className="gamereviewcard-button">
             View Game
         </Link>
     </div>
