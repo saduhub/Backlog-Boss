@@ -1,82 +1,20 @@
-:root {
-    --background-color: #161616;
-    --font-color: #FFFFFF;
-    --grey: #282828;
-    --purple: #9F34FF;
-    --light-purple: #E1CDF2;
-  }
-
-  .library-main {
-    color:white;
-    padding-left: 10%;
-  }
-
-  .library-favorites-div {
-    background-color: var(--grey);
-    width: 90%;
-    padding: 15px;
-    border-radius: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    overflow-x: auto;
-    scrollbar-color: var(--grey)
+.library-main-section {
+  align-items: center;
+  justify-content: center;
+  padding-top: 5%;
 }
 
-.library-in-progress-div {
-    background-color: var(--grey);
-    width: 90%;
-    padding: 15px;
-    border-radius: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    overflow-x: auto;
-    scrollbar-color: var(--grey)
-
-}
-
-.library-backlog-div {
-    background-color: var(--grey);
-    width: 90%;
-    padding: 15px;
-    border-radius: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    overflow-x: auto;
-    scrollbar-color: var(--grey)
-}
-
-.library-completed-div {
-    background-color: var(--grey);
-    width: 90%;
-    padding: 15px;
-    border-radius: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    overflow-x: auto;
-    scrollbar-color: var(--grey)
-}
-
-.library-image {
-  border-radius: 20px;
-  max-width: 400px;
-  min-width: 400px;
-  
-}
-
-.library-flex {
-  display: flex;
-
-}
-
-.library-game-div {
-  padding: 20px 20px 0px 20px;
-  max-width: 30%;
+.library-main-div {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  max-width: 1200px;
+  padding: 0 5%; 
   text-align: center;
-
-}
-
-.library-game-div p {
-  text-align: center;
-  margin-top: 15px;
+  margin: calc(5vh + 25px) auto 5%;
+  color: #ffffff;
+  min-width: 280px;
+  place-items: center;
+  border-radius: 1rem;
+  column-gap: 1rem; 
 }
 
