@@ -1,16 +1,16 @@
 /* Outermost Container */
-.game-review-card {
+.library-game-card {
     display: flex;
     flex-direction: column;
     align-items: start;
-    justify-content: space-evenly;
+    justify-content: start;
     /* border: 1px solid black; */
-    width: 400px;
-    height: 650px;
+    width: 300px;
+    height: 350px;
     border-radius: 1rem;
 }
 
-.gamereviewcard-game-image-container {
+.librarygamecard-game-image-container {
     width: 100%;
     height: 250px;
     margin: 0;
@@ -21,20 +21,21 @@
     overflow: hidden; 
 }
 
-.gamereviewcard-game-image {
+.librarygamecard-game-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 1rem;
 }
 
-.gamereviewcard-game-title {
+.librarygamecard-game-title {
     font-style: normal;
     font-weight: 600;
     font-size: 1.5rem;
+    text-align: start;
 }
 
-.gamereviewcard-review-container {
+.librarygamecard-review-container {
     width: 100%;
     height: auto;
     display: flex;
@@ -44,7 +45,7 @@
     justify-content: start;
 }
 
-.gamereviewcard-profile-image-container {
+.librarygamecard-profile-image-container {
     width: 100px;
     height: 100px;
     margin: 0;
@@ -55,7 +56,7 @@
     overflow: hidden; 
 }
 
-.gamereviewcard-profile-image {
+.librarygamecard-profile-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -64,7 +65,7 @@
     display: block;
 }
 
-.gamereviewcard-review-details-container {
+.librarygamecard-review-details-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -74,39 +75,39 @@
     font-size: 1.25rem;
 }
 
-.gamereviewcard-username a {
+.librarygamecard-username a {
     color: #9F34FF;
     text-decoration: underline;
     font-size: 1.5rem;
 }
 
-.gamereviewcard-review-text {
+.librarygamecard-review-text {
     max-height: 200px;
     overflow: hidden;
     position: relative;
 }
 
-.gamereviewcard-review-text a {
+.librarygamecard-review-text a {
     color: #9F34FF;
     text-decoration: none;
 }
 
-.gamereviewcard-rating-likes-container {
+.librarygamecard-rating-likes-container {
     display: flex;
     flex-direction: row;
     gap: 1rem;
     justify-content: start;
 }
 
-.gamereviewcard-rating span {
+.librarygamecard-rating span {
     color: #9F34FF;
 }
 
-.gamereviewcard-likes span {
-    color: #9F34FF;
+.librarygamecard-likes span {
+    color: red;
 }
 
-.gamereviewcard-button {
+.librarygamecard-button {
     padding: 1rem;
     background-color: #000000;
     border: 1px solid #000000;
@@ -119,7 +120,7 @@
     font-size: 1.25rem;
 }
 
-.gamereviewcard-button:hover {
+.librarygamecard-button:hover {
     padding: 1rem;
     background-color: #9F34FF;
     border: 1px solid #9F34FF;

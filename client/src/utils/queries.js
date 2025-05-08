@@ -289,3 +289,16 @@ query ReviewsHome {
   }
 }
 `;
+
+export const ME_LIBRARY = gql`
+  query MeLibrary {
+    me {
+      _id
+      games100Completed { _id averageRating pictureUrl title }
+      gamesCompleted    { _id averageRating pictureUrl title }
+      gamesInBacklog    { _id averageRating pictureUrl title }
+      gamesInFavorites  { _id averageRating pictureUrl title }
+      gamesInProgress   { _id averageRating pictureUrl title }
+    }
+  }
+`;
