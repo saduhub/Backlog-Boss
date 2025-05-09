@@ -39,7 +39,7 @@
     color: #9F34FF;
 }
 
-/* .librarygamecard-button {
+.librarygamecard-button {
     padding: 1rem;
     background-color: #000000;
     border: 1px solid #000000;
@@ -50,13 +50,51 @@
     font-style: normal;
     font-weight: 400;
     font-size: 1.25rem;
-} */
+}
 
-/* .librarygamecard-button:hover {
+.librarygamecard-button:hover {
     padding: 1rem;
     background-color: #9F34FF;
     border: 1px solid #9F34FF;
     border-radius: 0.75rem;
     color: #ffffff;
     text-decoration: none;
-} */
+}
+
+.librarygamecard-game-image-container {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .librarygamecard-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(159, 52, 255, 0.6); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 1rem;
+  }
+  
+  .librarygamecard-game-image-container:hover .librarygamecard-overlay {
+    opacity: 1;
+  }
+  
+  .librarygamecard-button {
+    padding: 1rem 1.75rem;
+    background-color: #9F34FF;
+    border: 1px solid #9F34FF;
+    border-radius: 0.75rem;
+    color: #ffffff;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: background 0.25s, border 0.25s;
+  }
+  
+  .librarygamecard-button:hover {
+    padding: 1rem 1.75rem; 
+    background-color: #000000;
+    border-color: #000000;
+  }

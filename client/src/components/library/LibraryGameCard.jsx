@@ -1,10 +1,10 @@
 import './library-game-card.css'
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function LibraryGameCard({ gameInfo }) {
     // const currentUsername = localStorage.getItem('username');
     const {
-        // _id: gameId,
+        _id: gameId,
         averageRating,
         pictureUrl,
         title,
@@ -17,11 +17,11 @@ function LibraryGameCard({ gameInfo }) {
         </div>
         <div className="librarygamecard-game-image-container">
             <img className="librarygamecard-game-image" src={pictureUrl} alt={`Picture of ${title}`} />
+            <div className="librarygamecard-overlay">
+                <Link to={`/game/${gameId}`} className="librarygamecard-button">View Game</Link>
+            </div>
         </div>
         <h4 className="librarygamecard-game-title">{title}</h4>
-        {/* <Link to={`/game/${gameId}`} className="librarygamecard-button">
-            View Game
-        </Link> */}
     </div>
     )
 }
