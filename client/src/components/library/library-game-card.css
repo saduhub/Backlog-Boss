@@ -35,79 +35,11 @@
     text-align: start;
 }
 
-.librarygamecard-review-container {
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    align-items: start;
-    justify-content: start;
-}
-
-.librarygamecard-profile-image-container {
-    width: 100px;
-    height: 100px;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden; 
-}
-
-.librarygamecard-profile-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    aspect-ratio: 1;
-    display: block;
-}
-
-.librarygamecard-review-details-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: start;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 1.25rem;
-}
-
-.librarygamecard-username a {
-    color: #9F34FF;
-    text-decoration: underline;
-    font-size: 1.5rem;
-}
-
-.librarygamecard-review-text {
-    max-height: 200px;
-    overflow: hidden;
-    position: relative;
-}
-
-.librarygamecard-review-text a {
-    color: #9F34FF;
-    text-decoration: none;
-}
-
-.librarygamecard-rating-likes-container {
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    justify-content: start;
-}
-
 .librarygamecard-rating span {
     color: #9F34FF;
 }
 
-.librarygamecard-likes span {
-    color: red;
-}
-
-.librarygamecard-button {
+/* .librarygamecard-button {
     padding: 1rem;
     background-color: #000000;
     border: 1px solid #000000;
@@ -118,13 +50,13 @@
     font-style: normal;
     font-weight: 400;
     font-size: 1.25rem;
-}
+} */
 
-.librarygamecard-button:hover {
+/* .librarygamecard-button:hover {
     padding: 1rem;
     background-color: #9F34FF;
     border: 1px solid #9F34FF;
     border-radius: 0.75rem;
     color: #ffffff;
     text-decoration: none;
-}
+} */
