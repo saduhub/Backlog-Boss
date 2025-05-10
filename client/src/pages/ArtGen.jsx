@@ -1,99 +1,97 @@
+import { useState, useEffect } from 'react';
+import { useLazyQuery, useMutation } from '@apollo/client';
+import { motion, AnimatePresence } from 'framer-motion';
+
+import { GET_AI_IMAGE } from '../utils/queries.js';
+import { CHANGE_PROFILE_PIC, SAVE_AI_PIC } from '../utils/mutations.js';
+
+import PromptForm from '../components/artgen/PromtForm.jsx';
+import ImagePreview from '../components/artgen/ImagePreview.jsx';
+import ActionBar from '../components/artgen/ActionBar.jsx';
 import '../assets/css/artGen.css';
 
-import { useState } from 'react';
-import { useLazyQuery, useMutation } from '@apollo/client';
-// import { writeFileSync } from 'fs';
+function ArtGen() {
+  const [previewUrl, setPreviewUrl] = useState('');
+  const [prompt, setPrompt] = useState('');
 
-import gamePreview from '../assets/images/png/game-preview.png';
-import { GET_AI_IMAGE } from '../utils/queries';
-import { CHANGE_PROFILE_PIC, SAVE_AI_PIC } from '../utils/mutations';
+  // GraphQL Hooks
+  const [getAiImage, { loading: loadingImage, data: imageData, error: imageErr }] =
+    useLazyQuery(GET_AI_IMAGE);
+  const [changeProfilePic, { loading: savingAvatar }] =
+    useMutation(CHANGE_PROFILE_PIC);
+  const [saveAiPic, { loading: savingGallery }] =
+    useMutation(SAVE_AI_PIC);
 
-const ArtGen = () => {
-  const [prompt, setPrompt ] = useState('');
-  const [imgUrl, setImgUrl ] = useState(gamePreview);
-  
-  const [getAiImage] = useLazyQuery(GET_AI_IMAGE);
-  const [changeProfilePic] = useMutation(CHANGE_PROFILE_PIC);
-  const [saveAiPic] = useMutation(SAVE_AI_PIC);
+  // Helpers and Callbacks
+  const generateAvatar = (formValues) => {
+    const built = buildPrompt(formValues);
+    setPrompt(built);
+    getAiImage({ variables: { prompt: built } });
+  };
 
-  // Generate button
-  const handleGen = async () => {
-    if(!prompt) return;
+  const handleSetAvatar = async () => {
+    if (!previewUrl) return;
+    try {
+      await changeProfilePic({ variables: { url: previewUrl } });
+      alert('Profile picture updated!');
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-    const { data } = await getAiImage({
-      variables: {
-        prompt
-      }
-    });
-    // console.log(data);
-    setImgUrl(data.getAiImage.url);
-  }
-  
-  const handlePromptInput = () => {
-    setPrompt(document.querySelector('#promptInput').value);
-  }
+  const handleSaveToGallery = async () => {
+    if (!previewUrl) return;
+    try {
+      await saveAiPic({ variables: { url: previewUrl } });
+      alert('Saved to your gallery!');
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-  // Use as profile picture button
-  const handleSaveProfile = async () => {
-    if(!imgUrl) return;
-    const { data } = await changeProfilePic({
-      variables: {
-        url: imgUrl
-      }
-    })
-    // console.log("Profile pic changed")
-  }
+  //Effect - whenever query returns, update preview
+  useEffect(() => {
+    if (imageData?.getAiImage?.url) {
+      setPreviewUrl(imageData.getAiImage.url);
+    }
+    if (imageErr) alert('Something went wrong. Try again.');
+  }, [imageData, imageErr]);
 
-  // Save to account button
-  const handleSavePic = async () => {
-    if(!imgUrl) return;
-    const { data } = await saveAiPic({
-      variables: {
-        url: imgUrl
-      }
-    })
-    // console.log("Saved to account")
-  }
-
-/*   const handleSaveDevice = async () => {
-    // Save image URL to img folder
-    const imgResult = await fetch(imgUrl);
-    const blob = await imgResult.blob();
-    const buffer = Buffer.from(await blob.arrayBuffer());
-    writeFileSync(`../public/SaveData/${Date.now()}.png`, buffer);
-  } */
+  // Render
+  const anyLoading = loadingImage || savingAvatar || savingGallery;
 
   return (
-    <div className="artGen-container artGen-flex artGen-flex-col artGen-items-center">
-      <div className="artGen-font artGen-my-p5">
-        <h2>
-          Backlog Boss AI Art Generator
-        </h2>
-      </div>
+    <section className="artgen-container">
+      <PromptForm onSubmit={generateAvatar} isLoading={loadingImage} />
 
-      <div className="artGen-inner-box artGen-border-radius artGen-flex artGen-flex-col artGen-items-center">
-        <img src={imgUrl} alt="image preview" id="imagePreview" className="artGen-preview artGen-border-radius" />
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={previewUrl || 'placeholder'}
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3, ease: 'easeOut' }}
+          className="artgen-preview-wrapper"
+        >
+          <ImagePreview src={previewUrl} isLoading={loadingImage} />
 
-        <div className="artGen-flex artGen-content-center">
-          <textarea name="promptInput" id="promptInput" cols="30" rows="2" onChange={handlePromptInput} value={prompt} placeholder="Enter a prompt" className="artGen-inputBox"></textarea>
-          {/* <input type="text" onChange={handlePromptInput} id="promptInput" name="promptInput" value={prompt} placeholder="Prompt" className="artGen-inputBox" /> */}
-        </div>
-
-        <button onClick={handleGen} className="artGen-gen-button artGen-font artGen-border-radius artGen-my-p5">
-          Generate
-        </button>
-      </div>
-
-      <div className="artGen-flex artGen-flex-wrap artGen-gap artGen-content-center">
-        <button onClick={handleSaveProfile} className="artGen-save-button artGen-font">
-          Use as profile picture
-        </button>
-        <button onClick={handleSavePic} className="artGen-save-button artGen-font">
-          Save to account
-        </button>
-      </div>
-    </div>
-  )
+          <ActionBar
+            disabled={!previewUrl || anyLoading}
+            onSetAvatar={handleSetAvatar}
+            onSave={handleSaveToGallery}
+          />
+        </motion.div>
+      </AnimatePresence>
+    </section>
+  );
 }
 
-export default ArtGen
+export default ArtGen;
+
+// Util, may move to utils folder
+function buildPrompt(values) {
+  const { character, style, mood, palette, notes } = values;
+  return `${character}, ${style} style${mood ? `, ${mood} mood` : ''}${
+    palette ? `, color palette ${palette}` : ''
+  }${notes ? `, ${notes}` : ''}`;
+}
