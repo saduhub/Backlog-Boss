@@ -1,0 +1,46 @@
+.artgen-form {
+  background: #1e1e1e;
+  border: 1px solid #2e2e2e;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.artgen-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+.artgen-field input,
+.artgen-field select {
+  padding: 0.5rem 0.75rem;
+  background: #121212;
+  border: 1px solid #2e2e2e;
+  border-radius: 0.75rem;
+  color: #ffffff;
+}
+
+.artgen-generate-btn {
+  padding: 0.75rem;
+  background: #9f34ff;
+  border: none;
+  border-radius: 0.75rem;
+  color: #ffffff;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: background 0.25s ease-in-out;
+}
+
+.artgen-generate-btn:disabled {
+  background: #555555;
+  cursor: not-allowed;
+}
+
+.artgen-generate-btn:hover:not(:disabled) {
+  background: #ba46ff;
+}
