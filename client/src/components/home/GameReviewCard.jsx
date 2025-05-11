@@ -40,7 +40,7 @@ function GameReviewCard({ review }) {
         <div className='gamereviewcard-review-container'>
             <div className="gamereviewcard-profile-image-container">
                 <Link to={`/ProfileOther`} onClick={handleVisitProfile}>
-                    <img className="gamereviewcard-profile-image" src={profilePictureUrl} alt={`Picture of ${title}`} />
+                    <img className="gamereviewcard-profile-image" src={profilePictureUrl} alt={`Profile Picture Belogning to ${username}`} />
                 </Link>
             </div>
             <div className="gamereviewcard-review-details-container">

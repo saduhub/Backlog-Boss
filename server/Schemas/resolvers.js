@@ -2,9 +2,16 @@ const { User, Game, Review } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 const fetch = require('node-fetch');
 const { OpenAI } = require('openai');
+const { v2: cloudinary } = require("cloudinary");
 
 const openai = new OpenAI({
   apiKey: process.env.OPEN_AI_KEY,
+});
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key:    process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 const resolvers = {
@@ -129,23 +136,32 @@ const resolvers = {
         }
       },
       getAiImage: async (parent, {prompt}, context) => {
+        if (!prompt || !prompt.trim()) {
+          throw new Error("Prompt cannot be empty.");
+        }
+
         try {
-          const image = await openai.images.generate({
-            model: "dall-e-3",  // dall-e-2 (default) or dall-e-3
+          const imageResponse = await openai.images.generate({
+            model: "dall-e-3",
             prompt,
-            n: 1, // dall-e-2 can generate up to n: 10, dall-e-3 can only use n: 1
-            size: "1024x1024",  // dall-e-2 sizes: "256x256", "512x512", "1024x1024" || dall-e-3 sizes: "1024x1024", "1024x1792", 1792x1024"
-            //style: "natural", // vivid (default) or natural
-            // quality: "standard",  // standard (default) or hd
-            // response_format: "url", // url (default) or b64_json
+            n: 1,
+            size: "1024x1024",  
+            response_format: "b64_json", // url (default but replaced in order to store image into cloudinary and to make images public ) or b64_json
             // user: 'insertUsername' // keeps track of user who generated the image
           });
-          
-          // const url = image.data[0].url;
-          // console.log(image.data);
-          return image.data[0];
-          // setImgUrl(url);
-          // console.log(image.data);
+          // Extract from OpenAI API Response
+          const b64 = imageResponse.data[0].b64_json;
+          // Set Up Cloudinary Parameter 
+          const dataUri = `data:image/png;base64,${b64}`;
+          // Upload to Cloudinary
+          const uploadResult = await cloudinary.uploader.upload(dataUri, {
+            folder: "ai-images",
+            format: "png",
+          });
+          // console.log(uploadResult);
+        
+          return { url: uploadResult.secure_url }
+
         } catch (err) {
           console.log(err);
         }
