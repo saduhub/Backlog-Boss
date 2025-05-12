@@ -1,0 +1,26 @@
+.large-game-card {
+  margin-bottom: 2rem;
+}
+
+.largegamecard-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #9f34ff;
+}
+
+.largegamecard-image {
+  width: 100%;
+  border-radius: 0.75rem;
+  margin: 1rem 0;
+  max-width: 600px;
+}
+
+.largegamecard-rating {
+  font-size: 1.25rem;
+  color: #fff;
+}
+
+.largegamecard-rating span {
+  color: #9f34ff;
+  margin-right: 0.25rem;
+}

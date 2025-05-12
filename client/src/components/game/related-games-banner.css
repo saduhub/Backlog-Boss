@@ -1,0 +1,20 @@
+.related-games-banner {
+  margin: 2rem 0;
+  padding: 1rem;
+  background: #282828;
+  /* border: 1px solid #565656; */
+  border-radius: 1rem;
+}
+
+.relatedgamesbanner-header {
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.relatedgamesbanner-list {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+}

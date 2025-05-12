@@ -1,0 +1,26 @@
+.game-status-banner {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.gamestatusbanner-btn {
+  padding: 0.5rem 1.25rem;
+  background: #565656;
+  border: 1px solid #565656;
+  border-radius: 0.75rem;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.gamestatusbanner-btn.active {
+  background: #9f34ff;
+  border-color: #9f34ff;
+  color: #fff;
+}
+
+.gamestatusbanner-btn:hover {
+  background: #565656;
+  border: 1px solid #565656;
+}

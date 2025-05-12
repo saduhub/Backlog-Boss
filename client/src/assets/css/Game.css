@@ -1,76 +1,19 @@
-:root {
-    --background-color: #161616;
-    --font-color: #FFFFFF;
-    --grey: #282828;
-    --purple: #9F34FF;
-    --light-purple: #E1CDF2;
-  }
+.game-main-section {
+  align-items: center;
+  justify-content: center;
+  padding-top: 5%;
+  width: min(88%, 1200px);
+  margin-inline: auto;
+  padding: 50px;
+}
 
-  body {
-    background-color: var(--background-color);
-
-  }
-
-  .game-main {
-    background-color: var(--background-color);
-    color: var(--font-color);
-    margin: auto;
-    width: 90%;
-    padding-top: 5%;
-    padding-left: 10%;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-  }
-  
-  .game-card {
-    margin-bottom: 5%;
-  }
-
-
-  .game-rating-div {
-    background-color: var(--grey);
-    width: 75%;
-    border-radius: 10px 10px 0px 0px;
-    padding: 10px;
-    margin-top: 20px;
-  }
-
-  .game-rating-label {
-    font-size: 20px;
-    margin-right: .5%;
-  }
-  
-  .game-rating {
-    font-size: 20px;
-    background-color: var(--background-color);
-    color: var(--font-color);
-  }
-  
-  .game-form-input {
-    width: 75%;
-    font-size: 20px;
-    line-height: 25px;
-    padding-left: 10px;
-    padding-top: 1%;
-    padding-bottom: 5%;
-    
-    background-color: var(--background-color);
-    color: var(--font-color);
-  }
-
-  .game-review-submit {
-    background-color: var(--grey);
-    border-radius: 0px 0px 10px 10px;
-    width: 75%;
-    text-align: end;
-  }
-
-  .game-review-submit-button {
-    font-size: 20px;
-    margin: 10px 0px 0px 0px;
-    padding: 10px;
-    color: var(--font-color);
-    background-color: var(--purple);
-    border-radius: 10px;
-  }
+.game-header {
+  min-width: 280px;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  padding: 2rem;
+  color: white;
+  font-size: 1.5rem;
+  text-align: center;
+}
