@@ -1,94 +1,41 @@
-import { useState } from 'react';
-import '../assets/css/Game.css';
+import { Navigate } from "react-router-dom";
+import Auth from "../utils/auth";
 
-import {useParams} from 'react-router-dom';
-import GameCard from '../components/GameCard';
-import {useQuery, useMutation} from '@apollo/client'
-import {GAME_PAGE_QUERY} from '../utils/queries'
-import {ADD_REVIEW} from '../utils/mutations'
+// Components
+import LargeGameCard from "../components/game/LargeGameCard.jsx";
+import GameStatusBanner from "../components/game/GameStatusBanner.jsx";
+import RelatedGamesBanner from "../components/game/RelatedGamesBanner.jsx";
+import UserReviewsContainer from "../components/game/UserReviewsContainer.jsx";
+import GameReviewForm from "../components/game/GameReviewForm.jsx";
+
+import "../assets/css/Game.css"; 
 
 function Game() {
-    const [formState, setFormState] = useState({rating: '', reviewText: ''});
-    const {id} = useParams()
-    console.log(id)
-    const {data, refetch} = useQuery(GAME_PAGE_QUERY, {
-        
-        variables: {
-            gameId: id
-        }
-    })
-    const game = data?.game
-    const user = data?.me
-    const [addReview] = useMutation(ADD_REVIEW);
-    console.log(data)
-    console.log(user)
-    const handleReviewSubmit = async (event) => {
-        event.preventDefault();
-        try {
-            const response = await addReview({
-                variables: {
-                    id: game._id,
-                    reviewNum: parseInt(formState.rating),
-                    reviewText: formState.reviewText
-                    
-                }
-            });
-            console.log('Review added successfully:', response);
-            setFormState({ rating: '', reviewText: '' });
-        } catch (error) {
-            console.error('Error adding review:', error);
-        }
-    };
-    
+  const isAuthenticated = Auth.loggedIn();
+  if (!isAuthenticated) return <Navigate to="/login" replace />;
+//   if (loading) return <p>Loading game...</p>;
+//   if (error) return <p>Something went wrong.</p>;
 
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setFormState(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
-    };
+const pictureUrl = "https://media.rawg.io/media/resize/1280/-/games/821/821a40bd0cc0ac7dfb3fe97a7878dc1f.jpg"
 
-return (
-    <div className="game-main">
-        <div className="game-card">
-            {game&&user?<GameCard 
-            Backlog={!!user.gamesInBacklog.find(backloggame=> backloggame._id === game._id)} 
-            Favorites={!!user.gamesInFavorites.find(favoritegame=> favoritegame._id === game._id)}
-            Progress={!!user.gamesInProgress.find(progressgame=> progressgame._id === game._id)}
-            Completed={!!user.gamesCompleted.find(completedgame=> completedgame._id === game._id)}
-            refetch={refetch}
-            game={game}/>:"loading"}
-        </div>
-        
-        <form className="game-form" onSubmit={handleReviewSubmit}>
-            <h2>Leave Your Review:</h2>
-            <div className="game-rating-div">
-                <label htmlFor="rating" className="game-rating-label">Rating:</label>
-                <select className="game-rating" name="rating" onChange={handleChange}>
-                    <option value="1">1 star</option>
-                    <option value="2">2 stars</option>
-                    <option value="3">3 stars</option>
-                    <option value="4">4 stars</option>
-                    <option value="5">5 stars</option>
-                </select>
-            </div>
-            <div >
-                <input
-                    className="game-form-input"
-                    name="reviewText"
-                    type= "text"
-                    placeholder="Write your review here..."
-                    value={formState.reviewText}
-                    onChange={handleChange}
-                />
-            </div>
-            <div className="game-review-submit">
-                <button type="submit" className="game-review-submit-button">Submit Review</button>
-            </div>
-        </form>
-    </div>
-)
+  return (
+    <section className="game-main-section">
+      <LargeGameCard title="Title" imageUrl={pictureUrl} rating="Rating" />
+
+      <GameStatusBanner
+        inBacklog={true}
+        isFavorite={true}
+        inProgress={true}
+        isCompleted={false}
+      />
+
+      <RelatedGamesBanner related={["Game1", "Game2", "Game3"]} />
+
+      <UserReviewsContainer reviews={["Review1", "Review2"]} />
+
+      <GameReviewForm />
+    </section>
+  );
 }
 
 export default Game;

@@ -1,0 +1,13 @@
+.hearts-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.heartsrating-icon {
+  color: #9f34ff;
+}
+
+.heartsrating-value {
+  color: #fff;
+}

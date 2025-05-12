@@ -1,0 +1,40 @@
+.user-review {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.userreview-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.userreview-content {
+  flex: 1;
+  color: #fff;
+}
+
+.userreview-header {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+
+.userreview-username {
+  color: #9f34ff;
+}
+
+.userreview-date {
+  font-size: 0.9rem;
+  color: #565656;
+}
+
+.userreview-stats {
+  margin: 0.25rem 0;
+}
+
+.userreview-text {
+  font-size: 0.95rem;
+}
