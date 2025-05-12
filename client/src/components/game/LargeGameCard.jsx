@@ -1,9 +1,12 @@
 import "./large-game-card.css";
 
 function LargeGameCard({
-  title = "Game Title",
-  imageUrl = "https://res.cloudinary.com/dx7bgdfut/image/upload/v1689908332/TuneStack/vpardqd8t71yai2bdzo8.jpg",
-  rating = 0,
+  title,
+  imageUrl,
+  rating,
+  gameGenre,
+  platform,
+  release,
 }) {
   return (
     <div className="large-game-card">
@@ -14,8 +17,10 @@ function LargeGameCard({
         alt={`Cover of ${title}`}
       />
       <div className="largegamecard-rating">
-        <span>&#9733;</span>
-        {/* <span>&#9733;</span> {rating.toFixed(1)} */}
+        <p><span>&#9733;</span> {rating}</p>
+        <p><span>&#9733;</span> {platform}</p>
+        <p><span>&#9733;</span> {gameGenre}</p>
+        <p><span>&#9733;</span> {release}</p>
       </div>
     </div>
   );

@@ -138,29 +138,37 @@ export const USER_VISITED_INFO = gql`
 `;
 
 export const QUERY_GAME = gql`
-  query Query($gameId: ID!) {
+  query query_game($gameId: ID!) {
     game(id: $gameId) {
       title
       averageRating
       genre
-      id
+      _id
       pictureUrl
       platforms
       releaseDate
       reviews {
         dateOfReview
-        id
+        _id
         likes
         rating
         reviewText
         user {
           email
-          id
+          _id
           hoursPlayed
           username
           profilePictureUrl
         }
       }
+    }
+    me {
+      _id
+      gamesInBacklog { _id }
+      gamesInFavorites { _id }
+      gamesInProgress { _id }
+      gamesCompleted  { _id }
+      games100Completed  { _id }
     }
   }
 `;
