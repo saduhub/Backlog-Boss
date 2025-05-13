@@ -164,11 +164,31 @@ export const QUERY_GAME = gql`
     }
     me {
       _id
-      gamesInBacklog { _id }
-      gamesInFavorites { _id }
-      gamesInProgress { _id }
-      gamesCompleted  { _id }
-      games100Completed  { _id }
+      gamesInBacklog {
+      _id
+      title
+      pictureUrl
+      }
+      gamesInFavorites {
+      _id
+      title
+      pictureUrl
+      }
+      gamesInProgress {
+      _id
+      title
+      pictureUrl
+      }
+      gamesCompleted {
+      _id
+      title
+      pictureUrl
+      }
+      games100Completed {
+      _id
+      title
+      pictureUrl
+      }
     }
   }
 `;

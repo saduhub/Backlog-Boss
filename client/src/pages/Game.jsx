@@ -40,6 +40,7 @@ function Game() {
   const { game, me } = data;
 
   const {
+    _id,
     title,
     pictureUrl,
     averageRating,
@@ -58,6 +59,7 @@ function Game() {
   } = me || {};
 
   // console.log (me);
+  // console.log(gamesInProgress)
   // Evalute if game ids in array match game id 
   const inBacklog     = gamesInBacklog.some((g) => g._id === game._id);
   const isFavorite    = gamesInFavorites.some((g) => g._id === game._id);
@@ -84,7 +86,7 @@ function Game() {
         is100Completed={is100Completed}
       />
 
-      <RelatedGamesBanner related={gamesInProgress} />
+      <RelatedGamesBanner related={gamesInProgress} currentGameId={_id}  />
 
       <UserReviewsContainer reviews={reviews} />
 
