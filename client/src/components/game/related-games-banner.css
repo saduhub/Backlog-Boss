@@ -4,6 +4,10 @@
   background: #282828;
   /* border: 1px solid #565656; */
   border-radius: 1rem;
+  /* Firefox */
+  scrollbar-width: none;
+  /* IE & old Edge */
+  -ms-overflow-style: none;
 }
 
 .relatedgamesbanner-header {
@@ -17,4 +21,9 @@
   gap: 1rem;
   overflow-x: auto;
   padding-bottom: 1rem;
+}
+
+/* WebKit‑based browsers (Chrome, Safari, Edge Chromium) */
+.relatedgamesbanner-list::-webkit-scrollbar {
+  display: none;
 }
