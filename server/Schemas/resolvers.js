@@ -165,6 +165,30 @@ const resolvers = {
         } catch (err) {
           console.log(err);
         }
+      },
+      relatedGamesByGenre: async (parent, { genres, limit}) => {
+        if (!Array.isArray(genres) || genres.length === 0) {
+          throw new ApolloError(
+            "You must supply at least one genre",
+            "BAD_USER_INPUT"
+          );
+        }
+
+        const size = Math.max(1, Math.min(limit || 20, 100));
+
+        try {
+          const results = await Game.aggregate([
+            { $match: { genre: { $in: genres } } },
+            { $sample: { size } },
+          ]);
+          return results;
+        } catch (err) {
+          console.error("relatedGamesByGenre error:", err);
+          throw new ApolloError(
+            "Failed to fetch related games",
+            "RELATED_GAMES_GENRE_ERROR"
+          );
+        }
       }
     },
 

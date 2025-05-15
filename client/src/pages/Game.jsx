@@ -2,7 +2,7 @@ import { useParams, Navigate } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
 // Queries and Mutations
-import { QUERY_GAME } from "../utils/queries.js";
+import { QUERY_GAME, RELATED_GAMES_GENRE } from "../utils/queries.js";
 import {
   ADD_TO_BACKLOG,
   ADD_TO_FAVORITES,
@@ -22,20 +22,29 @@ import "../assets/css/Game.css";
 function Game() {
   // Obtain game id from url to query game after.
   const { id: gameId } = useParams();
+  // Redirect if not authenticated
+  if (!Auth.loggedIn()) return <Navigate to="/login" replace />;
   // Prepare mutations
   const [addToBacklog]   = useMutation(ADD_TO_BACKLOG);
   const [addToFavorites] = useMutation(ADD_TO_FAVORITES);
   const [addToInProgress]= useMutation(ADD_TO_IN_PROGRESS);
   const [addToCompleted] = useMutation(ADD_TO_COMPLETED);
   const [addReview]      = useMutation(ADD_REVIEW);
-  // Redirect if not authenticated
-  if (!Auth.loggedIn()) return <Navigate to="/login" replace />;
   // Get game info
   const { data, loading, error } = useQuery(QUERY_GAME, {
     variables: { gameId }
   });
+  // Get Related Games Info
+  const { data: relatedData, loading: relatedLoading } = useQuery(
+    RELATED_GAMES_GENRE, 
+    { variables: { genres: data?.game?.genre || [], limit: 20 }, skip: !data?.game?.genre?.length }
+  );
+
   if (loading) return <p>Loading game...</p>;
   if (error)   return <p>Something went wrong.</p>;
+  if (relatedLoading) {
+    return <p>Loading related games…</p>;
+  }
   // Destructure results to later eveluate if game in array matches the game id
   const { game, me } = data;
 
@@ -51,20 +60,20 @@ function Game() {
   } = game;
 
   const {
-    gamesCompleted   = [],
-    gamesInBacklog   = [],
+    gamesCompleted = [],
+    gamesInBacklog = [],
     gamesInFavorites = [],
-    gamesInProgress  = [],
+    gamesInProgress = [],
     games100Completed= [],
   } = me || {};
 
   // console.log (me);
-  // console.log(gamesInProgress)
+  console.log(gamesInProgress)
   // Evalute if game ids in array match game id 
-  const inBacklog     = gamesInBacklog.some((g) => g._id === game._id);
-  const isFavorite    = gamesInFavorites.some((g) => g._id === game._id);
-  const inProgress    = gamesInProgress.some((g) => g._id === game._id);
-  const isCompleted   = gamesCompleted.some((g) => g._id === game._id);
+  const inBacklog = gamesInBacklog.some((g) => g._id === game._id);
+  const isFavorite = gamesInFavorites.some((g) => g._id === game._id);
+  const inProgress = gamesInProgress.some((g) => g._id === game._id);
+  const isCompleted = gamesCompleted.some((g) => g._id === game._id);
   const is100Completed = games100Completed.some((g) => g._id === game._id);
 
   return (
@@ -86,7 +95,11 @@ function Game() {
         is100Completed={is100Completed}
       />
 
-      <RelatedGamesBanner related={gamesInProgress} currentGameId={_id}  />
+      <RelatedGamesBanner 
+        loading={relatedLoading}
+        related={relatedData?.relatedGamesByGenre || gamesInProgress}
+        currentGameId={_id}
+      />
 
       <UserReviewsContainer reviews={reviews} />
 

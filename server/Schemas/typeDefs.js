@@ -71,6 +71,7 @@ const typeDefs = gql`
     userVisitedInfo(id: ID!): User
     getPopularGames: [PopularGame]
     getAiImage(prompt: String!): imageURL
+    relatedGamesByGenre(genres: [String!]!, limit: Int!): [Game]
   }
 
   type Mutation {
