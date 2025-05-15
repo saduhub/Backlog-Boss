@@ -1,38 +1,96 @@
-import { Navigate } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
+import { useQuery, useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
-
+// Queries and Mutations
+import { QUERY_GAME } from "../utils/queries.js";
+import {
+  ADD_TO_BACKLOG,
+  ADD_TO_FAVORITES,
+  ADD_TO_IN_PROGRESS,
+  ADD_TO_COMPLETED,
+  ADD_REVIEW,
+} from "../utils/mutations.js";
 // Components
 import LargeGameCard from "../components/game/LargeGameCard.jsx";
 import GameStatusBanner from "../components/game/GameStatusBanner.jsx";
 import RelatedGamesBanner from "../components/game/RelatedGamesBanner.jsx";
 import UserReviewsContainer from "../components/game/UserReviewsContainer.jsx";
 import GameReviewForm from "../components/game/GameReviewForm.jsx";
-
-import "../assets/css/Game.css"; 
-
+// Styles and Assets
+import "../assets/css/Game.css";
+// Game
 function Game() {
-  const isAuthenticated = Auth.loggedIn();
-  if (!isAuthenticated) return <Navigate to="/login" replace />;
-//   if (loading) return <p>Loading game...</p>;
-//   if (error) return <p>Something went wrong.</p>;
+  // Obtain game id from url to query game after.
+  const { id: gameId } = useParams();
+  // Prepare mutations
+  const [addToBacklog]   = useMutation(ADD_TO_BACKLOG);
+  const [addToFavorites] = useMutation(ADD_TO_FAVORITES);
+  const [addToInProgress]= useMutation(ADD_TO_IN_PROGRESS);
+  const [addToCompleted] = useMutation(ADD_TO_COMPLETED);
+  const [addReview]      = useMutation(ADD_REVIEW);
+  // Redirect if not authenticated
+  if (!Auth.loggedIn()) return <Navigate to="/login" replace />;
+  // Get game info
+  const { data, loading, error } = useQuery(QUERY_GAME, {
+    variables: { gameId }
+  });
+  if (loading) return <p>Loading game...</p>;
+  if (error)   return <p>Something went wrong.</p>;
+  // Destructure results to later eveluate if game in array matches the game id
+  const { game, me } = data;
 
-const pictureUrl = "https://media.rawg.io/media/resize/1280/-/games/821/821a40bd0cc0ac7dfb3fe97a7878dc1f.jpg"
+  const {
+    _id,
+    title,
+    pictureUrl,
+    averageRating,
+    reviews,
+    genre,
+    platforms,
+    releaseDate,
+  } = game;
+
+  const {
+    gamesCompleted   = [],
+    gamesInBacklog   = [],
+    gamesInFavorites = [],
+    gamesInProgress  = [],
+    games100Completed= [],
+  } = me || {};
+
+  // console.log (me);
+  // console.log(gamesInProgress)
+  // Evalute if game ids in array match game id 
+  const inBacklog     = gamesInBacklog.some((g) => g._id === game._id);
+  const isFavorite    = gamesInFavorites.some((g) => g._id === game._id);
+  const inProgress    = gamesInProgress.some((g) => g._id === game._id);
+  const isCompleted   = gamesCompleted.some((g) => g._id === game._id);
+  const is100Completed = games100Completed.some((g) => g._id === game._id);
 
   return (
     <section className="game-main-section">
-      <LargeGameCard title="Title" imageUrl={pictureUrl} rating="Rating" />
-
-      <GameStatusBanner
-        inBacklog={true}
-        isFavorite={true}
-        inProgress={true}
-        isCompleted={false}
+      <LargeGameCard
+        title={title}
+        imageUrl={pictureUrl}
+        rating={averageRating}
+        gameGenre={genre}
+        platform={platforms}
+        release={releaseDate}
       />
 
-      <RelatedGamesBanner related={["Game1", "Game2", "Game3"]} />
+      <GameStatusBanner
+        inBacklog={inBacklog}
+        isFavorite={isFavorite}
+        inProgress={inProgress}
+        isCompleted={isCompleted}
+        is100Completed={is100Completed}
+      />
 
-      <UserReviewsContainer reviews={["Review1", "Review2"]} />
+      <RelatedGamesBanner related={gamesInProgress} currentGameId={_id}  />
 
+      <UserReviewsContainer reviews={reviews} />
+
+      {/* <GameReviewForm onSubmit={} /> */}
       <GameReviewForm />
     </section>
   );

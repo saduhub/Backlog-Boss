@@ -5,6 +5,7 @@ function GameStatusBanner({
   isFavorite = false,
   inProgress = false,
   isCompleted = false,
+  is100Completed = false,
 }) {
   return (
     <div className="game-status-banner">
@@ -19,6 +20,9 @@ function GameStatusBanner({
       </button>
       <button className={`gamestatusbanner-btn${isCompleted ? " active" : ""}`}>
         Completed
+      </button>
+      <button className={`gamestatusbanner-btn${is100Completed ? " active" : ""}`}>
+        100% Completed
       </button>
     </div>
   );
