@@ -71,6 +71,7 @@ const typeDefs = gql`
     userVisitedInfo(id: ID!): User
     getPopularGames: [PopularGame]
     getAiImage(prompt: String!): imageURL
+    relatedGamesByGenre(genres: [String!]!, limit: Int!): [Game]
   }
 
   type Mutation {
@@ -82,9 +83,15 @@ const typeDefs = gql`
     rejectFriend(userId: ID!, myId: ID!): User
     addReview(id: ID!, reviewNum: Int!, reviewText: String!): Game
     addToBacklog(gameId: ID!): User
+    removeFromBacklog(gameId: ID!): User
     addToFavorites(gameId: ID!): User
+    removeFromFavorites(gameId: ID!): User
     addToInProgress(gameId: ID!): User
+    removeFromInProgress(gameId: ID!): User
     addToCompleted(gameId: ID!): User
+    removeFromCompleted(gameId: ID!): User
+    addTo100Completed(gameId: ID!): User
+    removeFrom100Completed(gameId: ID!): User
     changeProfilePic(url: String!): User
     saveAiPic(url: String!): User
   }`

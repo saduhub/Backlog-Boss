@@ -168,27 +168,43 @@ export const QUERY_GAME = gql`
       _id
       title
       pictureUrl
+      genre
       }
       gamesInFavorites {
       _id
       title
       pictureUrl
+      genre
       }
       gamesInProgress {
       _id
       title
       pictureUrl
+      genre
       }
       gamesCompleted {
       _id
       title
       pictureUrl
+      genre
       }
       games100Completed {
       _id
       title
       pictureUrl
+      genre
       }
+    }
+  }
+`;
+
+export const RELATED_GAMES_GENRE = gql`
+  query relatedGamesByGenre($genres: [String!]!, $limit: Int!) {
+    relatedGamesByGenre(genres: $genres, limit: $limit) {
+      _id
+      title
+      pictureUrl
+      genre
     }
   }
 `;

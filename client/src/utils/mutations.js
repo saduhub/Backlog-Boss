@@ -113,6 +113,66 @@ export const ADD_TO_COMPLETED = gql`
   }
 `
 
+export const ADD_TO_100COMPLETED = gql`
+  mutation addTo100Completed($gameId: ID!) {
+    addTo100Completed(gameId: $gameId) {
+      games100Completed {
+        _id
+      }
+    }
+  }
+`;
+
+export const REMOVE_FROM_BACKLOG = gql`
+  mutation removeFromBacklog($gameId: ID!) {
+    removeFromBacklog(gameId: $gameId) {
+      gamesInBacklog {
+        _id
+      }
+    }
+  }
+`;
+
+export const REMOVE_FROM_FAVORITES = gql`
+  mutation removeFromFavorites($gameId: ID!) {
+    removeFromFavorites(gameId: $gameId) {
+      gamesInFavorites {
+        _id
+      }
+    }
+  }
+`;
+
+export const REMOVE_FROM_IN_PROGRESS = gql`
+  mutation removeFromInProgress($gameId: ID!) {
+    removeFromInProgress(gameId: $gameId) {
+      gamesInProgress {
+        _id
+      }
+    }
+  }
+`;
+
+export const REMOVE_FROM_COMPLETED = gql`
+  mutation removeFromCompleted($gameId: ID!) {
+    removeFromCompleted(gameId: $gameId) {
+      gamesCompleted {
+        _id
+      }
+    }
+  }
+`;
+
+export const REMOVE_FROM_100COMPLETED = gql`
+  mutation removeFrom100Completed($gameId: ID!) {
+    removeFrom100Completed(gameId: $gameId) {
+      games100Completed {
+        _id
+      }
+    }
+  }
+`;
+
 export const ADD_REVIEW = gql`
     mutation addReview($id: ID!, $reviewNum: Int!, $reviewText: String!) {
         addReview(id: $id, reviewNum: $reviewNum, reviewText: $reviewText) {
