@@ -279,101 +279,149 @@ const resolvers = {
         console.log(game.reviews[0])
         return game
       },
+      addToBacklog: async (_, { gameId }, context) => {
+        const { user } = context;
+        if (!user) {
+          throw new AuthenticationError('You must be logged in to perform this action');
+        }
 
-    addToBacklog: async (_, { gameId }, context) => {
-      const { user } = context;
-      if (!user) {
-        throw new AuthenticationError('You must be logged in to perform this action');
+        const updatedUser = await User.findByIdAndUpdate(
+          {_id : user._id},
+          { $addToSet: { gamesInBacklog: gameId } },
+          { new: true }
+        );
+
+        return updatedUser;
+      },
+      removeFromBacklog: async (_, { gameId }, { user }) => {
+        if (!user) throw new AuthenticationError();
+        return User.findByIdAndUpdate(
+          user._id,
+          { $pull: { gamesInBacklog: gameId } },
+          { new: true }
+        );
+      },
+      addToFavorites: async (_, { gameId }, context) => {
+        const { user } = context;
+        if (!user) {
+          throw new AuthenticationError('You must be logged in to perform this action');
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(
+          {_id : user._id},
+          { $addToSet: { gamesInFavorites: gameId } },
+          { new: true }
+        );
+
+        return updatedUser;
+      },
+      removeFromFavorites: async (_, { gameId }, { user }) => {
+        if (!user) throw new AuthenticationError();
+        return User.findByIdAndUpdate(
+          user._id,
+          { $pull: { gamesInFavorites: gameId } },
+          { new: true }
+        );
+      },
+      addToInProgress: async (_, { gameId }, context) => {
+        const { user } = context;
+        if (!user) {
+          throw new AuthenticationError('You must be logged in to perform this action');
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(
+          {_id : user._id},
+          { $addToSet: { gamesInProgress: gameId } },
+          { new: true }
+        );
+
+        return updatedUser;
+      },
+      removeFromInProgress: async (_, { gameId }, { user }) => {
+        if (!user) throw new AuthenticationError();
+        return User.findByIdAndUpdate(
+          user._id,
+          { $pull: { gamesInProgress: gameId } },
+          { new: true }
+        );
+      },
+      addToCompleted: async (_, { gameId }, context) => {
+        const { user } = context;
+        if (!user) {
+          throw new AuthenticationError('You must be logged in to perform this action');
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(
+          {_id : user._id},
+          { $addToSet: { gamesCompleted: gameId } },
+          { new: true }
+        );
+
+        return updatedUser;
+      },
+      removeFromCompleted: async (_, { gameId }, { user }) => {
+        if (!user) throw new AuthenticationError();
+        return User.findByIdAndUpdate(
+          user._id,
+          { $pull: { gamesCompleted: gameId } },
+          { new: true }
+        );
+      },
+      addTo100Completed: async (_, { gameId }, context) => {
+        const { user } = context;
+        if (!user) {
+          throw new AuthenticationError('You must be logged in to perform this action');
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(
+          {_id : user._id},
+          { $addToSet: { games100Completed: gameId } },
+          { new: true }
+        );
+
+        return updatedUser;
+      },
+      removeFrom100Completed: async (_, { gameId }, { user }) => {
+        if (!user) throw new AuthenticationError();
+        return User.findByIdAndUpdate(
+          user._id,
+          { $pull: { games100Completed: gameId } },
+          { new: true }
+        );
+      },
+      changeProfilePic: async (_, { url }, context) => {
+        const { user } = context;
+        
+        if(!user){
+          // throw new AuthenticationError('You must be logged in to perform this action');
+          return
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(
+          { _id: user._id },
+          { $set: { profilePictureUrl: url } },
+          { new: true }
+        );
+        
+        return updatedUser;
+      },
+      saveAiPic: async (_, { url }, context) => {
+        const { user } = context;
+
+        if(!user) {
+          // throw new AuthenticationError('You must be logged in to perform this action');
+          return
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(
+          { _id: user._id },
+          { $addToSet: { aiImages: url } },
+          { new: true }
+        );
+        
+        return updatedUser;
       }
-
-      const updatedUser = await User.findByIdAndUpdate(
-        {_id : user._id},
-        { $addToSet: { gamesInBacklog: gameId } },
-        { new: true }
-      );
-
-      return updatedUser;
-    },
-
-    addToFavorites: async (_, { gameId }, context) => {
-      const { user } = context;
-      if (!user) {
-        throw new AuthenticationError('You must be logged in to perform this action');
-      }
-
-      const updatedUser = await User.findByIdAndUpdate(
-        {_id : user._id},
-        { $addToSet: { gamesInFavorites: gameId } },
-        { new: true }
-      );
-
-      return updatedUser;
-    },
-    
-    addToInProgress: async (_, { gameId }, context) => {
-      const { user } = context;
-      if (!user) {
-        throw new AuthenticationError('You must be logged in to perform this action');
-      }
-
-      const updatedUser = await User.findByIdAndUpdate(
-        {_id : user._id},
-        { $addToSet: { gamesInProgress: gameId } },
-        { new: true }
-      );
-
-      return updatedUser;
-    },
-
-    addToCompleted: async (_, { gameId }, context) => {
-      const { user } = context;
-      if (!user) {
-        throw new AuthenticationError('You must be logged in to perform this action');
-      }
-
-      const updatedUser = await User.findByIdAndUpdate(
-        {_id : user._id},
-        { $addToSet: { gamesCompleted: gameId } },
-        { new: true }
-      );
-
-      return updatedUser;
-    },
-
-    changeProfilePic: async (_, { url }, context) => {
-      const { user } = context;
-      
-      if(!user){
-        // throw new AuthenticationError('You must be logged in to perform this action');
-        return
-      }
-
-      const updatedUser = await User.findByIdAndUpdate(
-        { _id: user._id },
-        { $set: { profilePictureUrl: url } },
-        { new: true }
-      );
-      
-      return updatedUser;
-    },
-
-    saveAiPic: async (_, { url }, context) => {
-      const { user } = context;
-
-      if(!user) {
-        // throw new AuthenticationError('You must be logged in to perform this action');
-        return
-      }
-
-      const updatedUser = await User.findByIdAndUpdate(
-        { _id: user._id },
-        { $addToSet: { aiImages: url } },
-        { new: true }
-      );
-      
-      return updatedUser;
     }
-}
 };
 
 module.exports = resolvers;
