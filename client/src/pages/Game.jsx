@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useParams, Navigate } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
@@ -41,8 +42,7 @@ function Game() {
   const [removeFromCompleted] = useMutation(REMOVE_FROM_COMPLETED);
   const [addTo100Completed] = useMutation(ADD_TO_100COMPLETED);
   const [removeFrom100Completed] = useMutation(REMOVE_FROM_100COMPLETED);
-
-  // const [addReview] = useMutation(ADD_REVIEW);
+  const [addReview] = useMutation(ADD_REVIEW);
   // Get game info
   const { data, loading, error, refetch } = useQuery(QUERY_GAME, {
     variables: { gameId }
@@ -80,6 +80,8 @@ function Game() {
     games100Completed= [],
   } = me || {};
 
+  const [reviewsList, setReviewsList] = useState(reviews);
+
   // console.log (me);
   // console.log(gamesInProgress)
   // Evalute if game ids in array match game id 
@@ -88,14 +90,23 @@ function Game() {
   const inProgress = gamesInProgress.some((g) => g._id === game._id);
   const isCompleted = gamesCompleted.some((g) => g._id === game._id);
   const is100Completed = games100Completed.some((g) => g._id === game._id);
-  // Function that handles the passed mutation called by each button in GameStatusBanner
+  // Status Button Handler that passes mutation called by each button in GameStatusBanner
   const handleToggle = (flag, addMutation, removeMutation) => async () => {
     if (flag) {
       await removeMutation({ variables: { gameId } });
     } else {
       await addMutation({ variables: { gameId } });
     }
-    await refetch();  // re‑pull `me` so your banner updates
+    await refetch();  // re‑pull me query so your related games in genre banner updates
+  };
+  //Review Form Handler Passed to ReviewForm Component to Handle Review Submission
+  const handleAddReview = async ({ rating, text }) => {
+    //Retrieve Response Data From the addReview Mutation Being Triggered.
+    const { data } = await addReview({
+      variables: { gameId: game._id, rating, reviewText: text }
+    });
+    // Prepend the New Review Using useState Hook 
+    setReviewsList([data.addReview, ...reviewsList]);
   };
 
   return (
@@ -128,10 +139,9 @@ function Game() {
         currentGameId={_id}
       />
 
-      <UserReviewsContainer reviews={reviews} />
+      <UserReviewsContainer reviews={reviewsList} />
 
-      {/* <GameReviewForm onSubmit={} /> */}
-      <GameReviewForm />
+      <GameReviewForm onSubmit={handleAddReview} />
     </section>
   );
 }

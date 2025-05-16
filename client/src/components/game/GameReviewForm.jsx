@@ -4,10 +4,11 @@ import "./game-review-form.css";
 function GameReviewForm({ onSubmit = () => {} }) {
   const [rating, setRating] = useState(1);
   const [text, setText] = useState("");
+  // Username
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ rating, text });
+    onSubmit({ rating, text }); // username of the user that submitted it, no likes yet on submission, date
     setRating(1);
     setText("");
   };

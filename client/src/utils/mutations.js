@@ -174,16 +174,26 @@ export const REMOVE_FROM_100COMPLETED = gql`
 `;
 
 export const ADD_REVIEW = gql`
-    mutation addReview($id: ID!, $reviewNum: Int!, $reviewText: String!) {
-        addReview(id: $id, reviewNum: $reviewNum, reviewText: $reviewText) {
-          _id
-          reviews{
-              rating
-          reviewText
-          }
-        }
+  mutation addReview($gameId: ID!, $rating: Int!, $reviewText: String!) {
+    addReview(gameId: $gameId, reviewNum: $rating, reviewText: $reviewText) {
+      _id
+      rating
+      reviewText
+      likes
+      dateOfReview
+      user {
+        _id
+        username
+        profilePictureUrl
+      }
+      game {
+        _id
+        title
+      }
     }
+  }
 `;
+
 
 export const CHANGE_PROFILE_PIC = gql`
   mutation changeProfilePic($url: String!) {

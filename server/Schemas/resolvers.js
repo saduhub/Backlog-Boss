@@ -258,26 +258,38 @@ const resolvers = {
         console.log(token, user)
         return { token, user };
       },
-      addReview: async (_, {id, reviewNum, reviewText}, context) => {
-        console.log(context)
+      addReview: async (_, {gameId, reviewNum, reviewText}, context) => {
         //user property comes from session/authentication
-        console.log(reviewText)
-        const review = await Review.create({
-          user: context.user._id,
-          game: id,
-          rating: reviewNum,
-          reviewText: reviewText
-          
-        })
-        console.log(review);
-        const game = await Game.findOneAndUpdate({_id: id}, {$push: {reviews: review._id}}, {new: true, populate: {path: "reviews", populate: {path: "user"}}} )
-            // Handle case where game is not found
-        if (!game) {
+        if (!context.user) {
+          throw new AuthenticationError("You must be logged in");
+        }
+        // Handle case where game is not found
+        if (!gameId) {
           throw new Error("Game not found");
         }
+        try {
+          let review = await Review.create({
+            user: context.user._id,
+            game: gameId,
+            rating: reviewNum,
+            reviewText,
+          });
+          // After creating the Review, resolver populates both the user and game fields so the mutation returns a fully‑shaped Review object (with username, game title, timestamp, and likes).
+          review = await review.populate('user', '_id username profilePictureUrl');
+          review = await review.populate('game', '_id title');
 
-        console.log(game.reviews[0])
-        return game
+          await Game.findByIdAndUpdate(
+            gameId,
+            { $push: { reviews: review._id } },
+            { new: true }
+          );
+          // By returning all necessary data in one go, the client can render the new review instantly without needing to refetch the entire game or reviews list.
+          return review;
+          
+        } catch (err) {
+          console.error("addReview error:", err);
+          throw new ApolloError("Could not add review", "ADD_REVIEW_FAILED");
+        }
       },
       addToBacklog: async (_, { gameId }, context) => {
         const { user } = context;
