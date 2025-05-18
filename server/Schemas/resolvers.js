@@ -258,7 +258,7 @@ const resolvers = {
         console.log(token, user)
         return { token, user };
       },
-      addReview: async (_, {gameId, reviewNum, reviewText}, context) => {
+      addReview: async (_, {gameId, rating, reviewText}, context) => {
         //user property comes from session/authentication
         if (!context.user) {
           throw new AuthenticationError("You must be logged in");
@@ -271,7 +271,7 @@ const resolvers = {
           let review = await Review.create({
             user: context.user._id,
             game: gameId,
-            rating: reviewNum,
+            rating,
             reviewText,
           });
           // After creating the Review, resolver populates both the user and game fields so the mutation returns a fully‑shaped Review object (with username, game title, timestamp, and likes).
@@ -280,6 +280,12 @@ const resolvers = {
 
           await Game.findByIdAndUpdate(
             gameId,
+            { $push: { reviews: review._id } },
+            { new: true }
+          );
+
+          await User.findByIdAndUpdate(
+            context.user._id,
             { $push: { reviews: review._id } },
             { new: true }
           );

@@ -175,7 +175,7 @@ export const REMOVE_FROM_100COMPLETED = gql`
 
 export const ADD_REVIEW = gql`
   mutation addReview($gameId: ID!, $rating: Int!, $reviewText: String!) {
-    addReview(gameId: $gameId, reviewNum: $rating, reviewText: $reviewText) {
+    addReview(gameId: $gameId, rating: $rating, reviewText: $reviewText) {
       _id
       rating
       reviewText

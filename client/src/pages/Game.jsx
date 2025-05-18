@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useParams, Navigate } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
@@ -27,10 +26,19 @@ import GameReviewForm from "../components/game/GameReviewForm.jsx";
 import "../assets/css/Game.css";
 // Game
 function Game() {
-  // Obtain game id from url to query game after.
   const { id: gameId } = useParams();
-  // Redirect if not authenticated
-  if (!Auth.loggedIn()) return <Navigate to="/login" replace />;
+  const isAuth = Auth.loggedIn();
+  // Get game info
+  const { data, loading, error, refetch } = useQuery(QUERY_GAME, {
+    variables: { gameId },
+    skip: !isAuth,
+  });
+  // Get Related Games Info
+  const { data: relatedData, loading: relatedLoading } = useQuery(
+    RELATED_GAMES_GENRE, 
+    { variables: { genres: data?.game?.genre || [], limit: 20 }, skip: !isAuth || !data?.game?.genre?.length }
+  );
+
   // Prepare mutations
   const [addToBacklog]   = useMutation(ADD_TO_BACKLOG);
   const [removeFromBacklog]   = useMutation(REMOVE_FROM_BACKLOG);
@@ -42,22 +50,19 @@ function Game() {
   const [removeFromCompleted] = useMutation(REMOVE_FROM_COMPLETED);
   const [addTo100Completed] = useMutation(ADD_TO_100COMPLETED);
   const [removeFrom100Completed] = useMutation(REMOVE_FROM_100COMPLETED);
-  const [addReview] = useMutation(ADD_REVIEW);
-  // Get game info
-  const { data, loading, error, refetch } = useQuery(QUERY_GAME, {
-    variables: { gameId }
-  });
-  // Get Related Games Info
-  const { data: relatedData, loading: relatedLoading } = useQuery(
-    RELATED_GAMES_GENRE, 
-    { variables: { genres: data?.game?.genre || [], limit: 20 }, skip: !data?.game?.genre?.length }
-  );
+  // const [addReview] = useMutation(ADD_REVIEW);
 
-  if (loading) return <p>Loading game...</p>;
-  if (error)   return <p>Something went wrong.</p>;
-  if (relatedLoading) {
-    return <p>Loading related games…</p>;
-  }
+  const [addReview] = useMutation(ADD_REVIEW, {
+    refetchQueries: [
+      { query: QUERY_GAME, variables: { gameId } }
+    ],
+    awaitRefetchQueries: true,
+  });
+
+  if (!isAuth) return <Navigate to="/login" replace />;
+  if (loading) return <p>Loading game…</p>;
+  if (error) return <p>Something went wrong.</p>;
+  if (relatedLoading) return <p>Loading related games…</p>;
   // Destructure results to later eveluate if game in array matches the game id
   const { game, me } = data;
 
@@ -79,9 +84,6 @@ function Game() {
     gamesInProgress = [],
     games100Completed= [],
   } = me || {};
-
-  const [reviewsList, setReviewsList] = useState(reviews);
-
   // console.log (me);
   // console.log(gamesInProgress)
   // Evalute if game ids in array match game id 
@@ -100,13 +102,12 @@ function Game() {
     await refetch();  // re‑pull me query so your related games in genre banner updates
   };
   //Review Form Handler Passed to ReviewForm Component to Handle Review Submission
-  const handleAddReview = async ({ rating, text }) => {
+  const handleAddReview = async ({ rating, reviewText }) => {
     //Retrieve Response Data From the addReview Mutation Being Triggered.
-    const { data } = await addReview({
-      variables: { gameId: game._id, rating, reviewText: text }
+    await addReview({
+      variables: { gameId: _id, rating, reviewText }
     });
-    // Prepend the New Review Using useState Hook 
-    setReviewsList([data.addReview, ...reviewsList]);
+    // Apollo Should Refetch QUERY_GAME So Reviews Is Updated
   };
 
   return (
@@ -139,7 +140,7 @@ function Game() {
         currentGameId={_id}
       />
 
-      <UserReviewsContainer reviews={reviewsList} />
+      <UserReviewsContainer reviews={reviews} />
 
       <GameReviewForm onSubmit={handleAddReview} />
     </section>

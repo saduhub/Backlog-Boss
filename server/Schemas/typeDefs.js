@@ -81,7 +81,7 @@ const typeDefs = gql`
     removeFriend(id: ID!): User
     requestFriend(id: ID!): User
     rejectFriend(userId: ID!, myId: ID!): User
-    addReview(gameId: ID!, reviewNum: Int!, reviewText: String!): Review
+    addReview(gameId: ID!, rating: Int!, reviewText: String!): Review
     addToBacklog(gameId: ID!): User
     removeFromBacklog(gameId: ID!): User
     addToFavorites(gameId: ID!): User
