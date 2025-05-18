@@ -3,13 +3,14 @@ import "./game-review-form.css";
 
 function GameReviewForm({ onSubmit = () => {} }) {
   const [rating, setRating] = useState(1);
-  const [text, setText] = useState("");
+  const [reviewText, setReviewText] = useState("");
+  // Username
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ rating, text });
+    onSubmit({ rating, reviewText });
     setRating(1);
-    setText("");
+    setReviewText("");
   };
 
   return (
@@ -31,8 +32,8 @@ function GameReviewForm({ onSubmit = () => {} }) {
       <textarea
         className="gamereviewform-textarea"
         placeholder="Write your review here…"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
+        value={reviewText}
+        onChange={(e) => setReviewText(e.target.value)}
       />
       <button className="gamereviewform-button" type="submit">
         Submit Review

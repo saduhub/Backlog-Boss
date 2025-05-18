@@ -26,10 +26,19 @@ import GameReviewForm from "../components/game/GameReviewForm.jsx";
 import "../assets/css/Game.css";
 // Game
 function Game() {
-  // Obtain game id from url to query game after.
   const { id: gameId } = useParams();
-  // Redirect if not authenticated
-  if (!Auth.loggedIn()) return <Navigate to="/login" replace />;
+  const isAuth = Auth.loggedIn();
+  // Get game info
+  const { data, loading, error, refetch } = useQuery(QUERY_GAME, {
+    variables: { gameId },
+    skip: !isAuth,
+  });
+  // Get Related Games Info
+  const { data: relatedData, loading: relatedLoading } = useQuery(
+    RELATED_GAMES_GENRE, 
+    { variables: { genres: data?.game?.genre || [], limit: 20 }, skip: !isAuth || !data?.game?.genre?.length }
+  );
+
   // Prepare mutations
   const [addToBacklog]   = useMutation(ADD_TO_BACKLOG);
   const [removeFromBacklog]   = useMutation(REMOVE_FROM_BACKLOG);
@@ -41,23 +50,19 @@ function Game() {
   const [removeFromCompleted] = useMutation(REMOVE_FROM_COMPLETED);
   const [addTo100Completed] = useMutation(ADD_TO_100COMPLETED);
   const [removeFrom100Completed] = useMutation(REMOVE_FROM_100COMPLETED);
-
   // const [addReview] = useMutation(ADD_REVIEW);
-  // Get game info
-  const { data, loading, error, refetch } = useQuery(QUERY_GAME, {
-    variables: { gameId }
-  });
-  // Get Related Games Info
-  const { data: relatedData, loading: relatedLoading } = useQuery(
-    RELATED_GAMES_GENRE, 
-    { variables: { genres: data?.game?.genre || [], limit: 20 }, skip: !data?.game?.genre?.length }
-  );
 
-  if (loading) return <p>Loading game...</p>;
-  if (error)   return <p>Something went wrong.</p>;
-  if (relatedLoading) {
-    return <p>Loading related games…</p>;
-  }
+  const [addReview] = useMutation(ADD_REVIEW, {
+    refetchQueries: [
+      { query: QUERY_GAME, variables: { gameId } }
+    ],
+    awaitRefetchQueries: true,
+  });
+
+  if (!isAuth) return <Navigate to="/login" replace />;
+  if (loading) return <p>Loading game…</p>;
+  if (error) return <p>Something went wrong.</p>;
+  if (relatedLoading) return <p>Loading related games…</p>;
   // Destructure results to later eveluate if game in array matches the game id
   const { game, me } = data;
 
@@ -79,7 +84,6 @@ function Game() {
     gamesInProgress = [],
     games100Completed= [],
   } = me || {};
-
   // console.log (me);
   // console.log(gamesInProgress)
   // Evalute if game ids in array match game id 
@@ -88,14 +92,22 @@ function Game() {
   const inProgress = gamesInProgress.some((g) => g._id === game._id);
   const isCompleted = gamesCompleted.some((g) => g._id === game._id);
   const is100Completed = games100Completed.some((g) => g._id === game._id);
-  // Function that handles the passed mutation called by each button in GameStatusBanner
+  // Status Button Handler that passes mutation called by each button in GameStatusBanner
   const handleToggle = (flag, addMutation, removeMutation) => async () => {
     if (flag) {
       await removeMutation({ variables: { gameId } });
     } else {
       await addMutation({ variables: { gameId } });
     }
-    await refetch();  // re‑pull `me` so your banner updates
+    await refetch();  // re‑pull me query so your related games in genre banner updates
+  };
+  //Review Form Handler Passed to ReviewForm Component to Handle Review Submission
+  const handleAddReview = async ({ rating, reviewText }) => {
+    //Retrieve Response Data From the addReview Mutation Being Triggered.
+    await addReview({
+      variables: { gameId: _id, rating, reviewText }
+    });
+    // Apollo Should Refetch QUERY_GAME So Reviews Is Updated
   };
 
   return (
@@ -130,8 +142,7 @@ function Game() {
 
       <UserReviewsContainer reviews={reviews} />
 
-      {/* <GameReviewForm onSubmit={} /> */}
-      <GameReviewForm />
+      <GameReviewForm onSubmit={handleAddReview} />
     </section>
   );
 }
