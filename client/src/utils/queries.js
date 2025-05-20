@@ -194,6 +194,10 @@ export const QUERY_GAME = gql`
       pictureUrl
       genre
       }
+      likedReviews {
+        _id
+        likes
+      }
     }
   }
 `;

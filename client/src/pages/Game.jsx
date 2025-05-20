@@ -15,6 +15,8 @@ import {
   REMOVE_FROM_COMPLETED,
   REMOVE_FROM_100COMPLETED,
   ADD_REVIEW,
+  ADD_LIKE_TO_REVIEW,
+  REMOVE_LIKE_FROM_REVIEW,
 } from "../utils/mutations.js";
 // Components
 import LargeGameCard from "../components/game/LargeGameCard.jsx";
@@ -50,6 +52,8 @@ function Game() {
   const [removeFromCompleted] = useMutation(REMOVE_FROM_COMPLETED);
   const [addTo100Completed] = useMutation(ADD_TO_100COMPLETED);
   const [removeFrom100Completed] = useMutation(REMOVE_FROM_100COMPLETED);
+  const [addLikeToReview] = useMutation(ADD_LIKE_TO_REVIEW);
+  const [removeLikeFromReview] = useMutation(REMOVE_LIKE_FROM_REVIEW);
   // const [addReview] = useMutation(ADD_REVIEW);
 
   const [addReview] = useMutation(ADD_REVIEW, {
@@ -82,7 +86,8 @@ function Game() {
     gamesInBacklog = [],
     gamesInFavorites = [],
     gamesInProgress = [],
-    games100Completed= [],
+    games100Completed = [],
+    likedReviews = [],
   } = me || {};
   // console.log (me);
   // console.log(gamesInProgress)
@@ -100,6 +105,17 @@ function Game() {
       await addMutation({ variables: { gameId } });
     }
     await refetch();  // re‑pull me query so your related games in genre banner updates
+  };
+  // Evalute if review ids in array match review id 
+  const meLikedIds = likedReviews?.map((r) => r._id) ?? [];
+  // Like Button Handler that passes mutation called by heart button in HeartsRating
+  const handleToggleLike = (hasLiked, reviewId) => async () => {
+    if (hasLiked) {
+      await removeLikeFromReview({ variables: { reviewId } });
+    } else {
+      await addLikeToReview({ variables: { reviewId } });
+    }
+    await refetch();
   };
   //Review Form Handler Passed to ReviewForm Component to Handle Review Submission
   const handleAddReview = async ({ rating, reviewText }) => {
@@ -140,7 +156,11 @@ function Game() {
         currentGameId={_id}
       />
 
-      <UserReviewsContainer reviews={reviews} />
+      <UserReviewsContainer 
+        reviews={reviews}
+        meLikedIds={meLikedIds}
+        onToggleLike={handleToggleLike} 
+      />
 
       <GameReviewForm onSubmit={handleAddReview} />
     </section>

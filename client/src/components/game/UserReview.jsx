@@ -1,7 +1,7 @@
 import "./user-review.css";
 import HeartsRating from "./HeartsRating.jsx";
 
-function UserReview({ review = {} }) {
+function UserReview({ review = {}, hasLiked, onToggleLike }) {
   const {
     user: { username = "User", profilePictureUrl = "https://res.cloudinary.com/dx7bgdfut/image/upload/v1689908332/TuneStack/vpardqd8t71yai2bdzo8.jpg" } = {},
     dateOfReview = Date.now(),
@@ -25,7 +25,12 @@ function UserReview({ review = {} }) {
           </span>
         </div>
         <div className="userreview-stats">
-          <HeartsRating rating={rating} likes={likes} />
+          <HeartsRating
+            rating={rating}
+            likes={likes}
+            hasLikedInitial={hasLiked}
+            onToggle={onToggleLike}
+          />
         </div>
         <p className="userreview-text">{reviewText}</p>
       </div>

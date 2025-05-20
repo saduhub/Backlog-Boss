@@ -407,6 +407,34 @@ const resolvers = {
           { new: true }
         );
       },
+      addLikeToReview: async (_, { reviewId }, { user }) => {
+        if (!user) throw new AuthenticationError("You must be logged in to perform this action");
+        const me = await User.findById(user._id);
+        const review = await Review.findById(reviewId);
+        if (!review) throw new Error("Review not found");
+        // Only add if not already liked
+        if (!me.likedReviews.includes(reviewId)) {
+          me.likedReviews.push(reviewId);
+          review.likes += 1;
+          await me.save();
+          await review.save();
+        }
+        return review;
+      },
+      removeLikeFromReview: async (_, { reviewId }, { user }) => {
+        if (!user) throw new AuthenticationError("You must be logged in to perform this action");
+        const me = await User.findById(user._id);
+        const review = await Review.findById(reviewId);
+        if (!review) throw new Error("Review not found");
+        // only remove if currently liked
+        if (me.likedReviews.includes(reviewId)) {
+          me.likedReviews.pull(reviewId);
+          review.likes = Math.max(0, review.likes - 1);
+          await me.save();
+          await review.save();
+        }
+        return review;
+      },
       changeProfilePic: async (_, { url }, context) => {
         const { user } = context;
         

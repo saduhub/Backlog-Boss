@@ -1,13 +1,23 @@
+/* Check HeartsRating.jsx for framer code controlling animation and color change css inside of jsx tag for component*/
 .hearts-rating {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.5rem;
 }
 
 .heartsrating-icon {
+  font-size: 1.5rem;
   color: #9f34ff;
 }
 
+.heartsrating-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
 .heartsrating-value {
+  font-weight: 600;
   color: #fff;
 }
