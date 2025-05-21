@@ -1,26 +1,38 @@
 .game-status-banner {
   display: flex;
-  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
   margin-bottom: 2rem;
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
 .gamestatusbanner-btn {
-  padding: 0.5rem 1.25rem;
-  background: #565656;
-  border: 1px solid #565656;
-  border-radius: 0.75rem;
+  min-width: 140px;
+  padding: 0.65rem 1rem;
+  background: #3a3a3a;
+  border: 1px solid transparent;
+  border-radius: 1rem;
   color: #fff;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: center;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  flex-grow: 1;
+  flex-basis: 140px;
+}
+
+.gamestatusbanner-btn:hover {
+  background: #9f34ff;
+  border-color: #9f34ff;
+  transform: translateY(-2px);
 }
 
 .gamestatusbanner-btn.active {
   background: #9f34ff;
   border-color: #9f34ff;
   color: #fff;
-}
-
-.gamestatusbanner-btn:hover {
-  background: #9f34ff;;
-  border: 1px solid #9f34ff;;
 }

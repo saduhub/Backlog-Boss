@@ -1,9 +1,20 @@
 .user-reviews-container {
-  margin: 2rem 0;
+  background-color: #1e1e1e;
+  padding: 2rem 1.5rem;
+  margin: 3rem auto;
+  border-radius: 1rem;
+  max-width: 1200px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .userreviewscontainer-header {
-  font-size: 1.5rem;
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  font-weight: 600;
   color: #fff;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  letter-spacing: 0.5px;
 }
+

@@ -92,6 +92,8 @@ const typeDefs = gql`
     removeFromCompleted(gameId: ID!): User
     addTo100Completed(gameId: ID!): User
     removeFrom100Completed(gameId: ID!): User
+    addLikeToReview(reviewId: ID!): Review!
+    removeLikeFromReview(reviewId: ID!): Review!
     changeProfilePic(url: String!): User
     saveAiPic(url: String!): User
   }`
