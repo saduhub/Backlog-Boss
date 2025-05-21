@@ -32,7 +32,7 @@ function UserReview({ review = {}, hasLiked, onToggleLike }) {
             onToggle={onToggleLike}
           />
         </div>
-        <p className="userreview-text">{reviewText}</p>
+        <p className="userreview-text">&ldquo;{reviewText}&rdquo;</p>
       </div>
     </div>
   );

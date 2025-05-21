@@ -1,4 +1,5 @@
 import "./large-game-card.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function LargeGameCard({
   title,
@@ -7,6 +8,7 @@ function LargeGameCard({
   gameGenre,
   platform,
   release,
+  icons
 }) {
   return (
     <div className="large-game-card">
@@ -17,10 +19,10 @@ function LargeGameCard({
         alt={`Cover of ${title}`}
       />
       <div className="largegamecard-rating">
-        <p><span>&#9733;</span> {rating}</p>
-        <p><span>&#9733;</span> {platform}</p>
-        <p><span>&#9733;</span> {gameGenre}</p>
-        <p><span>&#9733;</span> {release}</p>
+        <p><FontAwesomeIcon icon={icons.star} /> {rating}</p>
+        <p><FontAwesomeIcon icon={icons.gamepad} /> {Array.isArray(platform) ? platform.join(" / ") : platform}</p>
+        <p><FontAwesomeIcon icon={icons.genre} /> {Array.isArray(gameGenre) ? gameGenre.join(" / ") : gameGenre}</p>
+        <p><FontAwesomeIcon icon={icons.calendar} /> {release}</p>
       </div>
     </div>
   );

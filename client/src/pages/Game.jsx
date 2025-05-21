@@ -26,6 +26,12 @@ import UserReviewsContainer from "../components/game/UserReviewsContainer.jsx";
 import GameReviewForm from "../components/game/GameReviewForm.jsx";
 // Styles and Assets
 import "../assets/css/Game.css";
+import {
+  faStar,
+  faGamepad,
+  faPuzzlePiece,
+  faCalendarAlt,
+} from "@fortawesome/free-solid-svg-icons";
 // Game
 function Game() {
   const { id: gameId } = useParams();
@@ -135,6 +141,12 @@ function Game() {
         gameGenre={genre}
         platform={platforms}
         release={releaseDate}
+        icons={{
+        star: faStar,
+        gamepad: faGamepad,
+        genre: faPuzzlePiece,
+        calendar: faCalendarAlt,
+      }}
       />
 
       <GameStatusBanner
