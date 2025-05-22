@@ -4,10 +4,16 @@ import "./game-review-form.css";
 function GameReviewForm({ onSubmit = () => {} }) {
   const [rating, setRating] = useState(1);
   const [reviewText, setReviewText] = useState("");
-  // Username
+  const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const wordCount = reviewText.trim().split(/\s+/).length;
+    if (wordCount < 40) {
+      setError("Please write at least 40 words to give others a helpful review!");
+      return;
+    }
+    setError("");
     onSubmit({ rating, reviewText });
     setRating(1);
     setReviewText("");
@@ -35,6 +41,7 @@ function GameReviewForm({ onSubmit = () => {} }) {
         value={reviewText}
         onChange={(e) => setReviewText(e.target.value)}
       />
+      {error && <p className="gamereviewform-error">{error}</p>}
       <button className="gamereviewform-button" type="submit">
         Submit Review
       </button>
