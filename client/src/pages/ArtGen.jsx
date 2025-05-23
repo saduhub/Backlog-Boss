@@ -14,6 +14,8 @@ function ArtGen() {
   const [previewUrl, setPreviewUrl] = useState('');
   const [prompt, setPrompt] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+  const [avatarSet, setAvatarSet] = useState(false);
+  const [gallerySaved, setGallerySaved] = useState(false);
 
   // GraphQL Hooks
   const [getAiImage, { loading: loadingImage, data: imageData }] = useLazyQuery(GET_AI_IMAGE);
@@ -32,9 +34,10 @@ function ArtGen() {
     if (!previewUrl) return;
     try {
       await changeProfilePic({ variables: { url: previewUrl } });
-      alert('Profile picture updated!');
+      setAvatarSet(true);
     } catch (err) {
-      console.error(err);
+      setErrorMsg("An unexpected error occurred, try again.");
+      // console.error(err);
     }
   };
 
@@ -42,9 +45,10 @@ function ArtGen() {
     if (!previewUrl) return;
     try {
       await saveAiPic({ variables: { url: previewUrl } });
-      alert('Saved to your gallery!');
+      setGallerySaved(true);
     } catch (err) {
-      console.error(err);
+      setErrorMsg("An unexpected error occurred, try again.");
+      // console.error(err);
     }
   };
 
@@ -55,12 +59,16 @@ function ArtGen() {
     if (result?.url) {
       setPreviewUrl(result.url);
       setErrorMsg('');
+      setAvatarSet(false);     
+      setGallerySaved(false);
     } else if (result?.error) {
       setPreviewUrl('');
+      setAvatarSet(false);
+      setGallerySaved(false);
       // console.error("AI error from backend:", result.error);
 
       const messageMap = {
-        image_generation_user_error: "Your promp likely includes restricted content or names. Please try rewording it.",
+        image_generation_user_error: "Your prompt likely includes restricted content or names. Please try rewording it.",
         empty_prompt: "Prompt cannot be empty. Please describe what you'd like generated.",
         no_image_data: "The image could not be generated. Try a different style or subject.",
         unknown_error: "Something went wrong. Please try again later.",
@@ -69,6 +77,12 @@ function ArtGen() {
       setErrorMsg(messageMap[result.error] || "An unexpected error occurred.");
     }
   }, [imageData]);
+
+  useEffect(() => {
+    if (errorMsg) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [errorMsg]);
 
   // Render
   const anyLoading = loadingImage || savingAvatar || savingGallery;
@@ -95,6 +109,8 @@ function ArtGen() {
               disabled={!previewUrl || anyLoading}
               onSetAvatar={handleSetAvatar}
               onSave={handleSaveToGallery}
+              avatarSet={avatarSet}
+              gallerySaved={gallerySaved}
             />
           </motion.div>
         </AnimatePresence>
