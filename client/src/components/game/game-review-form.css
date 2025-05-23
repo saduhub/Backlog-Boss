@@ -25,6 +25,12 @@
   color: #fff;
 }
 
+.gamereviewform-error {
+  color: #9f34ff;
+  font-size: 0.9rem;
+  margin-top: -0.5rem;
+}
+
 .gamereviewform-button {
   align-self: flex-start;
   padding: 0.75rem 1.5rem;

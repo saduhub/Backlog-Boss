@@ -18,8 +18,11 @@
   gap: 1rem;
   overflow-x: auto;
   padding-bottom: 1rem;
+  padding-top: 0.5rem;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: #9f34ff #1e1e1e;
 }
 
 .relatedgamesbanner-list > * {
@@ -28,15 +31,21 @@
   min-width: 200px;
   max-width: 250px;
 }
-/* Hide scrollbar - WebKit */
+/* Scrollbar - WebKit */
 .relatedgamesbanner-list::-webkit-scrollbar {
-  display: none;
+  height: 8px;
 }
-/* Hide scrollbar - Firefox */
-.related-games-banner {
-  scrollbar-width: none;
+
+.relatedgamesbanner-list::-webkit-scrollbar-track {
+  background: #1e1e1e;
+  border-radius: 8px;
 }
-/* Hide scrollbar - IE & legacy Edge */
-.related-games-banner {
-  -ms-overflow-style: none;
+
+.relatedgamesbanner-list::-webkit-scrollbar-thumb {
+  background: #9f34ff;
+  border-radius: 8px;
+}
+
+.relatedgamesbanner-list::-webkit-scrollbar-thumb:hover {
+  background: #bf5fff;
 }

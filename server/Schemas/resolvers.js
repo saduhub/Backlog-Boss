@@ -135,35 +135,40 @@ const resolvers = {
           console.error(err);
         }
       },
-      getAiImage: async (parent, {prompt}, context) => {
+      getAiImage: async (_, { prompt }) => {
+        // console.log("Generating image for prompt:", prompt);
         if (!prompt || !prompt.trim()) {
-          throw new Error("Prompt cannot be empty.");
+          // console.warn("Prompt missing or empty.");
+          return { url: null, error: "empty_prompt" };
         }
 
         try {
-          const imageResponse = await openai.images.generate({
+          const response = await openai.images.generate({
             model: "dall-e-3",
             prompt,
             n: 1,
-            size: "1024x1024",  
-            response_format: "b64_json", // url (default but replaced in order to store image into cloudinary and to make images public ) or b64_json
-            // user: 'insertUsername' // keeps track of user who generated the image
+            size: "1024x1024",
+            response_format: "b64_json",
           });
-          // Extract from OpenAI API Response
-          const b64 = imageResponse.data[0].b64_json;
-          // Set Up Cloudinary Parameter 
+           // Extract from OpenAI API Response
+          const b64 = response.data[0]?.b64_json;
+          
+          if (!b64) {
+            // console.error("OpenAI response missing b64_json:", response);
+            return { url: null, error: "no_image_data" };
+          }
+          // Set Up Cloudinary Parameter      
           const dataUri = `data:image/png;base64,${b64}`;
           // Upload to Cloudinary
           const uploadResult = await cloudinary.uploader.upload(dataUri, {
             folder: "ai-images",
             format: "png",
           });
-          // console.log(uploadResult);
-        
-          return { url: uploadResult.secure_url }
-
+          return { url: uploadResult.secure_url, error: null };
         } catch (err) {
-          console.log(err);
+          // console.error("Caught OpenAI image generation or cloudinary error:", err);
+          const errorType = err?.error?.type || err?.response?.data?.error?.type || "unknown_error";
+          return { url: null, error: errorType };
         }
       },
       relatedGamesByGenre: async (parent, { genres, limit}) => {
