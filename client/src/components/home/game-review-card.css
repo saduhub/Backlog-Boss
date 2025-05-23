@@ -1,129 +1,148 @@
 /* Outermost Container */
 .game-review-card {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: space-evenly;
-    /* border: 1px solid black; */
-    width: 400px;
-    height: 650px;
-    border-radius: 1rem;
+  background-color: #2e2e2e;
+  border-radius: 1rem;
+  padding: 1rem;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
+.game-review-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Game Image */
 .gamereviewcard-game-image-container {
-    width: 100%;
-    height: 250px;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden; 
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 0.75rem;
 }
 
 .gamereviewcard-game-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 1rem;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.75rem;
 }
 
+/* Title */
 .gamereviewcard-game-title {
-    font-style: normal;
-    font-weight: 600;
-    font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 600;
+  font-size: clamp(1.1rem, 2vw, 1.25rem);
+  color: #ffffff;
+  margin: 0.75rem 0 0.5rem;
+  text-align: center;
 }
 
+/* Review Section */
 .gamereviewcard-review-container {
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    align-items: start;
-    justify-content: start;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  margin: 0.5rem 0;
 }
 
+/* Profile Image */
 .gamereviewcard-profile-image-container {
-    width: 100px;
-    height: 100px;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden; 
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
 }
 
 .gamereviewcard-profile-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    aspect-ratio: 1;
-    display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
 }
 
+/* Review Details */
 .gamereviewcard-review-details-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: start;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.95rem;
+  color: #cccccc;
+  text-align: left;
 }
 
 .gamereviewcard-username a {
-    color: #9F34FF;
-    text-decoration: underline;
-    font-size: 1.5rem;
+  color: #9f34ff;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.gamereviewcard-review-date {
+  font-size: 0.85rem;
+  margin: 0.25rem 0;
+  color: #999999;
 }
 
 .gamereviewcard-review-text {
-    max-height: 200px;
-    overflow: hidden;
-    position: relative;
+  font-size: 0.9rem;
+  color: #eeeeee;
+  line-height: 1.3;
+  margin-top: 0.25rem;
 }
 
-.gamereviewcard-review-text a {
-    color: #9F34FF;
-    text-decoration: none;
-}
-
+/* Ratings and Likes */
 .gamereviewcard-rating-likes-container {
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    justify-content: start;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #ffffff;
 }
 
-.gamereviewcard-rating span {
-    color: #9F34FF;
-}
-
+.gamereviewcard-rating span,
 .gamereviewcard-likes span {
-    color: #9F34FF;
+  color: #9f34ff;
 }
 
-.gamereviewcard-button {
-    padding: 1rem;
-    background-color: #000000;
-    border: 1px solid #000000;
-    border-radius: 0.75rem;
-    color: #ffffff;
+.gamereviewcard-readmore-link {
+    color: #9f34ff;
+    font-size: 0.95rem;
+    font-weight: 500;
     text-decoration: none;
-    transition: all 0.3s ease-in-out;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 1.25rem;
+    margin-top: 0.5rem;
+}
+
+/* View Game Button */
+.gamereviewcard-button {
+  margin-top: 1rem;
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  background: #9f34ff;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 0.75rem;
+  transition: background 0.25s ease, transform 0.2s ease;
 }
 
 .gamereviewcard-button:hover {
-    padding: 1rem;
-    background-color: #9F34FF;
-    border: 1px solid #9F34FF;
-    border-radius: 0.75rem;
-    color: #ffffff;
-    text-decoration: none;
+  background: #7d2bcc;
+  transform: scale(1.05);
 }

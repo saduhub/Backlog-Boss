@@ -1,19 +1,37 @@
 .home-main-section {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-top: 5%;
+  width: 100%;
+  padding: 4rem 1rem;
+  background-color: #1a1a1a;
+  box-sizing: border-box;
 }
 
 .home-main-div {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  max-width: 1600px;
-  padding: 0 5%; 
-  text-align: center;
-  margin: calc(5vh + 25px) auto 5%;
-  color: #ffffff;
-  min-width: 280px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
   place-items: center;
-  border-radius: 1rem;
-  column-gap: 1rem; 
+  width: 100%;
+  max-width: 1400px;
+  padding: 0 1rem;
+  margin-top: 2rem;
+  margin-left: 6%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 759px) {
+  .home-main-div {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 450px) {
+  .home-main-div {
+    padding-right: 0;
+    padding-left: 0;
+    
+  }
 }
