@@ -283,6 +283,7 @@ export const GET_AI_IMAGE = gql`
   query getAiImage($prompt: String!) {
     getAiImage(prompt: $prompt) {
       url
+      error
     }
   }
 `;

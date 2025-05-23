@@ -49,9 +49,10 @@ const typeDefs = gql`
     metacritic: Int
   }
 
-  type imageURL {
-    url: String!
-  }
+  type AiImageResponse {
+  url: String
+  error: String
+}
 
   type Auth {
     token: ID!
@@ -70,7 +71,7 @@ const typeDefs = gql`
     me: User
     userVisitedInfo(id: ID!): User
     getPopularGames: [PopularGame]
-    getAiImage(prompt: String!): imageURL
+    getAiImage(prompt: String!): AiImageResponse
     relatedGamesByGenre(genres: [String!]!, limit: Int!): [Game]
   }
 

@@ -13,19 +13,18 @@ import '../assets/css/artGen.css';
 function ArtGen() {
   const [previewUrl, setPreviewUrl] = useState('');
   const [prompt, setPrompt] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
 
   // GraphQL Hooks
-  const [getAiImage, { loading: loadingImage, data: imageData, error: imageErr }] =
-    useLazyQuery(GET_AI_IMAGE);
-  const [changeProfilePic, { loading: savingAvatar }] =
-    useMutation(CHANGE_PROFILE_PIC);
-  const [saveAiPic, { loading: savingGallery }] =
-    useMutation(SAVE_AI_PIC);
+  const [getAiImage, { loading: loadingImage, data: imageData }] = useLazyQuery(GET_AI_IMAGE);
+  const [changeProfilePic, { loading: savingAvatar }] = useMutation(CHANGE_PROFILE_PIC);
+  const [saveAiPic, { loading: savingGallery }] = useMutation(SAVE_AI_PIC);
 
   // Helpers and Callbacks
   const generateAvatar = (formValues) => {
     const built = buildPrompt(formValues);
     setPrompt(built);
+    setErrorMsg('');
     getAiImage({ variables: { prompt: built } });
   };
 
@@ -51,38 +50,56 @@ function ArtGen() {
 
   //Effect - whenever query returns, update preview
   useEffect(() => {
-    if (imageData?.getAiImage?.url) {
-      setPreviewUrl(imageData.getAiImage.url);
+    const result = imageData?.getAiImage;
+
+    if (result?.url) {
+      setPreviewUrl(result.url);
+      setErrorMsg('');
+    } else if (result?.error) {
+      setPreviewUrl('');
+      // console.error("AI error from backend:", result.error);
+
+      const messageMap = {
+        image_generation_user_error: "Your promp likely includes restricted content or names. Please try rewording it.",
+        empty_prompt: "Prompt cannot be empty. Please describe what you'd like generated.",
+        no_image_data: "The image could not be generated. Try a different style or subject.",
+        unknown_error: "Something went wrong. Please try again later.",
+      };
+
+      setErrorMsg(messageMap[result.error] || "An unexpected error occurred.");
     }
-    if (imageErr) alert('Something went wrong. Try again.');
-  }, [imageData, imageErr]);
+  }, [imageData]);
 
   // Render
   const anyLoading = loadingImage || savingAvatar || savingGallery;
 
   return (
-    <section className="artgen-container">
-      <PromptForm onSubmit={generateAvatar} isLoading={loadingImage} />
+    <>
+      {errorMsg && (<p className="artgen-error-message">{errorMsg}</p>)}
+      <section className="artgen-container">
 
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={previewUrl || 'placeholder'}
-          initial={{ opacity: 0, y: 25 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3, ease: 'easeOut' }}
-          className="artgen-preview-wrapper"
-        >
-          <ImagePreview src={previewUrl} isLoading={loadingImage} />
+        <PromptForm onSubmit={generateAvatar} isLoading={loadingImage} />
 
-          <ActionBar
-            disabled={!previewUrl || anyLoading}
-            onSetAvatar={handleSetAvatar}
-            onSave={handleSaveToGallery}
-          />
-        </motion.div>
-      </AnimatePresence>
-    </section>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={previewUrl || 'placeholder'}
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            className="artgen-preview-wrapper"
+          >
+            <ImagePreview src={previewUrl} isLoading={loadingImage} />
+
+            <ActionBar
+              disabled={!previewUrl || anyLoading}
+              onSetAvatar={handleSetAvatar}
+              onSave={handleSaveToGallery}
+            />
+          </motion.div>
+        </AnimatePresence>
+      </section>
+    </>
   );
 }
 
