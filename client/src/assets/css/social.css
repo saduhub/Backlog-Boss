@@ -14,10 +14,6 @@
   flex-wrap: wrap;
 }
 
-/* .social-wrap-none {
-  flex-wrap: nowrap;
-} */
-
 .social-flex-col {
   flex-direction: column;
 }
@@ -28,12 +24,12 @@
 }
 
 .social-gap-p5 {
-  gap: .5rem;
+  gap: 0.5rem;
 }
 
 .social-my-p5 {
-  margin-top: .5rem;
-  margin-bottom: .5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .social-mx-auto {
@@ -66,7 +62,7 @@
 }
 
 .social-border-radius {
-  border-radius: .5rem;
+  border-radius: 0.5rem;
 }
 
 .social-object-cover {
@@ -80,23 +76,33 @@
 
 .social-inner-box {
   background-color: var(--grey);
-  padding: .7rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.social-inner-box:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
 /* Search Bar */
 .social-container {
-  padding: 6%;
+  padding: 2rem 1rem;
+  padding-left: 6%;
   max-width: 1200px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .social-search-box {
   outline-color: var(--grey);
-  padding: .2rem;
+  padding: 0.2rem;
   width: 40%;
   min-width: 15.5rem;
 }
@@ -104,7 +110,7 @@
 .social-search-input {
   background-color: var(--background-color);
   outline-color: var(--grey);
-  margin-right: .2rem;
+  margin-right: 0.2rem;
   width: 100%;
 }
 
@@ -121,15 +127,33 @@
 .social-profile-pic {
   width: 2rem;
   height: 2rem;
-  margin-left: .5rem;
-  margin-right: .5rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .social-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   background-color: var(--purple);
   width: 5rem;
   border: none;
   margin-top: 0.3rem;
+  border-radius: 0.5rem;
+  padding: 0.4rem 1rem;
+  color: white;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+.social-button:hover {
+  background-color: #7d2bcc;
 }
 
 .social-sub-container {
@@ -142,14 +166,14 @@
   width: 1rem;
   height: 1rem;
   margin-left: 0.5rem;
-  margin-right: .5rem;
+  margin-right: 0.5rem;
 }
 
 .social-review-box {
-  /* padding-left: 4rem;
-  padding-right: 4rem; */
   margin-bottom: 6rem;
   background-color: #282828;
+  border-radius: 0.75rem;
+  padding: 1rem;
 }
 
 .social-card {
@@ -158,12 +182,15 @@
   justify-content: center;
   align-items: start;
   width: 100%;
-  border-bottom: 1px solid #FFFFFF;
+  border-bottom: 1px solid #444444;
+  padding: 1rem 0rem;
+  gap: 0.5rem;
 }
 
 .social-username {
   color: #9F34FF;
   font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .social-game-link {
@@ -188,6 +215,75 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0px;
+  }
+}
+
+@media (max-width: 560px) {
+  .social-inner-box {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem;
+    gap: 0.5rem;
+  }
+
+  .social-inner-box > .social-flex {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+  }
+
+  .social-profile-pic {
+    width: 2.25rem;
+    height: 2.25rem;
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .social-button {
+    font-size: 0.9rem;
+    padding: 0.4rem 1rem;
+    border-radius: 0.5rem;
+    white-space: nowrap;
+  }
+
+  .social-gap-p5 {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    flex-shrink: 0;
+  }
+
+  .social-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem 0.75rem;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .social-card h5,
+  .social-card p,
+  .social-card a {
+    font-size: 1rem;
+    line-height: 1.3;
+  }
+
+  .social-review-box {
+    padding: 1rem 0.5rem;
+  }
+
+  .social-icon {
+    margin: 0 0.5rem 0 0;
+    display: inline-block;
+  }
+
+  .social-col-2 {
+    flex-direction: column;
+    gap: 1rem;
   }
 }
 
