@@ -44,9 +44,10 @@ const FriendRequest = ({ friendRequests }) => {
         </h3>
 
         <div className='social-friend-requests'>
-          {friendRequests &&
-            // eslint-disable-next-line
-            friendRequests.map(request => {
+          {requests.length === 0 ? (
+            <p>No friend requests at the moment</p>
+          ) : (
+            requests.map(request => {
               return (
                 <div key={request._id} className="social-inner-box social-my-p5 social-flex social-flex-wrap social-content-between social-border-radius">
                   <div className="social-flex social-items-cente social-image-name-div">
@@ -65,7 +66,7 @@ const FriendRequest = ({ friendRequests }) => {
                   </div>
                 </div>
               )
-            })
+            }))
           }
         </div>
       </section>
