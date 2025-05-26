@@ -1,38 +1,47 @@
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_FRIEND, REJECT_FRIEND } from '../../utils/mutations';
+import { SOCIAL } from '../../utils/queries';
 // eslint-disable-next-line
 const FriendRequest = ({ friendRequests }) => {
-  const [addFriend, { loading: adding }] = useMutation(ADD_FRIEND);
+  const [addFriend, { loading: adding }] = useMutation(ADD_FRIEND, {
+    refetchQueries: [{ query: SOCIAL }],
+    awaitRefetchQueries: true,
+  });
   const [rejectFriend, { loading: rejecting }] = useMutation(REJECT_FRIEND);
   const [requests, setRequests] = useState(friendRequests);
   const myId = localStorage.getItem('_id');
-  console.log(myId)
+  // console.log(myId)
+  const [error, setError] = useState(null);
   const handleFriendAccept = (userId) => {
-    console.log(userId);
+    // console.log(userId);
     if (adding) return;
+    setError(null);
     addFriend({
       variables: {userId: userId, myId: myId}
     }).then((response) => {
-      console.log(`User added to friends and removed from requests. Response:${response}`)
+      // console.log(`User added to friends and removed from requests. Response:${response}`)
       const updatedFriendRequests = requests.filter(request => request._id !==userId);
       setRequests(updatedFriendRequests);
     }).catch (error => {
-      console.error(error, userId)
+      // console.error(error, userId)
+      setError('Something went wrong. Please try again.');
     });
   }
 
   const handleFriendDecline = (userId) => {
     console.log(userId);
     if (rejecting) return;
+    setError(null);
     rejectFriend({
       variables: {userId: userId, myId: myId}
     }).then((response) => {
-      console.log(`User removed from requests. Response:${response}`)
+      // console.log(`User removed from requests. Response:${response}`)
       const updatedFriendRequests = requests.filter(request => request._id !==userId);
       setRequests(updatedFriendRequests);
     }).catch (error => {
-      console.error(error, userId)
+      // console.error(error, userId)
+      setError('Something went wrong. Please try again.');
     });
   }
 
@@ -43,10 +52,17 @@ const FriendRequest = ({ friendRequests }) => {
           Friend Requests
         </h3>
 
+        {error && (
+          <div className="social-error-box">
+            {error}
+          </div>
+        )}
+
         <div className='social-friend-requests'>
-          {friendRequests &&
-            // eslint-disable-next-line
-            friendRequests.map(request => {
+          {requests.length === 0 ? (
+            <p>No friend requests at the moment</p>
+          ) : (
+            requests.map(request => {
               return (
                 <div key={request._id} className="social-inner-box social-my-p5 social-flex social-flex-wrap social-content-between social-border-radius">
                   <div className="social-flex social-items-cente social-image-name-div">
@@ -65,7 +81,7 @@ const FriendRequest = ({ friendRequests }) => {
                   </div>
                 </div>
               )
-            })
+            }))
           }
         </div>
       </section>

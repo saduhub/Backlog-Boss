@@ -1,9 +1,31 @@
+import { useState, useEffect } from 'react';
+import { useMutation } from '@apollo/client';
+import { REMOVE_FRIEND } from '../../utils/mutations';
 // eslint-disable-next-line
 const FriendList = ({ friends }) => {
-  const handleFriendRemove = () => {
-    
-  }
-  console.log(friends);
+  const [friendList, setFriendList] = useState(friends);
+  const [error, setError] = useState(null);
+  const [removeFriend, { loading }] = useMutation(REMOVE_FRIEND);
+
+  useEffect(() => {
+    setFriendList(friends);
+  }, [friends]);
+
+  const handleFriendRemove = async (friendId) => {
+    if (loading) return;
+    setError(null);
+
+    try {
+      const { data } = await removeFriend({
+        variables: { friendId },
+      });
+
+      setFriendList(data.removeFriend.friends);
+    } catch (err) {
+      setError('Something went wrong. Please try again.');
+    }
+  };
+  // console.log(friends);
 
   return (
     <div>
@@ -11,6 +33,12 @@ const FriendList = ({ friends }) => {
         <h3 className="social-my-p5">
           Friend List
         </h3>
+        
+        {error && (
+          <div className="social-error-box">
+            {error}
+          </div>
+        )}
 
         <div className="social-col-2">
           {friends &&
@@ -25,8 +53,12 @@ const FriendList = ({ friends }) => {
                     </p>
                   </div>
                   <div className="social-gap-p5">
-                    <button onClick={handleFriendRemove} className="social-button social-border-radius social-font">
-                      Remove
+                    <button
+                      onClick={() => handleFriendRemove(friend._id)}
+                      disabled={loading}
+                      className="social-button"
+                    >
+                      {loading ? 'Removing...' : 'Remove'}
                     </button>
                   </div>
                 </div>

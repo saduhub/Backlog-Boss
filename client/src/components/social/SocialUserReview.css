@@ -1,0 +1,105 @@
+.socialuser-review {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  background: #2b2b2b;
+  border-radius: 1rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease;
+  width: 100%;
+}
+
+.socialuser-review:hover {
+  transform: translateY(-3px);
+}
+
+.socialuser-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.socialuser-content {
+  flex: 1;
+  color: #fff;
+}
+
+.socialuser-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: baseline;
+  margin-bottom: 0.25rem;
+}
+
+.socialuser-username {
+  color: #9f34ff;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.socialuser-date {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.socialuser-gamename {
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #e1cdf2;
+  text-decoration: none;
+  display: inline-block;
+  margin: 0.25rem 0;
+}
+
+.socialuser-stats {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  font-size: 0.95rem;
+  margin: 0.5rem 0;
+}
+
+.socialuser-stat {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.socialuser-icon {
+  font-size: 1.5rem;
+  color: #9f34ff;
+}
+
+.socialuser-text {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #e0e0e0;
+}
+
+@media (max-width: 500px) {
+  .socialuser-review {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .socialuser-header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .socialuser-stats {
+    justify-content: center;
+  }
+
+  .socialuser-content {
+    text-align: center;
+    width: 100%;
+  }
+}
