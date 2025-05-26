@@ -7,32 +7,37 @@ const FriendRequest = ({ friendRequests }) => {
   const [rejectFriend, { loading: rejecting }] = useMutation(REJECT_FRIEND);
   const [requests, setRequests] = useState(friendRequests);
   const myId = localStorage.getItem('_id');
-  console.log(myId)
+  // console.log(myId)
+  const [error, setError] = useState(null);
   const handleFriendAccept = (userId) => {
-    console.log(userId);
+    // console.log(userId);
     if (adding) return;
+    setError(null);
     addFriend({
       variables: {userId: userId, myId: myId}
     }).then((response) => {
-      console.log(`User added to friends and removed from requests. Response:${response}`)
+      // console.log(`User added to friends and removed from requests. Response:${response}`)
       const updatedFriendRequests = requests.filter(request => request._id !==userId);
       setRequests(updatedFriendRequests);
     }).catch (error => {
-      console.error(error, userId)
+      // console.error(error, userId)
+      setError('Something went wrong. Please try again.');
     });
   }
 
   const handleFriendDecline = (userId) => {
     console.log(userId);
     if (rejecting) return;
+    setError(null);
     rejectFriend({
       variables: {userId: userId, myId: myId}
     }).then((response) => {
-      console.log(`User removed from requests. Response:${response}`)
+      // console.log(`User removed from requests. Response:${response}`)
       const updatedFriendRequests = requests.filter(request => request._id !==userId);
       setRequests(updatedFriendRequests);
     }).catch (error => {
-      console.error(error, userId)
+      // console.error(error, userId)
+      setError('Something went wrong. Please try again.');
     });
   }
 
@@ -42,6 +47,12 @@ const FriendRequest = ({ friendRequests }) => {
         <h3 className="social-my-p5">
           Friend Requests
         </h3>
+
+        {error && (
+          <div className="social-error-box">
+            {error}
+          </div>
+        )}
 
         <div className='social-friend-requests'>
           {requests.length === 0 ? (

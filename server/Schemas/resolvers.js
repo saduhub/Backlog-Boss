@@ -212,11 +212,19 @@ const resolvers = {
       },
       removeFriend: async (_, { id }, context) => {
         if (context.user) {
-          return await User.findByIdAndUpdate(
-            context.user._id,
-            { $pull : { friends: id } },
-            { new: true }
-          )
+          const userId = context.user._id;
+
+          await User.findByIdAndUpdate(
+            userId,
+            { $pull: { friends: id } }
+          );
+
+          await User.findByIdAndUpdate(
+            id,
+            { $pull: { friends: userId } }
+          );
+
+          return await User.findById(userId).populate('friends');
         }
       },
       requestFriend: async (_, { id }, context) => {

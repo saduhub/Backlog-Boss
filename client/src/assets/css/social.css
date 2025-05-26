@@ -91,6 +91,15 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
+.social-error-box {
+  background: var(--light-purple);
+  color: var(--purple);
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--light-purple);
+}
+
 /* Search Bar */
 .social-container {
   padding: 2rem 1rem;

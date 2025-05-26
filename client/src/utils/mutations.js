@@ -12,11 +12,11 @@ export const ADD_FRIEND = gql`
 export const REMOVE_FRIEND = gql`
   mutation removeFriend($friendId: ID!) {
     removeFriend(id: $friendId) {
-      id
+      _id
       username
       profilePictureUrl
       friends {
-        id
+        _id
         username
         profilePictureUrl
       }
@@ -27,11 +27,11 @@ export const REMOVE_FRIEND = gql`
 export const REQUEST_FRIEND = gql`
   mutation requestFriend($friendId: ID!) {
     requestFriend(id: $friendId) {
-      id
+      _id
       username
       profilePictureUrl
       friendRequests {
-        id
+        _id
         username
         profilePictureUrl
       }
