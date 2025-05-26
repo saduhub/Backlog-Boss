@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
 import { REMOVE_FRIEND } from '../../utils/mutations';
 // eslint-disable-next-line
@@ -6,6 +6,11 @@ const FriendList = ({ friends }) => {
   const [friendList, setFriendList] = useState(friends);
   const [error, setError] = useState(null);
   const [removeFriend, { loading }] = useMutation(REMOVE_FRIEND);
+
+  useEffect(() => {
+    setFriendList(friends);
+  }, [friends]);
+
   const handleFriendRemove = async (friendId) => {
     if (loading) return;
     setError(null);

@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_FRIEND, REJECT_FRIEND } from '../../utils/mutations';
+import { SOCIAL } from '../../utils/queries';
 // eslint-disable-next-line
 const FriendRequest = ({ friendRequests }) => {
-  const [addFriend, { loading: adding }] = useMutation(ADD_FRIEND);
+  const [addFriend, { loading: adding }] = useMutation(ADD_FRIEND, {
+    refetchQueries: [{ query: SOCIAL }],
+    awaitRefetchQueries: true,
+  });
   const [rejectFriend, { loading: rejecting }] = useMutation(REJECT_FRIEND);
   const [requests, setRequests] = useState(friendRequests);
   const myId = localStorage.getItem('_id');
