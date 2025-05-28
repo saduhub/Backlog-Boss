@@ -101,6 +101,12 @@ const resolvers = {
         }
         throw AuthenticationError;
       },
+      profileBackloggedCount: async (parent, args, context) => {
+        if (!context.user) throw new AuthenticationError('Not logged in');
+
+        const user = await User.findById(context.user._id).select('gamesInBacklog');
+        return user?.gamesInBacklog?.length || 0;
+      },
       userVisitedInfo: async (parent, args, context) => {
         const { id } = args;
 

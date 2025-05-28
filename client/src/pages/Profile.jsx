@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { useQuery } from "@apollo/client";
-import { ME } from "../utils/queries";
+import { ME, GET_PROFILE_BACKLOGGED_COUNT } from "../utils/queries";
 // Style
 import '../assets/css/profile.css';
 // Images
@@ -23,6 +23,7 @@ function Profile() {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
   // eslint-disable-next-line
   const { data, loading, error } = useQuery(ME);
+  const { data: countData } = useQuery(GET_PROFILE_BACKLOGGED_COUNT);
   // console.log(error);
   const meData = data?.me || {}
   console.log(meData);
@@ -42,6 +43,7 @@ function Profile() {
             < ProfileUserCard 
               username={meData.username} 
               profile={meData.profilePictureUrl ? meData.profilePictureUrl : userIcon}
+              backloggedCount={countData?.profileBackloggedCount || 0}
               otherData={meData} 
             />
             {/* Game Stats */}

@@ -40,6 +40,12 @@ export const ME = gql`
   }
 `;
 
+export const GET_PROFILE_BACKLOGGED_COUNT = gql`
+  query GetProfileBackloggedCount {
+    profileBackloggedCount
+  }
+`;
+
 export const SOCIAL = gql`
   query social {
     me {

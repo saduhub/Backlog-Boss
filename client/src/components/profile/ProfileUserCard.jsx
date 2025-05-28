@@ -1,6 +1,6 @@
 import Auth from '../../utils/auth';
 // eslint-disable-next-line
-function ProfileUserCard({username, profile, otherData}) {
+function ProfileUserCard({username, profile, backloggedCount, otherData}) {
     const handleLogOut = () => Auth.logout();
     // console.log(profile)
     const currentUsername = localStorage.getItem('username');
@@ -19,7 +19,7 @@ function ProfileUserCard({username, profile, otherData}) {
         <div className="profile-user-stats">
             <div className="profile-user-games">  
             {/* eslint-disable-next-line */}
-            <h3 className='profile-highlighted-text'>{otherData.gamesInBacklog.length}</h3>
+            <h3 className='profile-highlighted-text'>{backloggedCount}</h3>
             <h3>Backlogged</h3>
             </div>
             <div className="profile-favorite-games">
