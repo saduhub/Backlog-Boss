@@ -8,6 +8,7 @@ import { CHANGE_PROFILE_PIC, SAVE_AI_PIC } from '../utils/mutations.js';
 import PromptForm from '../components/artgen/PromtForm.jsx';
 import ImagePreview from '../components/artgen/ImagePreview.jsx';
 import ActionBar from '../components/artgen/ActionBar.jsx';
+import Footer from '../components/Footer.jsx';
 import '../assets/css/artGen.css';
 
 function ArtGen() {
@@ -115,6 +116,7 @@ function ArtGen() {
           </motion.div>
         </AnimatePresence>
       </section>
+      <Footer />
     </>
   );
 }

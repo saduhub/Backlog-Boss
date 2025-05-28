@@ -5,6 +5,7 @@ import '../assets/css/home.css';
 // Components
 import GameReviewCard from '../components/home/GameReviewCard';
 import WelcomeBanner from '../components/home/WelcomeBanner';
+import Footer from '../components/Footer.jsx';
 import Auth from '../utils/auth';
 
 function Home() {
@@ -20,16 +21,19 @@ function Home() {
   if (error) return <p className="p-8 text-red-600">Something Went Wrong</p>;
 
   return (
-    <section className="home-main-section">
-      <WelcomeBanner user={user} />
-      <div className='home-main-div'>
-        {
-          reviewData.map((review) => (
-            <GameReviewCard key={review._id} review={review} />
-          ))
-        }
-      </div>
-    </section>
+    <>
+      <section className="home-main-section">
+        <WelcomeBanner user={user} />
+        <div className='home-main-div'>
+          {
+            reviewData.map((review) => (
+              <GameReviewCard key={review._id} review={review} />
+            ))
+          }
+        </div>
+      </section>
+      <Footer />
+    </>
   );
 }
   

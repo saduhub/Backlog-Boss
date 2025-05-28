@@ -16,6 +16,7 @@ import Challenges from '../components/profile/Challenges';
 import ChallengesDesktop from '../components/profile/ChallengesDesktop';
 import FriendList from '../components/profile/FriendList';
 import GameSuggestions from '../components/profile/GameSuggestions';
+import Footer from "../components/Footer";
 // Utilities
 import Auth from '../utils/auth';
 
@@ -36,50 +37,53 @@ function Profile() {
 
   if (isAuthenticated) {
     return (
-      <section className='profile-main-section'>
-          {/* User Card, Game Stats, Challenges */}
-          <div className='profile-user-stats-challenges'>
-            {/* User Card */}
-            < ProfileUserCard 
-              username={meData.username} 
-              profile={meData.profilePictureUrl ? meData.profilePictureUrl : userIcon}
-              backloggedCount={countData?.profileBackloggedCount || 0}
-              otherData={meData} 
-            />
-            {/* Game Stats */}
-            < GameStats 
-              otherData={meData} 
-              logo={logo}
-            />
-            {/* Challenges Mobile */}
-            <Challenges
-              otherData={meData} 
-              logo={logo}
-              username={meData.username}
-             />  
-          </div>
-          <div className='profile-suggestions-friends'>
-            {/* Game Suggestions */}
-            <h2>Game Suggestions</h2>
-            < GameSuggestions 
-              gamesInBacklog={meData.gamesInBacklog.map(game => game._id)}
-              username={meData.username}
-            />
-            {/* Friends */}
-            <h2>Friend List</h2>
-            <FriendList
-              otherData={meData} 
-              logo={logo}
-              username={meData.username}
-            /> 
-            {/* Challenges Desktop */}
-            <ChallengesDesktop
-              otherData={meData} 
-              logo={logo}
-              username={meData.username}
-            /> 
-          </div>
-      </section>
+      <>
+        <section className='profile-main-section'>
+            {/* User Card, Game Stats, Challenges */}
+            <div className='profile-user-stats-challenges'>
+              {/* User Card */}
+              < ProfileUserCard 
+                username={meData.username} 
+                profile={meData.profilePictureUrl ? meData.profilePictureUrl : userIcon}
+                backloggedCount={countData?.profileBackloggedCount || 0}
+                otherData={meData} 
+              />
+              {/* Game Stats */}
+              < GameStats 
+                otherData={meData} 
+                logo={logo}
+              />
+              {/* Challenges Mobile */}
+              <Challenges
+                otherData={meData} 
+                logo={logo}
+                username={meData.username}
+              />  
+            </div>
+            <div className='profile-suggestions-friends'>
+              {/* Game Suggestions */}
+              <h2>Game Suggestions</h2>
+              < GameSuggestions 
+                gamesInBacklog={meData.gamesInBacklog.map(game => game._id)}
+                username={meData.username}
+              />
+              {/* Friends */}
+              <h2>Friend List</h2>
+              <FriendList
+                otherData={meData} 
+                logo={logo}
+                username={meData.username}
+              /> 
+              {/* Challenges Desktop */}
+              <ChallengesDesktop
+                otherData={meData} 
+                logo={logo}
+                username={meData.username}
+              /> 
+            </div>
+        </section>
+        <Footer />
+      </>
     );
   }
 

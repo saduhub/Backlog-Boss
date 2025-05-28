@@ -8,6 +8,7 @@ import FriendRequest from '../components/social/FriendRequest';
 import FriendList from '../components/social/FriendList';
 import FriendSuggestion from '../components/social/FriendSuggestion';
 import UserReviews from '../components/social/UserReviews';
+import Footer from '../components/Footer';
 // import profilePic from '../assets/images/png/icons8-male-user-16.png';
 import Auth from '../utils/auth';
 
@@ -35,17 +36,20 @@ const Social = () => {
 
   if (isAuthenticated) {
     return (
-      <div className="social-container social-flex social-flex-col">
-        {/* <FriendSearch friendRequests={friendRequests} /> */}
+      <>
+        <div className="social-container social-flex social-flex-col">
+          {/* <FriendSearch friendRequests={friendRequests} /> */}
 
-        <FriendRequest friendRequests={friendRequestData} />
+          <FriendRequest friendRequests={friendRequestData} />
 
-        <FriendList friends={friendsData} />
+          <FriendList friends={friendsData} />
 
-        <FriendSuggestion friendSuggestions={usersData} friends={friendsData} />
+          <FriendSuggestion friendSuggestions={usersData} friends={friendsData} />
 
-        <UserReviews gameReviews={gameReviews} username={meData.username} profile={meData.profilePictureUrl} />
-      </div>
+          <UserReviews gameReviews={gameReviews} username={meData.username} profile={meData.profilePictureUrl} />
+        </div>
+        <Footer />
+      </>
     )
   }
 

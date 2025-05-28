@@ -1,0 +1,15 @@
+.app-footer {
+  text-align: center;
+  font-size: 0.9rem;
+  padding: 1rem;
+  color: #777;
+}
+
+.app-footer a {
+  color: #9f34ff;
+  text-decoration: none;
+}
+
+.app-footer a:hover {
+  text-decoration: underline;
+}
