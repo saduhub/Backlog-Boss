@@ -44,6 +44,11 @@
     border: 1px solid #ffffff;
     border-radius: 0.75rem;
     color: #ffffff;
+    transition: transform 0.2s ease;
+}
+
+.profile-user button:hover {
+    transform: scale(1.03);
 }
 
 .profile-user img {
@@ -152,13 +157,20 @@
 }
 
 .profile-explore-button {
-    margin: 1rem 5rem;
-    padding: 0.25rem 0;
-    background-color: #000000;
-    border: 1px solid #ffffff;
-    border-radius: 0.75rem;
+    margin-top: 1rem;
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    background: #9f34ff;
     color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 500;
     text-decoration: none;
+    border-radius: 0.75rem;
+    transition: transform 0.2s ease;
+}
+
+.profile-explore-button:hover {
+    transform: scale(1.05);
 }
 /* Game */
 .profile-game-suggested {
@@ -185,9 +197,14 @@
 .profile-game-suggested button {
     width: 30px;
     border-radius: 0.25rem;
-    background-color: #9F34FF;
+    background: #9F34FF;
     border: none;
     color: #ffffff;
+    transition: transform 0.2s ease;
+}
+
+.profile-game-suggested button:hover {
+    transform: scale(1.20);
 }
 /* Friends */
 .profile-friend-list{
@@ -212,13 +229,20 @@
 }
 
 .profile-all-friends-button {
-    margin: 1rem 5rem;
-    padding: 0.25rem 0;
-    background-color: #000000;
-    border: 1px solid #ffffff;
-    border-radius: 0.75rem;
+    margin-top: 1rem;
+    display: inline-block;
+    padding: 0.5rem;
+    background: #9f34ff;
     color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 500;
     text-decoration: none;
+    border-radius: 0.75rem;
+    transition: transform 0.2s ease;
+}
+
+.profile-all-friends-button:hover {
+    transform: scale(1.05);
 }
 
 .profile-friend-listed img {
@@ -230,11 +254,23 @@
 }
 
 .profile-friend-listed button {
-    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: #9F34FF;
+    width: 5rem;
+    border: none;
+    margin-top: 0.3rem;
     border-radius: 0.5rem;
-    background-color: #000000;
-    border: 1px solid #ffffff;
-    color: #ffffff;
+    padding: 0.4rem 1rem;
+    color: white;
+    font-weight: 500;
+    transition: transform 0.2s ease;
+}
+
+.profile-friend-listed button:hover {
+    transform: scale(1.05);
 }
 
 /* Media Queries  */
