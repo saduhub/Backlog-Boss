@@ -198,17 +198,28 @@ const resolvers = {
     },
 
     Mutation: {
-      // Issues with context prompted dirrect passing of id from local storage.
-      addFriend: async (_, { userId, myId }, context) => {
-        // console.log(myId);
-        // console.log(userId);
-        return await User.findByIdAndUpdate(
+      addFriend: async (_, { userId }, context) => {
+        if (!context.user) {
+          throw new AuthenticationError("You must be logged in");
+        }
+        const myId = context.user._id;
+        await User.findByIdAndUpdate(
           myId,
           { $push: { friends: userId },
             $pull: { friendRequests: userId } 
-          },
-          { new: true }
+          }
         );
+
+        await User.findByIdAndUpdate(
+          userId,
+          {
+            $push: { friends: myId }
+          }
+        );
+
+        return await User.findById(myId)
+          .populate('friends')
+          .populate('friendRequests');
       },
       removeFriend: async (_, { id }, context) => {
         if (context.user) {
@@ -239,9 +250,11 @@ const resolvers = {
         throw new Error("User not updated");
       },
       // Issues with context prompted direct passing of id from local storage.
-      rejectFriend: async (_, { userId, myId }, context) => {
-        console.log(myId);
-        console.log(userId);
+      rejectFriend: async (_, { userId }, context) => {
+        if (!context.user) {
+          throw new AuthenticationError("You must be logged in");
+        }
+        const myId = context.user._id;
         return await User.findByIdAndUpdate(
           myId,
           { $pull : { friendRequests : userId } },

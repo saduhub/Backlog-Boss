@@ -1,41 +1,65 @@
+import { useState, useEffect } from 'react';
+import { useMutation } from '@apollo/client';
+import { ADD_FRIEND } from '../../utils/mutations';
+import { SOCIAL } from '../../utils/queries';
 // eslint-disable-next-line
-const FriendSuggestion = ({ friendSuggestions, friends }) => {
+const FriendSuggestion = ({ friendSuggestions = [], friends = [] }) => {
+  const [suggestions, setSuggestions] = useState(friendSuggestions);
+  const [error, setError]= useState(null);
   const currentUserId = localStorage.getItem('_id');
-  const getFilteredSuggestions = () => {
-    // To avoid errors in the case that the user has no friends or friendSuggestions is empty
-    if (!friendSuggestions || !friends) return [];
-    // eslint-disable-next-line
-    return friendSuggestions.filter(suggestion =>
-      // eslint-disable-next-line
-      !friends.some(friend => friend._id === suggestion._id) &&
-      suggestion._id !== currentUserId
-    );
-  };
 
-  const handleFriendAdd = () => {
-    
-  };
+  useEffect(() => {
+    setSuggestions(friendSuggestions);
+  }, [friendSuggestions]);
 
-  const filteredSuggestions = getFilteredSuggestions(); 
+  const [addFriend, { loading: adding }] = useMutation(ADD_FRIEND, {
+    refetchQueries: [{ query: SOCIAL }],
+    awaitRefetchQueries: true,
+  });
+
+  const filtered = suggestions.filter(suggestion =>
+    !friends.some(friend => friend._id === suggestion._id) &&
+    suggestion._id !== currentUserId
+  );
+
+  const handleFriendAdd = (userId) => {
+    if (adding) return;
+    setError(null);
+
+    addFriend({
+      variables: {userId: userId}
+    }).then((response) => {
+      setSuggestions(prev => prev.filter(suggestion => suggestion._id !== userId));
+    }).catch (error => {
+      // console.error(error, userId)
+      setError('Something went wrong. Please try again.');
+    });
+  };
 
   return (
     <div>
       <section className="social-font">
         <h3 className="social-my-p5">Suggested Friends</h3>
+        {error && <div className="social-error-box">{error}</div>}
         <div className="social-col-2 social-suggested-friends">
-          {filteredSuggestions.length > 0 ? (
-            filteredSuggestions.map(suggestion => (
-              <div key={suggestion._id} className="social-inner-box social-box-col-2 social-flex social-flex-wrap social-my-p5 social-border-radius social-content-between">
-                <div className="social-flex social-items-center">
-                  <img src={suggestion.profilePictureUrl} alt="Profile Picture" className="social-profile-pic" />
-                  <p>{suggestion.username}</p>
-                </div>
-                <div className="social-flex social-gap-p5">
-                  <button onClick={handleFriendAdd} className="social-button social-font social-border-radius">Add</button>
-                </div>
+          {filtered.length?filtered.map(suggestion => (
+            <div key={suggestion._id}
+                className="social-inner-box social-box-col-2 social-flex social-my-p5 social-border-radius social-content-between">
+              <div className="social-flex social-items-center">
+                <img src={suggestion.profilePictureUrl}
+                    alt="Profile"
+                    className="social-profile-pic" />
+                <p>{suggestion.username}</p>
               </div>
-            ))
-            ) : (<p>No new friend suggestions available.</p>)
+              <button
+                onClick={() => handleFriendAdd(suggestion._id)}
+                disabled={adding}
+                className="social-button social-font social-border-radius">
+                {adding ? 'Adding…' : 'Add'}
+              </button>
+            </div>
+          ))
+          : <p>No new friend suggestions available.</p>
           }
         </div>
       </section>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_FRIEND, REJECT_FRIEND } from '../../utils/mutations';
 import { SOCIAL } from '../../utils/queries';
@@ -8,17 +8,23 @@ const FriendRequest = ({ friendRequests }) => {
     refetchQueries: [{ query: SOCIAL }],
     awaitRefetchQueries: true,
   });
-  const [rejectFriend, { loading: rejecting }] = useMutation(REJECT_FRIEND);
+  const [rejectFriend, { loading: rejecting }] = useMutation(REJECT_FRIEND, {
+    refetchQueries: [{ query: SOCIAL }],
+    awaitRefetchQueries: true,
+  });
   const [requests, setRequests] = useState(friendRequests);
-  const myId = localStorage.getItem('_id');
-  // console.log(myId)
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    setRequests(friendRequests);
+  }, [friendRequests]);
+
   const handleFriendAccept = (userId) => {
     // console.log(userId);
     if (adding) return;
     setError(null);
     addFriend({
-      variables: {userId: userId, myId: myId}
+      variables: {userId: userId}
     }).then((response) => {
       // console.log(`User added to friends and removed from requests. Response:${response}`)
       const updatedFriendRequests = requests.filter(request => request._id !==userId);
@@ -30,11 +36,11 @@ const FriendRequest = ({ friendRequests }) => {
   }
 
   const handleFriendDecline = (userId) => {
-    console.log(userId);
+    // console.log(userId);
     if (rejecting) return;
     setError(null);
     rejectFriend({
-      variables: {userId: userId, myId: myId}
+      variables: {userId: userId}
     }).then((response) => {
       // console.log(`User removed from requests. Response:${response}`)
       const updatedFriendRequests = requests.filter(request => request._id !==userId);

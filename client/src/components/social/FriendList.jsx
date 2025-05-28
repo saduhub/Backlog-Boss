@@ -41,7 +41,9 @@ const FriendList = ({ friends }) => {
         )}
 
         <div className="social-col-2">
-          {friends &&
+          {friends.length === 0 ? (
+            <p>Add some users!</p>
+          ) : (
             // eslint-disable-next-line
             friends.map(friend => {
               return (
@@ -63,7 +65,7 @@ const FriendList = ({ friends }) => {
                   </div>
                 </div>
               )
-            })
+            }))
           }
         </div>
       </section>
