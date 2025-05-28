@@ -43,4 +43,5 @@ function FriendList({username, logo, otherData}) {
   )
 }
 // Fix to named export for hot reload consistency.
+// eslint-disable-next-line
 export default React.memo(FriendList);

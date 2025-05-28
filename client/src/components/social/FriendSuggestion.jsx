@@ -36,6 +36,13 @@ const FriendSuggestion = ({ friendSuggestions = [], friends = [] }) => {
     });
   };
 
+  const handleVisit = (friendId) => {
+    // console.log(`Visiting friend: ${friendId}`);
+    localStorage.setItem('_idUserVisited', friendId);
+    // navigate('/ProfileOther');
+    window.location = '/ProfileOther'
+  };
+
   return (
     <div>
       <section className="social-font">
@@ -46,9 +53,16 @@ const FriendSuggestion = ({ friendSuggestions = [], friends = [] }) => {
             <div key={suggestion._id}
                 className="social-inner-box social-box-col-2 social-flex social-my-p5 social-border-radius social-content-between">
               <div className="social-flex social-items-center">
-                <img src={suggestion.profilePictureUrl}
+                <button 
+                  onClick={() => handleVisit(suggestion._id)} 
+                  className="friend-profile-button" 
+                  style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
+                >
+                  <img src={suggestion.profilePictureUrl}
                     alt="Profile"
-                    className="social-profile-pic" />
+                    className="social-profile-pic" 
+                   />
+                </button>
                 <p>{suggestion.username}</p>
               </div>
               <button

@@ -50,6 +50,14 @@ const FriendRequest = ({ friendRequests }) => {
       setError('Something went wrong. Please try again.');
     });
   }
+  // console.log(friendRequests)
+  
+  const handleVisit = (friendId) => {
+    // console.log(`Visiting friend: ${friendId}`);
+    localStorage.setItem('_idUserVisited', friendId);
+    // navigate('/ProfileOther');
+    window.location = '/ProfileOther'
+  };
 
   return (
     <div>
@@ -72,7 +80,13 @@ const FriendRequest = ({ friendRequests }) => {
               return (
                 <div key={request._id} className="social-inner-box social-my-p5 social-flex social-flex-wrap social-content-between social-border-radius">
                   <div className="social-flex social-items-cente social-image-name-div">
-                    <img src={request.profilePictureUrl} alt="profile pic" className="social-profile-pic" />
+                    <button 
+                      onClick={() => handleVisit(request._id)} 
+                      className="friend-profile-button" 
+                      style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
+                    >
+                      <img src={request.profilePictureUrl} alt="profile pic" className="social-profile-pic" />
+                    </button>
                     <p>
                       {request.username}
                     </p>

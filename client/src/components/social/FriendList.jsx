@@ -26,6 +26,12 @@ const FriendList = ({ friends }) => {
     }
   };
   // console.log(friends);
+  const handleVisit = (friendId) => {
+    // console.log(`Visiting friend: ${friendId}`);
+    localStorage.setItem('_idUserVisited', friendId);
+    // navigate('/ProfileOther');
+    window.location = '/ProfileOther'
+  };
 
   return (
     <div>
@@ -49,7 +55,17 @@ const FriendList = ({ friends }) => {
               return (
                 <div key={friend._id} className="social-inner-box social-box-col-2 social-flex social-flex-wrap social-my-p5 social-border-radius social-content-between">
                   <div className="social-flex social-items-center">
-                    <img src={friend.profilePictureUrl} alt="profile pic" className="social-profile-pic" />
+                    <button 
+                      onClick={() => handleVisit(friend._id)} 
+                      className="friend-profile-button" 
+                      style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
+                    >
+                      <img 
+                        src={friend.profilePictureUrl} 
+                        alt="profile pic" 
+                        className="social-profile-pic"
+                      />
+                    </button>
                     <p>
                       {friend.username}
                     </p>
