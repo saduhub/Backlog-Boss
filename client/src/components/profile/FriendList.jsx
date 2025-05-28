@@ -6,6 +6,7 @@ function FriendList({username, logo, otherData}) {
   // const navigate = useNavigate();
   // eslint-disable-next-line
   const { friends } = otherData;
+  console.log(friends);
   const currentUsername = localStorage.getItem('username');
   // console.log(currentUsername);
   // console.log(username)
@@ -28,7 +29,7 @@ function FriendList({username, logo, otherData}) {
             {/* eslint-disable-next-line */}
             {randomFriends.map(friend => (
                 <div key={friend._id} className="profile-friend-listed" data-id={friend._id}>
-                    <img src={logo} alt="placeholder" />
+                    <img src={friend.profilePictureUrl || logo} alt="placeholder" />
                     <h3>{friend.username}</h3>
                     <button onClick={() => handleVisit(friend._id)}>Visit</button>
                 </div>
