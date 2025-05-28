@@ -11,6 +11,7 @@ export const ME = gql`
       friends {
         _id
         username
+        profilePictureUrl
       }
       games100Completed {
         _id
@@ -37,6 +38,18 @@ export const ME = gql`
         _id
       }
     }
+  }
+`;
+
+export const GET_PROFILE_BACKLOGGED_COUNT = gql`
+  query GetProfileBackloggedCount {
+    profileBackloggedCount
+  }
+`;
+
+export const GET_USER_VISITED_BACKLOGGED_COUNT = gql`
+  query GetUserVisitedBackloggedCount($id: ID!) {
+    userVisitedBackloggedCount(id: $id)
   }
 `;
 

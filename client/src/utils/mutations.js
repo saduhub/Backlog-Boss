@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const ADD_FRIEND = gql`
-  mutation addFriend($userId: ID!, $myId: ID!) {
-    addFriend(userId: $userId, myId: $myId) {
+  mutation addFriend($userId: ID!) {
+    addFriend(userId: $userId) {
       _id
       username
     }
@@ -40,8 +40,8 @@ export const REQUEST_FRIEND = gql`
 `;
 
 export const REJECT_FRIEND = gql`
-  mutation rejectFriend($userId: ID!, $myId: ID!) {
-    rejectFriend(userId: $userId, myId: $myId) {
+  mutation rejectFriend($userId: ID!) {
+    rejectFriend(userId: $userId) {
       _id
       username
     }

@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useQuery, useMutation } from "@apollo/client";
-import { GAME_SUGGESTIONS } from "../../utils/queries";
+import { GAME_SUGGESTIONS, GET_PROFILE_BACKLOGGED_COUNT } from "../../utils/queries";
 import { ADD_TO_BACKLOG } from "../../utils/mutations";
 import { Link } from 'react-router-dom';
 // eslint-disable-next-line
 function GameSuggestions({ gamesInBacklog }) {
     // eslint-disable-next-line
     const { data, loading, error } = useQuery(GAME_SUGGESTIONS);
-    const [addToBacklog, { loading: adding }] = useMutation(ADD_TO_BACKLOG);
+    const [addToBacklog, { loading: adding }] = useMutation(ADD_TO_BACKLOG, {
+        refetchQueries: [{ query: GET_PROFILE_BACKLOGGED_COUNT }],
+        awaitRefetchQueries: true,
+    });
     const [backlogIds, setBacklogIds] = useState(gamesInBacklog || []);
     const [suggestedGames, setSuggestedGames] = useState([]);
     // console.log(error);
@@ -22,8 +25,10 @@ function GameSuggestions({ gamesInBacklog }) {
     };
     // Update suggested games when component mounts or gamesInBacklog changes
     useEffect(() => {
-        setBacklogIds(gamesInBacklog || []);
-        if (data?.gameSuggestions) {
+        if (backlogIds.length === 0 && (gamesInBacklog?.length || 0) > 0) {
+            setBacklogIds(gamesInBacklog);
+        }
+        if (data?.gameSuggestions && suggestedGames.length === 0) {
             updateSuggestedGames(data.gameSuggestions, gamesInBacklog || []);
         }
     }, [gamesInBacklog, data?.gameSuggestions]);

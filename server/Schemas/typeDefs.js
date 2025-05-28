@@ -69,6 +69,8 @@ const typeDefs = gql`
     review(id: ID!): Review
     userReviews(id: ID!): [Review]
     me: User
+    profileBackloggedCount: Int
+    userVisitedBackloggedCount(id: ID!): Int
     userVisitedInfo(id: ID!): User
     getPopularGames: [PopularGame]
     getAiImage(prompt: String!): AiImageResponse
@@ -78,10 +80,10 @@ const typeDefs = gql`
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(username: String!, password: String!): Auth
-    addFriend(userId: ID!, myId: ID!): User
+    addFriend(userId: ID!): User
     removeFriend(id: ID!): User
     requestFriend(id: ID!): User
-    rejectFriend(userId: ID!, myId: ID!): User
+    rejectFriend(userId: ID!): User
     addReview(gameId: ID!, rating: Int!, reviewText: String!): Review
     addToBacklog(gameId: ID!): User
     removeFromBacklog(gameId: ID!): User
