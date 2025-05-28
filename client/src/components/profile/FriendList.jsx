@@ -1,3 +1,4 @@
+import React from 'react';
 // import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 // eslint-disable-next-line
@@ -40,5 +41,5 @@ function FriendList({username, logo, otherData}) {
       </div>
   )
 }
-
-export default FriendList;
+// Fix to named export for hot reload consistency.
+export default React.memo(FriendList);
