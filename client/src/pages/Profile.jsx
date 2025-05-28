@@ -26,7 +26,7 @@ function Profile() {
   const { data: countData } = useQuery(GET_PROFILE_BACKLOGGED_COUNT);
   // console.log(error);
   const meData = data?.me || {}
-  console.log(meData);
+  // console.log(meData);
 
   useEffect(() => {
     setIsAuthenticated(Auth.loggedIn());

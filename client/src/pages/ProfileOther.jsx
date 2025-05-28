@@ -1,6 +1,6 @@
 // import { useState, useEffect } from 'react';
 import { useQuery } from "@apollo/client";
-import { USER_VISITED_INFO } from "../utils/queries";
+import { USER_VISITED_INFO, GET_USER_VISITED_BACKLOGGED_COUNT } from "../utils/queries";
 // Style
 import '../assets/css/profile.css';
 // Images
@@ -29,6 +29,10 @@ function Profile() {
     const { data, loading, error } = useQuery(USER_VISITED_INFO, {
         variables: {id: userVisitedId}
     });
+    const { data: countData } = useQuery(GET_USER_VISITED_BACKLOGGED_COUNT, {
+        variables: {id: userVisitedId}
+    });
+    // console.log(countData);
     //   console.log(error);
     const userVisitedData = data?.userVisitedInfo || {}
     //   console.log(userVisitedData);
@@ -42,6 +46,7 @@ function Profile() {
             < ProfileUserCard 
               username={userVisitedData.username} 
               profile={userVisitedData.profilePictureUrl ? userVisitedData.profilePictureUrl : userIcon}
+              backloggedCount={countData?.userVisitedBackloggedCount || 0}
               otherData={userVisitedData} 
             />
             {/* Game Stats */}
@@ -58,7 +63,7 @@ function Profile() {
           </div>
           <div className='profile-suggestions-friends'>
             {/* Game Suggestions */}
-            <h2>Game Suggestions</h2>
+            <h2>What {userVisitedData.username} Plays</h2>
             < GameSuggestions 
                 gamesInBacklog={userVisitedData.gamesInBacklog.map(game => game._id)} 
                 username={userVisitedData.username}

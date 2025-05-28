@@ -70,6 +70,7 @@ const typeDefs = gql`
     userReviews(id: ID!): [Review]
     me: User
     profileBackloggedCount: Int
+    userVisitedBackloggedCount(id: ID!): Int
     userVisitedInfo(id: ID!): User
     getPopularGames: [PopularGame]
     getAiImage(prompt: String!): AiImageResponse

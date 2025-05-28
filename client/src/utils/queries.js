@@ -46,6 +46,12 @@ export const GET_PROFILE_BACKLOGGED_COUNT = gql`
   }
 `;
 
+export const GET_USER_VISITED_BACKLOGGED_COUNT = gql`
+  query GetUserVisitedBackloggedCount($id: ID!) {
+    userVisitedBackloggedCount(id: $id)
+  }
+`;
+
 export const SOCIAL = gql`
   query social {
     me {

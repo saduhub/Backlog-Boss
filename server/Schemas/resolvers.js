@@ -109,7 +109,7 @@ const resolvers = {
       },
       userVisitedInfo: async (parent, args, context) => {
         const { id } = args;
-
+        // console.log("userVisitedInfo called with id:", id);
         if (context.user) {
           return User.findOne({ _id: id })
             .populate([
@@ -125,6 +125,17 @@ const resolvers = {
             ])
         }
         throw AuthenticationError;
+      },
+      userVisitedBackloggedCount: async (parent, args, context) => {
+        // console.log(args);
+        const { id } = args;
+        // console.log("userVisitedBackloggedCount called with id:", id);
+        if (!context.user) throw new AuthenticationError('Not logged in');
+        const user = await User.findById(id).select('gamesInBacklog');
+        if (!user) {
+          throw new Error("User not found");
+        }
+        return user?.gamesInBacklog?.length || 0;
       },
       getPopularGames: async (parent, args, context) => {
         const url = `https://api.rawg.io/api/games?page_size=9&key=${process.env.RAWG_API_KEY}`;
