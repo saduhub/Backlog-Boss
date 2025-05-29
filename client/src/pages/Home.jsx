@@ -13,9 +13,9 @@ function Home() {
   const { data, loading, error } = useQuery(REVIEWS_HOME);
   // console.log(data);
   const reviewData = data?.reviews || {}
-  console.log(reviewData);
+  // console.log(reviewData);
   const user = Auth.getUser();
-  console.log(user)
+  // console.log(user)
 
   if (loading) return <p>Loading Latest Reviews...</p>
   if (error) return <p className="p-8 text-red-600">Something Went Wrong</p>;

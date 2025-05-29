@@ -43,7 +43,7 @@ function LoginForm({onShowSignUp}) {
             setErrorMessage('');
             setVisible(false);
         } catch (e) {
-            console.error(e);
+            // console.error(e);
         }
     };
 

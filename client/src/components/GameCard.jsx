@@ -12,7 +12,7 @@ const GameCard = ({ game, Backlog, Favorites, Progress, Completed, refetch}) => 
   const [addToCompleted] = useMutation(ADD_TO_COMPLETED);
 
 
-  console.log(Backlog)
+  // console.log(Backlog)
   const handleAddToBacklog = async () => {
     await addToBacklog({ variables: { gameId: game._id } });
     refetch()

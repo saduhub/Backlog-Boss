@@ -15,11 +15,11 @@ import Auth from '../utils/auth';
 const Social = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
   const { data, loading, error } = useQuery(SOCIAL);
-  console.log(error);
+  // console.log(error);
   const meData = data?.me || {}
-  console.log(meData);
+  // console.log(meData);
   const usersData = data?.users || {}
-  console.log(usersData);
+  // console.log(usersData);
 
   useEffect(() => {
     setIsAuthenticated(Auth.loggedIn());
@@ -28,11 +28,11 @@ const Social = () => {
   if (loading) return <p>Loading...</p>
 
   const friendRequestData = meData.friendRequests;
-  console.log(friendRequestData);
+  // console.log(friendRequestData);
   const friendsData = meData.friends;
-  console.log(friendsData);
+  // console.log(friendsData);
   let gameReviews = meData.reviews;
-  console.log(gameReviews);
+  // console.log(gameReviews);
 
   if (isAuthenticated) {
     return (
