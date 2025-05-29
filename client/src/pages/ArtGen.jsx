@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { Navigate } from "react-router-dom";
+import Auth from "../utils/auth";
 import { useLazyQuery, useMutation } from '@apollo/client';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -12,6 +14,7 @@ import Footer from '../components/Footer.jsx';
 import '../assets/css/artGen.css';
 
 function ArtGen() {
+  const isAuth = Auth.loggedIn();
   const [previewUrl, setPreviewUrl] = useState('');
   const [prompt, setPrompt] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
@@ -87,6 +90,8 @@ function ArtGen() {
 
   // Render
   const anyLoading = loadingImage || savingAvatar || savingGallery;
+
+  if (!isAuth) return <Navigate to="/login" replace />;
 
   return (
     <>

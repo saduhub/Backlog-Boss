@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { Navigate } from "react-router-dom";
+import Auth from "../utils/auth";
 import { Link } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
 import FilterBar from '../components/FilterBar';
@@ -18,6 +20,7 @@ const GET_GAMES = gql`
 `;
 
 const SearchPage = () => {
+  const isAuth = Auth.loggedIn();
   const { loading, error, data } = useQuery(GET_GAMES);
   const [filteredGames, setFilteredGames] = useState([]);
 
@@ -44,7 +47,7 @@ const SearchPage = () => {
     }
     setFilteredGames(sortedGames);
   };
-
+  if (!isAuth) return <Navigate to="/login" replace />;
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
