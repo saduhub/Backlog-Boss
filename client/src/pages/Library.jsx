@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 import { ME_LIBRARY } from "../utils/queries";
 import Auth from '../utils/auth';
 // Style
-import '../assets/css/library.css';
+import '../../assets/css/library.css';
 // import userIcon from '../assets/images/svg/user.svg';
 // Components
 import SortingBanner from '../components/library/SortingBanner';

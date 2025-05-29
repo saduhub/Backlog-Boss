@@ -46,6 +46,7 @@ const resolvers = {
         //   }
           const game = await Game.findById(id).populate({path: "reviews", populate:"user"})
           console.log(game)
+          console.log(id)
            return game
         } catch(error) {
           console.log(error)
