@@ -45,8 +45,8 @@ const resolvers = {
         //     console.error(err);
         //   }
           const game = await Game.findById(id).populate({path: "reviews", populate:"user"})
-          console.log(game)
-          console.log(id)
+          // console.log(game)
+          // console.log(id)
            return game
         } catch(error) {
           console.log(error)
@@ -299,7 +299,7 @@ const resolvers = {
         }
   
         const token = signToken(user);
-        console.log(token, user)
+        // console.log(token, user)
         return { token, user };
       },
       addReview: async (_, {gameId, rating, reviewText}, context) => {

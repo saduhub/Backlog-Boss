@@ -18,7 +18,7 @@ function Home() {
   // console.log(user)
 
   if (loading) return <p>Loading Latest Reviews...</p>
-  if (error) return <p className="p-8 text-red-600">Something Went Wrong</p>;
+  if (error) return <p>Something Went Wrong</p>;
 
   return (
     <>
