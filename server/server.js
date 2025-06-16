@@ -11,6 +11,28 @@ const { typeDefs, resolvers } = require("./Schemas");
 const server = new ApolloServer({
     typeDefs,
     resolvers,
+    formatError: (err) => {
+        const isDev = process.env.NODE_ENV !== 'production';
+        const baseError = {
+            message: err.message,
+        };
+
+        if (isDev) {
+            return {
+                ...baseError,
+                locations: err.locations,
+                path: err.path,
+                extensions: err.extensions,
+            };
+        }
+
+        return {
+            ...baseError,
+            extensions: {
+                code: err.extensions?.code || "INTERNAL_SERVER_ERROR",
+            },
+        };
+    }
 });
 
 const app = express();
@@ -47,6 +69,7 @@ const startApolloServer = async () => {
         console.log("Connection to db successful");
         app.listen(PORT, () => {
             console.log(`Server running on port ${PORT}`);
+            console.log(process.env.NODE_ENV);
         });
     });
 }
