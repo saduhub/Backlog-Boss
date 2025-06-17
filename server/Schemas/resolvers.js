@@ -18,50 +18,25 @@ cloudinary.config({
 const resolvers = {
     Query: {
       // Fetch all users
-      users: async () => {
+      users: wrapResolver( async () => {
         return await User.find({});
-      },
+      },"Failed to fetch users", "FETCH_ERROR"),
       // Fetch a single user by ID
-      user: async (_, { id }) => {
-        try {
+      user: wrapResolver( async (_, { id }) => {
           return await User.findById(id);
-        } catch (err) {
-          return err;
-        }
-      },
+      },"Failed to fetch user", "FETCH_ERROR"),
       // Fetch all games
-      games: async () => {
+      games: wrapResolver( async () => {
         return await Game.find({}).populate({path: "reviews", populate:"user"});
-      },
+      },"Failed to fetch games", "FETCH_ERROR"),
       // Fetch a single game by ID
-      game: async (_, { id }) => {
-        try {
-        //   const url = `https://api.rawg.io/api/games/${id}?key=${process.env.RAWG_API_KEY}`;
-
-        //   try {
-        //     const response = await fetch(url);
-        //     if (!response.ok) {
-        //       throw new Error(`${response.status}`);
-        //     }
-        //     const data = await response.json();
-        //     // console.log(data.results);
-        //     return data.results;
-        //   } catch (err) {
-        //     console.error(err);
-        //   }
-          const game = await Game.findById(id).populate({path: "reviews", populate:"user"})
-          // console.log(game)
-          // console.log(id)
-           return game
-        } catch(error) {
-          console.log(error)
-        }
-        
-      },
+      game: wrapResolver( async (_, { id }) => {
+          return await Game.findById(id).populate({path: "reviews", populate:"user"});
+      }, "Failed to fetch game", "FETCH_ERROR"),
       // Game Suggestions
-      gameSuggestions: async() => {
+      gameSuggestions: wrapResolver( async() => {
         return await Game.find({}).populate("reviews");
-      },
+      },"Failed to fetch game suggestions", "FETCH_ERROR"),
       // Fetch all reviews
       reviews: wrapResolver( async () => {
         return await Review.find({})
@@ -73,21 +48,21 @@ const resolvers = {
            path: 'game',
            select: 'title pictureUrl averageRating'
          });        
-      }, "Failed to fetch reviews", "REVIEW_FETCH_ERROR"),
+      }, "Failed to fetch reviews", "FETCH_ERROR"),
       // Fetch a single review by ID
-      review: async (_, { id }) => {
+      review: wrapResolver( async (_, { id }) => {
         return await Review.findById(id);
-      },
+      },"Failed to fetch review", "FETCH_ERROR"),
       // Fetch all reviews made by a user
-      userReviews: async (_, { id }) => {
+      userReviews: wrapResolver( async (_, { id }) => {
         return await Review.find(
           {
             user: { _id: id},
           }
         ).populate("user", "game");
-      },
+      },"Failed to fetch user reviews", "FETCH_ERROR"),
       // Fetch a user and all review/games documents related to the user on login. (However, specify on client side what should be returned)
-      me: async (parent, args, context) => {
+      me: wrapResolver( async (parent, args, context) => {
         if (context.user) {
           return User.findOne({ _id: context.user._id })
             .populate([
@@ -105,14 +80,14 @@ const resolvers = {
             ])
         }
         throw AuthenticationError;
-      },
-      profileBackloggedCount: async (parent, args, context) => {
+      },"Failed to fetch me", "FETCH_ERROR"),
+      profileBackloggedCount: wrapResolver( async (parent, args, context) => {
         if (!context.user) throw new AuthenticationError('Not logged in');
 
         const user = await User.findById(context.user._id).select('gamesInBacklog');
         return user?.gamesInBacklog?.length || 0;
-      },
-      userVisitedInfo: async (parent, args, context) => {
+      },"Failed to fetch profile backlogged count", "FETCH_ERROR"),
+      userVisitedInfo: wrapResolver( async (parent, args, context) => {
         const { id } = args;
         // console.log("userVisitedInfo called with id:", id);
         if (context.user) {
@@ -130,8 +105,8 @@ const resolvers = {
             ])
         }
         throw AuthenticationError;
-      },
-      userVisitedBackloggedCount: async (parent, args, context) => {
+      },"Failed to fetch user visited info", "FETCH_ERROR"),
+      userVisitedBackloggedCount: wrapResolver( async (parent, args, context) => {
         // console.log(args);
         const { id } = args;
         // console.log("userVisitedBackloggedCount called with id:", id);
@@ -141,8 +116,8 @@ const resolvers = {
           throw new Error("User not found");
         }
         return user?.gamesInBacklog?.length || 0;
-      },
-      getPopularGames: async (parent, args, context) => {
+      },"Failed to fetch user visited backlogged count", "FETCH_ERROR"),
+      getPopularGames: wrapResolver( async (parent, args, context) => {
         const url = `https://api.rawg.io/api/games?page_size=9&key=${process.env.RAWG_API_KEY}`;
 
         try {
@@ -156,8 +131,8 @@ const resolvers = {
         } catch (err) {
           console.error(err);
         }
-      },
-      getAiImage: async (_, { prompt }) => {
+      },"Failed to fetch popular games", "FETCH_ERROR"),
+      getAiImage: wrapResolver( async (_, { prompt }) => {
         // console.log("Generating image for prompt:", prompt);
         if (!prompt || !prompt.trim()) {
           // console.warn("Prompt missing or empty.");
@@ -192,8 +167,8 @@ const resolvers = {
           const errorType = err?.error?.type || err?.response?.data?.error?.type || "unknown_error";
           return { url: null, error: errorType };
         }
-      },
-      relatedGamesByGenre: async (parent, { genres, limit}) => {
+      },"Failed to fetch create or save AI image", "FETCH_ERROR"),
+      relatedGamesByGenre: wrapResolver( async (parent, { genres, limit}) => {
         if (!Array.isArray(genres) || genres.length === 0) {
           throw new ApolloError(
             "You must supply at least one genre",
@@ -216,7 +191,7 @@ const resolvers = {
             "RELATED_GAMES_GENRE_ERROR"
           );
         }
-      }
+      }, "Failed to fetch related games", "FETCH_ERROR"),
     },
 
     Mutation: {
