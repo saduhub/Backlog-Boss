@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { Navigate } from "react-router-dom";
+import Auth from "../utils/auth";
 import { useLazyQuery, useMutation } from '@apollo/client';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -8,9 +10,11 @@ import { CHANGE_PROFILE_PIC, SAVE_AI_PIC } from '../utils/mutations.js';
 import PromptForm from '../components/artgen/PromtForm.jsx';
 import ImagePreview from '../components/artgen/ImagePreview.jsx';
 import ActionBar from '../components/artgen/ActionBar.jsx';
+import Footer from '../components/Footer.jsx';
 import '../assets/css/artGen.css';
 
 function ArtGen() {
+  const isAuth = Auth.loggedIn();
   const [previewUrl, setPreviewUrl] = useState('');
   const [prompt, setPrompt] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
@@ -87,6 +91,8 @@ function ArtGen() {
   // Render
   const anyLoading = loadingImage || savingAvatar || savingGallery;
 
+  if (!isAuth) return <Navigate to="/login" replace />;
+
   return (
     <>
       {errorMsg && (<p className="artgen-error-message">{errorMsg}</p>)}
@@ -115,6 +121,7 @@ function ArtGen() {
           </motion.div>
         </AnimatePresence>
       </section>
+      <Footer />
     </>
   );
 }

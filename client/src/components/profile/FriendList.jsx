@@ -6,7 +6,7 @@ function FriendList({username, logo, otherData}) {
   // const navigate = useNavigate();
   // eslint-disable-next-line
   const { friends } = otherData;
-  console.log(friends);
+  // console.log(friends);
   const currentUsername = localStorage.getItem('username');
   // console.log(currentUsername);
   // console.log(username)

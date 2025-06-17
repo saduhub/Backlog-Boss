@@ -24,6 +24,7 @@ import GameStatusBanner from "../components/game/GameStatusBanner.jsx";
 import RelatedGamesBanner from "../components/game/RelatedGamesBanner.jsx";
 import UserReviewsContainer from "../components/game/UserReviewsContainer.jsx";
 import GameReviewForm from "../components/game/GameReviewForm.jsx";
+import Footer from '../components/Footer.jsx';
 // Styles and Assets
 import "../assets/css/Game.css";
 import {
@@ -133,49 +134,52 @@ function Game() {
   };
 
   return (
-    <section className="game-main-section">
-      <LargeGameCard
-        title={title}
-        imageUrl={pictureUrl}
-        rating={averageRating}
-        gameGenre={genre}
-        platform={platforms}
-        release={releaseDate}
-        icons={{
-        star: faStar,
-        gamepad: faGamepad,
-        genre: faPuzzlePiece,
-        calendar: faCalendarAlt,
-      }}
-      />
+    <>
+      <section className="game-main-section">
+        <LargeGameCard
+          title={title}
+          imageUrl={pictureUrl}
+          rating={averageRating}
+          gameGenre={genre}
+          platform={platforms}
+          release={releaseDate}
+          icons={{
+          star: faStar,
+          gamepad: faGamepad,
+          genre: faPuzzlePiece,
+          calendar: faCalendarAlt,
+        }}
+        />
 
-      <GameStatusBanner
-        inBacklog={inBacklog}
-        onBacklog={handleToggle(inBacklog, addToBacklog, removeFromBacklog)}
-        isFavorite={isFavorite}
-        onFavorite={handleToggle(isFavorite, addToFavorites, removeFromFavorites)}
-        inProgress={inProgress}
-        onInProgress={handleToggle(inProgress, addToInProgress, removeFromInProgress)}
-        isCompleted={isCompleted}
-        onCompleted={handleToggle(isCompleted, addToCompleted, removeFromCompleted)}
-        is100Completed={is100Completed}
-        on100Completed={handleToggle(is100Completed, addTo100Completed, removeFrom100Completed)}
-      />
+        <GameStatusBanner
+          inBacklog={inBacklog}
+          onBacklog={handleToggle(inBacklog, addToBacklog, removeFromBacklog)}
+          isFavorite={isFavorite}
+          onFavorite={handleToggle(isFavorite, addToFavorites, removeFromFavorites)}
+          inProgress={inProgress}
+          onInProgress={handleToggle(inProgress, addToInProgress, removeFromInProgress)}
+          isCompleted={isCompleted}
+          onCompleted={handleToggle(isCompleted, addToCompleted, removeFromCompleted)}
+          is100Completed={is100Completed}
+          on100Completed={handleToggle(is100Completed, addTo100Completed, removeFrom100Completed)}
+        />
 
-      <RelatedGamesBanner 
-        loading={relatedLoading}
-        related={relatedData?.relatedGamesByGenre || gamesInProgress}
-        currentGameId={_id}
-      />
+        <RelatedGamesBanner 
+          loading={relatedLoading}
+          related={relatedData?.relatedGamesByGenre || gamesInProgress}
+          currentGameId={_id}
+        />
 
-      <UserReviewsContainer 
-        reviews={reviews}
-        meLikedIds={meLikedIds}
-        onToggleLike={handleToggleLike} 
-      />
+        <UserReviewsContainer 
+          reviews={reviews}
+          meLikedIds={meLikedIds}
+          onToggleLike={handleToggleLike} 
+        />
 
-      <GameReviewForm onSubmit={handleAddReview} />
-    </section>
+        <GameReviewForm onSubmit={handleAddReview} />
+      </section>
+      <Footer />
+    </>
   );
 }
 

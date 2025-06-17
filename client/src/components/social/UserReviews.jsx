@@ -15,7 +15,7 @@ const UserReviews = ({ gameReviews, username, profile }) => {
     }
   })
   const userReviews = data?.userReviews; */
-  console.log(gameReviews)
+  // console.log(gameReviews)
 
   return (
     <div>

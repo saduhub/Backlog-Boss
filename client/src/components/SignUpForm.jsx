@@ -45,7 +45,7 @@ function SignUpForm({ onShowLogin }) {
             setErrorMessage('');
             setVisible(false);
         } catch (e) {
-            console.error(e);
+            // console.error(e);
         }
     };
 

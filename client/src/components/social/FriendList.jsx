@@ -61,7 +61,7 @@ const FriendList = ({ friends }) => {
                       style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
                     >
                       <img 
-                        src={friend.profilePictureUrl} 
+                        src={friend.profilePictureUrl || "https://res.cloudinary.com/dx7bgdfut/image/upload/v1749059019/BacklogBoss/user-uploads/user_jogcpd.svg"} 
                         alt="profile pic" 
                         className="social-profile-pic"
                       />

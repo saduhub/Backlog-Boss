@@ -3,6 +3,7 @@ const { signToken, AuthenticationError } = require('../utils/auth');
 const fetch = require('node-fetch');
 const { OpenAI } = require('openai');
 const { v2: cloudinary } = require("cloudinary");
+const { wrapResolver } = require('../utils/wrapResolver');
 
 const openai = new OpenAI({
   apiKey: process.env.OPEN_AI_KEY,
@@ -22,7 +23,11 @@ const resolvers = {
       },
       // Fetch a single user by ID
       user: async (_, { id }) => {
-        return await User.findById(id);
+        try {
+          return await User.findById(id);
+        } catch (err) {
+          return err;
+        }
       },
       // Fetch all games
       games: async () => {
@@ -45,7 +50,8 @@ const resolvers = {
         //     console.error(err);
         //   }
           const game = await Game.findById(id).populate({path: "reviews", populate:"user"})
-          console.log(game)
+          // console.log(game)
+          // console.log(id)
            return game
         } catch(error) {
           console.log(error)
@@ -57,8 +63,7 @@ const resolvers = {
         return await Game.find({}).populate("reviews");
       },
       // Fetch all reviews
-      reviews: async () => {
-        // return await Review.find({});
+      reviews: wrapResolver( async () => {
         return await Review.find({})
          .populate({            // User
            path: 'user',
@@ -67,8 +72,8 @@ const resolvers = {
          .populate({            // Game
            path: 'game',
            select: 'title pictureUrl averageRating'
-         });
-      },
+         });        
+      }, "Failed to fetch reviews", "REVIEW_FETCH_ERROR"),
       // Fetch a single review by ID
       review: async (_, { id }) => {
         return await Review.findById(id);
@@ -298,7 +303,7 @@ const resolvers = {
         }
   
         const token = signToken(user);
-        console.log(token, user)
+        // console.log(token, user)
         return { token, user };
       },
       addReview: async (_, {gameId, rating, reviewText}, context) => {

@@ -15,6 +15,7 @@ import Challenges from '../components/profile/Challenges';
 import ChallengesDesktop from '../components/profile/ChallengesDesktop';
 import FriendList from '../components/profile/FriendList';
 import GameSuggestions from '../components/profile/GameSuggestions';
+import Footer from "../components/Footer";
 // Utilities
 // import Auth from '../utils/auth';
 
@@ -39,50 +40,53 @@ function Profile() {
     if (loading) return <p>Loading...</p>
 
     return (
-      <section className='profile-main-section'>
-          {/* User Card, Game Stats, Challenges */}
-          <div className='profile-user-stats-challenges'>
-            {/* User Card */}
-            < ProfileUserCard 
-              username={userVisitedData.username} 
-              profile={userVisitedData.profilePictureUrl ? userVisitedData.profilePictureUrl : userIcon}
-              backloggedCount={countData?.userVisitedBackloggedCount || 0}
-              otherData={userVisitedData} 
-            />
-            {/* Game Stats */}
-            < GameStats 
-              otherData={userVisitedData} 
-              logo={logo}
-            />
-            {/* Challenges Mobile */}
-            <Challenges
-              otherData={userVisitedData} 
-              logo={logo}
-              username={userVisitedData.username}
-             />  
-          </div>
-          <div className='profile-suggestions-friends'>
-            {/* Game Suggestions */}
-            <h2>What {userVisitedData.username} Plays</h2>
-            < GameSuggestions 
-                gamesInBacklog={userVisitedData.gamesInBacklog.map(game => game._id)} 
+      <>
+        <section className='profile-main-section'>
+            {/* User Card, Game Stats, Challenges */}
+            <div className='profile-user-stats-challenges'>
+              {/* User Card */}
+              < ProfileUserCard 
+                username={userVisitedData.username} 
+                profile={userVisitedData.profilePictureUrl ? userVisitedData.profilePictureUrl : userIcon}
+                backloggedCount={countData?.userVisitedBackloggedCount || 0}
+                otherData={userVisitedData} 
+              />
+              {/* Game Stats */}
+              < GameStats 
+                otherData={userVisitedData} 
+                logo={logo}
+              />
+              {/* Challenges Mobile */}
+              <Challenges
+                otherData={userVisitedData} 
+                logo={logo}
                 username={userVisitedData.username}
-            />
-            {/* Friends */}
-            <h2>Friend List</h2>
-            <FriendList
-              otherData={userVisitedData} 
-              logo={logo}
-              username={userVisitedData.username}
-            /> 
-            {/* Challenges Desktop */}
-            <ChallengesDesktop
-              otherData={userVisitedData} 
-              logo={logo}
-              username={userVisitedData.username}
-            /> 
-          </div>
-      </section>
+              />  
+            </div>
+            <div className='profile-suggestions-friends'>
+              {/* Game Suggestions */}
+              <h2>What {userVisitedData.username} Plays</h2>
+              < GameSuggestions 
+                  gamesInBacklog={userVisitedData.gamesInBacklog.map(game => game._id)} 
+                  username={userVisitedData.username}
+              />
+              {/* Friends */}
+              <h2>Friend List</h2>
+              <FriendList
+                otherData={userVisitedData} 
+                logo={logo}
+                username={userVisitedData.username}
+              /> 
+              {/* Challenges Desktop */}
+              <ChallengesDesktop
+                otherData={userVisitedData} 
+                logo={logo}
+                username={userVisitedData.username}
+              /> 
+            </div>
+        </section>
+        <Footer />
+      </>
     );
 }
   
