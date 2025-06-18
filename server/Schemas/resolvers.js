@@ -118,7 +118,10 @@ const resolvers = {
         return user?.gamesInBacklog?.length || 0;
       },"Failed to fetch user visited backlogged count", "FETCH_ERROR"),
       getPopularGames: wrapResolver( async (parent, args, context) => {
-        const url = `https://api.rawg.io/api/games?page_size=1&key=${process.env.RAWG_API_KEY}`;
+        if (!context.user) {
+          throw new AuthenticationError("User not logged in");
+        }
+        const url = `https://api.rawg.io/api/games?page_size=10&key=${process.env.RAWG_API_KEY}`;
         const response = await fetch(url);
         const data = await response.json();
         // console.log(data.results);
@@ -126,7 +129,10 @@ const resolvers = {
       },"Failed to fetch popular games", "FETCH_ERROR"),
       // Leave bypass as is for now. The frontend expects a specific { url, error } structure.
       // Note: wrapResolver only intercepts thrown errors, not returned objects.
-      getAiImage: wrapResolver( async (_, { prompt }) => {
+      getAiImage: wrapResolver( async (_, { prompt }, context) => {
+        if (!context.user) {
+          throw new AuthenticationError("User not logged in");
+        }
         if (!prompt || !prompt.trim()) {
           return { url: null, error: "empty_prompt" };
         }
@@ -160,13 +166,7 @@ const resolvers = {
         }
       },"Failed to fetch create or save AI image", "FETCH_ERROR"),
       relatedGamesByGenre: wrapResolver( async (parent, {genres, limit}) => {
-        if (!Array.isArray(genres) || genres.length === 0) {
-          throw new ApolloError(
-            "No related games in genre",
-            "NO_MATCHES_FOUND"
-          );
-        }
-        const size = Math.max(1, Math.min(limit || 20, 100));
+        const size = Math.max(1, Math.min(limit || 20, 25));
         const results = await Game.aggregate([
           { $match: { genre: { $in: genres } } },
           { $sample: { size } },

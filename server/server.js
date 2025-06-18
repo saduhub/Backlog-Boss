@@ -12,7 +12,8 @@ const server = new ApolloServer({
     typeDefs,
     resolvers,
     // In production, I return a generic error message and overwrite all error codes with "SERVER_ERROR".This is a deliberate security choice to avoid leaking internal logic, database structure, or API behavior. In development, I expose full error details to aid debugging.
-    // TODO: In the future, implement logging of full internal errors (e.g., using Sentry, LogRocket, or a file-based logger) to ensure visibility when detailed error messages are hidden from the client.
+    // TODO: In the future, implement logging of full internal errors (e.g., using Sentry, LogRocket, or a file-based logger) to ensure visibility when detailed error messages are hidden from the client. 
+    //For the time being, a resolver error witl return a data object inside of the error response. No data object means that it is an error at the the apollo server level, such as a syntax error in the query or a problem with the server configuration..
     formatError: (err) => {
         const isDev = process.env.NODE_ENV !== 'production';
         const baseError = {
