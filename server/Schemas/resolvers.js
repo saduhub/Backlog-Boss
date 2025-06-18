@@ -55,90 +55,81 @@ const resolvers = {
       },"Failed to fetch review", "FETCH_ERROR"),
       // Fetch all reviews made by a user
       userReviews: wrapResolver( async (_, { id }) => {
-        return await Review.find(
-          {
-            user: { _id: id},
-          }
-        ).populate("user", "game");
+        return await Review.find({user: { _id: id}}).populate("user", "game");
       },"Failed to fetch user reviews", "FETCH_ERROR"),
       // Fetch a user and all review/games documents related to the user on login. (However, specify on client side what should be returned)
       me: wrapResolver( async (parent, args, context) => {
-        if (context.user) {
-          return User.findOne({ _id: context.user._id })
-            .populate([
-              { path: 'reviews',
-                populate: { path: 'game', select: '_id title' }
-              }, 
-              { path: 'friendRequests' }, 
-              { path: 'gamesInFavorites' }, 
-              { path: 'gamesInBacklog' },
-              { path: 'gamesCompleted' }, 
-              { path: 'games100Completed' }, 
-              { path: 'gamesInProgress' }, 
-              { path: 'friends' }, 
-              { path: 'likedReviews' }
-            ])
+        if (!context.user) {
+          throw new AuthenticationError("User not logged in");
         }
-        throw AuthenticationError;
+        // Fetch a single user by ID
+        return User.findOne({ _id: context.user._id })
+          .populate([
+            { path: 'reviews',
+              populate: { path: 'game', select: '_id title' }
+            }, 
+            { path: 'friendRequests' }, 
+            { path: 'gamesInFavorites' }, 
+            { path: 'gamesInBacklog' },
+            { path: 'gamesCompleted' }, 
+            { path: 'games100Completed' }, 
+            { path: 'gamesInProgress' }, 
+            { path: 'friends' }, 
+            { path: 'likedReviews' }
+          ])
       },"Failed to fetch me", "FETCH_ERROR"),
       profileBackloggedCount: wrapResolver( async (parent, args, context) => {
-        if (!context.user) throw new AuthenticationError('Not logged in');
-
+        if (!context.user) {
+          throw new AuthenticationError("User not logged in");
+        }
+        // Fetch a single user by ID and return the count of games in backlog rather than the entire array.
         const user = await User.findById(context.user._id).select('gamesInBacklog');
         return user?.gamesInBacklog?.length || 0;
       },"Failed to fetch profile backlogged count", "FETCH_ERROR"),
       userVisitedInfo: wrapResolver( async (parent, args, context) => {
+        // deconstruct the user visited ID from args
         const { id } = args;
         // console.log("userVisitedInfo called with id:", id);
-        if (context.user) {
-          return User.findOne({ _id: id })
-            .populate([
-              { path: 'reviews' }, 
-              { path: 'friendRequests' }, 
-              { path: 'gamesInFavorites' }, 
-              { path: 'gamesInBacklog' },
-              { path: 'gamesCompleted' }, 
-              { path: 'games100Completed' }, 
-              { path: 'gamesInProgress' }, 
-              { path: 'friends' }, 
-              { path: 'likedReviews' }
-            ])
+        if (!context.user) {
+          throw new AuthenticationError("User not logged in");
         }
-        throw AuthenticationError;
+        // Fetch a single user by ID and populate all necessary fields.
+        return User.findOne({ _id: id })
+          .populate([
+            { path: 'reviews' }, 
+            { path: 'friendRequests' }, 
+            { path: 'gamesInFavorites' }, 
+            { path: 'gamesInBacklog' },
+            { path: 'gamesCompleted' }, 
+            { path: 'games100Completed' }, 
+            { path: 'gamesInProgress' }, 
+            { path: 'friends' }, 
+            { path: 'likedReviews' }
+          ])
       },"Failed to fetch user visited info", "FETCH_ERROR"),
       userVisitedBackloggedCount: wrapResolver( async (parent, args, context) => {
-        // console.log(args);
+        // deconstruct the user visited ID from args
         const { id } = args;
         // console.log("userVisitedBackloggedCount called with id:", id);
-        if (!context.user) throw new AuthenticationError('Not logged in');
-        const user = await User.findById(id).select('gamesInBacklog');
-        if (!user) {
-          throw new Error("User not found");
+        if (!context.user) {
+          throw new AuthenticationError("User not logged in");
         }
+        const user = await User.findById(id).select('gamesInBacklog');
         return user?.gamesInBacklog?.length || 0;
       },"Failed to fetch user visited backlogged count", "FETCH_ERROR"),
       getPopularGames: wrapResolver( async (parent, args, context) => {
-        const url = `https://api.rawg.io/api/games?page_size=9&key=${process.env.RAWG_API_KEY}`;
-
-        try {
-          const response = await fetch(url);
-          if (!response.ok) {
-            throw new Error(`${response.status}`);
-          }
-          const data = await response.json();
-          // console.log(data.results);
-          return data.results;
-        } catch (err) {
-          console.error(err);
-        }
+        const url = `https://api.rawg.io/api/games?page_size=1&key=${process.env.RAWG_API_KEY}`;
+        const response = await fetch(url);
+        const data = await response.json();
+        // console.log(data.results);
+        return data.results;
       },"Failed to fetch popular games", "FETCH_ERROR"),
+      // Leave bypass as is for now. The frontend expects a specific { url, error } structure.
+      // Note: wrapResolver only intercepts thrown errors, not returned objects.
       getAiImage: wrapResolver( async (_, { prompt }) => {
-        // console.log("Generating image for prompt:", prompt);
         if (!prompt || !prompt.trim()) {
-          // console.warn("Prompt missing or empty.");
           return { url: null, error: "empty_prompt" };
         }
-
         try {
           const response = await openai.images.generate({
             model: "dall-e-3",
@@ -168,29 +159,19 @@ const resolvers = {
           return { url: null, error: errorType };
         }
       },"Failed to fetch create or save AI image", "FETCH_ERROR"),
-      relatedGamesByGenre: wrapResolver( async (parent, { genres, limit}) => {
+      relatedGamesByGenre: wrapResolver( async (parent, {genres, limit}) => {
         if (!Array.isArray(genres) || genres.length === 0) {
           throw new ApolloError(
-            "You must supply at least one genre",
-            "BAD_USER_INPUT"
+            "No related games in genre",
+            "NO_MATCHES_FOUND"
           );
         }
-
         const size = Math.max(1, Math.min(limit || 20, 100));
-
-        try {
-          const results = await Game.aggregate([
-            { $match: { genre: { $in: genres } } },
-            { $sample: { size } },
-          ]);
-          return results;
-        } catch (err) {
-          console.error("relatedGamesByGenre error:", err);
-          throw new ApolloError(
-            "Failed to fetch related games",
-            "RELATED_GAMES_GENRE_ERROR"
-          );
-        }
+        const results = await Game.aggregate([
+          { $match: { genre: { $in: genres } } },
+          { $sample: { size } },
+        ]);
+        return results;
       }, "Failed to fetch related games", "FETCH_ERROR"),
     },
 

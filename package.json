@@ -1,6 +1,6 @@
 {
   "name": "backlog-boss",
-  "version": "1.0.0",
+  "version": "2.1.0",
   "description": "Discover new titles, rate games, manage your backlog, document your gaming journey & connect with friends who share your passion.",
   "main": "index.js",
   "scripts": {

@@ -6,7 +6,7 @@ export function wrapResolver(resolverFn, customMessage = "An unexpected error oc
     try {
       return await resolverFn(...resolverArgs);
     } catch (error) {
-      console.error(`[Resolver Error]: ${errorCode} - ${customMessage}`);
+      // console.error(`[Resolver Error]: ${errorCode} - ${customMessage}`);
       throw new ApolloError(customMessage, errorCode);
     }
   };
