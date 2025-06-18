@@ -5,7 +5,7 @@
 
 ## Description
 
-Discover new titles, rate games, manage your backlog, document your gaming journey & connect with friends who share your passion.
+Discover new titles, rate games, manage your backlog, document your gaming journey & connect with friends who share your passion. Version 2.0.0 is Live!
 
 ## Table of Contents
 
@@ -15,6 +15,14 @@ Discover new titles, rate games, manage your backlog, document your gaming journ
   - [Summary](#summary)
   - [Visit the site](#visit-the-site)
   - [Usage](#usage)
+    - [Profile Page](#profile-page)
+    - [Friend Page](#friend-page)
+    - [Home Page](#home-page)
+    - [Social Page](#social-page)
+    - [Library Page](#library-page)
+    - [Search Page](#search-page)
+    - [Ai Art Generation Page](#ai-art-generation-page)
+    - [Game Page](#game-page)
   - [Credits](#credits)
   - [License](#license)
 

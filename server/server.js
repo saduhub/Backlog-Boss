@@ -11,10 +11,12 @@ const { typeDefs, resolvers } = require("./Schemas");
 const server = new ApolloServer({
     typeDefs,
     resolvers,
+    // In production, I return a generic error message and overwrite all error codes with "SERVER_ERROR".This is a deliberate security choice to avoid leaking internal logic, database structure, or API behavior. In development, I expose full error details to aid debugging.
+    // TODO: In the future, implement logging of full internal errors (e.g., using Sentry, LogRocket, or a file-based logger) to ensure visibility when detailed error messages are hidden from the client.
     formatError: (err) => {
         const isDev = process.env.NODE_ENV !== 'production';
         const baseError = {
-            message: err.message,
+            message: isDev ? err.message : "A request error occurred.",
         };
 
         if (isDev) {
@@ -29,7 +31,7 @@ const server = new ApolloServer({
         return {
             ...baseError,
             extensions: {
-                code: err.extensions?.code || "INTERNAL_SERVER_ERROR",
+                code: "SERVER_ERROR",
             },
         };
     }
