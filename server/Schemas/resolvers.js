@@ -118,7 +118,10 @@ const resolvers = {
         return user?.gamesInBacklog?.length || 0;
       },"Failed to fetch user visited backlogged count", "FETCH_ERROR"),
       getPopularGames: wrapResolver( async (parent, args, context) => {
-        const url = `https://api.rawg.io/api/games?page_size=1&key=${process.env.RAWG_API_KEY}`;
+        if (!context.user) {
+          throw new AuthenticationError("User not logged in");
+        }
+        const url = `https://api.rawg.io/api/games?page_size=10&key=${process.env.RAWG_API_KEY}`;
         const response = await fetch(url);
         const data = await response.json();
         // console.log(data.results);
@@ -126,7 +129,10 @@ const resolvers = {
       },"Failed to fetch popular games", "FETCH_ERROR"),
       // Leave bypass as is for now. The frontend expects a specific { url, error } structure.
       // Note: wrapResolver only intercepts thrown errors, not returned objects.
-      getAiImage: wrapResolver( async (_, { prompt }) => {
+      getAiImage: wrapResolver( async (_, { prompt }, context) => {
+        if (!context.user) {
+          throw new AuthenticationError("User not logged in");
+        }
         if (!prompt || !prompt.trim()) {
           return { url: null, error: "empty_prompt" };
         }
@@ -160,13 +166,7 @@ const resolvers = {
         }
       },"Failed to fetch create or save AI image", "FETCH_ERROR"),
       relatedGamesByGenre: wrapResolver( async (parent, {genres, limit}) => {
-        if (!Array.isArray(genres) || genres.length === 0) {
-          throw new ApolloError(
-            "No related games in genre",
-            "NO_MATCHES_FOUND"
-          );
-        }
-        const size = Math.max(1, Math.min(limit || 20, 100));
+        const size = Math.max(1, Math.min(limit || 20, 25));
         const results = await Game.aggregate([
           { $match: { genre: { $in: genres } } },
           { $sample: { size } },
@@ -176,9 +176,9 @@ const resolvers = {
     },
 
     Mutation: {
-      addFriend: async (_, { userId }, context) => {
+      addFriend: wrapResolver(async (_, { userId }, context) => {
         if (!context.user) {
-          throw new AuthenticationError("You must be logged in");
+          throw new AuthenticationError("User not logged in");
         }
         const myId = context.user._id;
         await User.findByIdAndUpdate(
@@ -187,50 +187,46 @@ const resolvers = {
             $pull: { friendRequests: userId } 
           }
         );
-
         await User.findByIdAndUpdate(
           userId,
           {
             $push: { friends: myId }
           }
         );
-
         return await User.findById(myId)
           .populate('friends')
           .populate('friendRequests');
-      },
-      removeFriend: async (_, { id }, context) => {
-        if (context.user) {
-          const userId = context.user._id;
-
-          await User.findByIdAndUpdate(
-            userId,
-            { $pull: { friends: id } }
-          );
-
-          await User.findByIdAndUpdate(
-            id,
-            { $pull: { friends: userId } }
-          );
-
-          return await User.findById(userId).populate('friends');
-        }
-      },
-      requestFriend: async (_, { id }, context) => {
-        if (context.user) {
-          const updatedUser = await User.findByIdAndUpdate(
-            context.user._id,
-            { $push: { friendRequests: {id} }},
-            { new: true }
-          ).populate('friendRequests');
-          return updatedUser;
-        }
-        throw new Error("User not updated");
-      },
-      // Issues with context prompted direct passing of id from local storage.
-      rejectFriend: async (_, { userId }, context) => {
+      },"Failed to add friend", "UPDATE_ERROR"),
+      removeFriend: wrapResolver(async (_, { id }, context) => {
         if (!context.user) {
-          throw new AuthenticationError("You must be logged in");
+          throw new AuthenticationError("User not logged in");
+        }
+        const userId = context.user._id;
+        await User.findByIdAndUpdate(
+          userId,
+          { $pull: { friends: id } }
+        );
+        await User.findByIdAndUpdate(
+          id,
+          { $pull: { friends: userId } }
+        );
+        return await User.findById(userId).populate('friends');
+      },"Failed to remove friend", "UPDATE_ERROR"),
+      requestFriend: wrapResolver(async (_, { id }, context) => {
+        if (!context.user) {
+          throw new AuthenticationError("User not logged in");
+        }
+        const updatedUser = await User.findByIdAndUpdate(
+          context.user._id,
+          { $push: { friendRequests: {id} }},
+          { new: true }
+        ).populate('friendRequests');
+        return updatedUser;
+      },"Failed to request friend", "UPDATE_ERROR"),
+      // Issues with context prompted direct passing of id from local storage.
+      rejectFriend: wrapResolver(async (_, { userId }, context) => {
+        if (!context.user) {
+          throw new AuthenticationError("User not logged in");
         }
         const myId = context.user._id;
         return await User.findByIdAndUpdate(
@@ -238,181 +234,153 @@ const resolvers = {
           { $pull : { friendRequests : userId } },
           { new: true }
         )
-      },
-      addUser: async (parent, { password, email, username }) => {
+      },"Failed to reject friend", "UPDATE_ERROR"),
+      addUser: wrapResolver(async (parent, { password, email, username }) => {
         const user = await User.create({ password, email, username });
         const token = signToken(user);
-  
         return { token, user };
-      },
-      login: async (parent, { username, password }) => {
+      },"Failed to add user", "UPDATE_ERROR"),
+      login: wrapResolver(async (parent, { username, password }) => {
         const user = await User.findOne({ username });
-  
         if (!user) {
           throw AuthenticationError;
         }
-  
         const correctPw = await user.isPasswordCorrect(password);
-  
         if (!correctPw) {
           throw AuthenticationError;
         }
-  
         const token = signToken(user);
         // console.log(token, user)
         return { token, user };
-      },
-      addReview: async (_, {gameId, rating, reviewText}, context) => {
+      },"Failed to login", "UPDATE_ERROR"),
+      addReview: wrapResolver(async (_, {gameId, rating, reviewText}, context) => {
         //user property comes from session/authentication
         if (!context.user) {
-          throw new AuthenticationError("You must be logged in");
+          throw new AuthenticationError("User not logged in");
         }
-        // Handle case where game is not found
-        if (!gameId) {
-          throw new Error("Game not found");
+        let review = await Review.create({
+          user: context.user._id,
+          game: gameId,
+          rating,
+          reviewText,
+        });
+        // After creating the Review, resolver populates both the user and game fields so the mutation returns a fully‑shaped Review object (with username, game title, timestamp, and likes).
+        review = await review.populate('user', '_id username profilePictureUrl');
+        review = await review.populate('game', '_id title');
+        await Game.findByIdAndUpdate(
+          gameId,
+          { $push: { reviews: review._id } },
+          { new: true }
+        );
+        await User.findByIdAndUpdate(
+          context.user._id,
+          { $push: { reviews: review._id } },
+          { new: true }
+        );
+        // By returning all necessary data in one go, the client can render the new review instantly without needing to refetch the entire game or reviews list.
+        return review;
+      },"Failed to add review", "UPDATE_ERROR"),
+      addToBacklog: wrapResolver(async (_, { gameId }, context) => {
+        if (!context.user) {
+          throw new AuthenticationError("User not logged in");
         }
-        try {
-          let review = await Review.create({
-            user: context.user._id,
-            game: gameId,
-            rating,
-            reviewText,
-          });
-          // After creating the Review, resolver populates both the user and game fields so the mutation returns a fully‑shaped Review object (with username, game title, timestamp, and likes).
-          review = await review.populate('user', '_id username profilePictureUrl');
-          review = await review.populate('game', '_id title');
-
-          await Game.findByIdAndUpdate(
-            gameId,
-            { $push: { reviews: review._id } },
-            { new: true }
-          );
-
-          await User.findByIdAndUpdate(
-            context.user._id,
-            { $push: { reviews: review._id } },
-            { new: true }
-          );
-          // By returning all necessary data in one go, the client can render the new review instantly without needing to refetch the entire game or reviews list.
-          return review;
-          
-        } catch (err) {
-          console.error("addReview error:", err);
-          throw new ApolloError("Could not add review", "ADD_REVIEW_FAILED");
-        }
-      },
-      addToBacklog: async (_, { gameId }, context) => {
-        const { user } = context;
-        if (!user) {
-          throw new AuthenticationError('You must be logged in to perform this action');
-        }
-
         const updatedUser = await User.findByIdAndUpdate(
-          {_id : user._id},
+          {_id : context.user._id},
           { $addToSet: { gamesInBacklog: gameId } },
           { new: true }
         );
-
         return updatedUser;
-      },
-      removeFromBacklog: async (_, { gameId }, { user }) => {
-        if (!user) throw new AuthenticationError();
+      },"Failed to add to backlog", "UPDATE_ERROR"),
+      removeFromBacklog: wrapResolver(async (_, { gameId }, { user }) => {
+        if (!user) throw new AuthenticationError("User not logged in");
         return User.findByIdAndUpdate(
           user._id,
           { $pull: { gamesInBacklog: gameId } },
           { new: true }
         );
-      },
-      addToFavorites: async (_, { gameId }, context) => {
+      },"Failed to remove from backlog", "UPDATE_ERROR"),
+      addToFavorites: wrapResolver(async (_, { gameId }, context) => {
         const { user } = context;
         if (!user) {
-          throw new AuthenticationError('You must be logged in to perform this action');
+          throw new AuthenticationError("User not logged in");
         }
-
         const updatedUser = await User.findByIdAndUpdate(
           {_id : user._id},
           { $addToSet: { gamesInFavorites: gameId } },
           { new: true }
         );
-
         return updatedUser;
-      },
-      removeFromFavorites: async (_, { gameId }, { user }) => {
-        if (!user) throw new AuthenticationError();
+      },"Failed to add to favorites", "UPDATE_ERROR"),
+      removeFromFavorites: wrapResolver(async (_, { gameId }, { user }) => {
+        if (!user) throw new AuthenticationError("User not logged in");
         return User.findByIdAndUpdate(
           user._id,
           { $pull: { gamesInFavorites: gameId } },
           { new: true }
         );
-      },
-      addToInProgress: async (_, { gameId }, context) => {
+      },"Failed to remove from favorites", "UPDATE_ERROR"),
+      addToInProgress: wrapResolver(async (_, { gameId }, context) => {
         const { user } = context;
         if (!user) {
-          throw new AuthenticationError('You must be logged in to perform this action');
-        }
-
+          throw new AuthenticationError("User not logged in");
+        };
         const updatedUser = await User.findByIdAndUpdate(
           {_id : user._id},
           { $addToSet: { gamesInProgress: gameId } },
           { new: true }
         );
-
         return updatedUser;
-      },
-      removeFromInProgress: async (_, { gameId }, { user }) => {
-        if (!user) throw new AuthenticationError();
+      },"Failed to add to in progress", "UPDATE_ERROR"),
+      removeFromInProgress: wrapResolver(async (_, { gameId }, { user }) => {
+        if (!user) throw new AuthenticationError("User not logged in");
         return User.findByIdAndUpdate(
           user._id,
           { $pull: { gamesInProgress: gameId } },
           { new: true }
         );
-      },
-      addToCompleted: async (_, { gameId }, context) => {
+      },"Failed to remove from in progress", "UPDATE_ERROR"),
+      addToCompleted: wrapResolver(async (_, { gameId }, context) => {
         const { user } = context;
         if (!user) {
-          throw new AuthenticationError('You must be logged in to perform this action');
+          throw new AuthenticationError("User not logged in");
         }
-
         const updatedUser = await User.findByIdAndUpdate(
           {_id : user._id},
           { $addToSet: { gamesCompleted: gameId } },
           { new: true }
         );
-
         return updatedUser;
-      },
-      removeFromCompleted: async (_, { gameId }, { user }) => {
-        if (!user) throw new AuthenticationError();
+      },"Failed to add to completed", "UPDATE_ERROR"),
+      removeFromCompleted: wrapResolver(async (_, { gameId }, { user }) => {
+        if (!user) throw new AuthenticationError("User not logged in");
         return User.findByIdAndUpdate(
           user._id,
           { $pull: { gamesCompleted: gameId } },
           { new: true }
         );
-      },
-      addTo100Completed: async (_, { gameId }, context) => {
+      },"Failed to remove from completed", "UPDATE_ERROR"),
+      addTo100Completed: wrapResolver(async (_, { gameId }, context) => {
         const { user } = context;
         if (!user) {
-          throw new AuthenticationError('You must be logged in to perform this action');
-        }
-
+          throw new AuthenticationError("User not logged in");
+        };
         const updatedUser = await User.findByIdAndUpdate(
           {_id : user._id},
           { $addToSet: { games100Completed: gameId } },
           { new: true }
         );
-
         return updatedUser;
-      },
-      removeFrom100Completed: async (_, { gameId }, { user }) => {
-        if (!user) throw new AuthenticationError();
+      },"Failed to add to 100 completed", "UPDATE_ERROR"),
+      removeFrom100Completed: wrapResolver(async (_, { gameId }, { user }) => {
+        if (!user) throw new AuthenticationError("User not logged in");
         return User.findByIdAndUpdate(
           user._id,
           { $pull: { games100Completed: gameId } },
           { new: true }
         );
-      },
-      addLikeToReview: async (_, { reviewId }, { user }) => {
-        if (!user) throw new AuthenticationError("You must be logged in to perform this action");
+      },"Failed to remove from 100 completed", "UPDATE_ERROR"),
+      addLikeToReview: wrapResolver(async (_, { reviewId }, { user }) => {
+        if (!user) throw new AuthenticationError("User not logged in");
         const me = await User.findById(user._id);
         const review = await Review.findById(reviewId);
         if (!review) throw new Error("Review not found");
@@ -424,9 +392,9 @@ const resolvers = {
           await review.save();
         }
         return review;
-      },
-      removeLikeFromReview: async (_, { reviewId }, { user }) => {
-        if (!user) throw new AuthenticationError("You must be logged in to perform this action");
+      },"Failed to add like to review", "UPDATE_ERROR"),
+      removeLikeFromReview: wrapResolver(async (_, { reviewId }, { user }) => {
+        if (!user) throw new AuthenticationError("User not logged in");
         const me = await User.findById(user._id);
         const review = await Review.findById(reviewId);
         if (!review) throw new Error("Review not found");
@@ -438,39 +406,27 @@ const resolvers = {
           await review.save();
         }
         return review;
-      },
-      changeProfilePic: async (_, { url }, context) => {
+      },"Failed to remove like from review", "UPDATE_ERROR"),
+      changeProfilePic: wrapResolver(async (_, { url }, context) => {
         const { user } = context;
-        
-        if(!user){
-          // throw new AuthenticationError('You must be logged in to perform this action');
-          return
-        }
-
+        if (!user) throw new AuthenticationError("User not logged in");
         const updatedUser = await User.findByIdAndUpdate(
           { _id: user._id },
           { $set: { profilePictureUrl: url } },
           { new: true }
         );
-        
         return updatedUser;
-      },
-      saveAiPic: async (_, { url }, context) => {
+      },"Failed to change profile pic", "UPDATE_ERROR"),
+      saveAiPic: wrapResolver(async (_, { url }, context) => {
         const { user } = context;
-
-        if(!user) {
-          // throw new AuthenticationError('You must be logged in to perform this action');
-          return
-        }
-
+        if (!user) throw new AuthenticationError("User not logged in");
         const updatedUser = await User.findByIdAndUpdate(
           { _id: user._id },
           { $addToSet: { aiImages: url } },
           { new: true }
         );
-        
         return updatedUser;
-      }
+      },"Failed to save AI pic", "UPDATE_ERROR"),
     }
 };
 
