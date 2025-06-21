@@ -1,5 +1,7 @@
 // Hooks
 import { Outlet, useLocation } from 'react-router-dom';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorFallback from './components/ErrorFallback';
 // Styles
 import './assets/css/App.css'
 // Components
@@ -11,10 +13,15 @@ function App() {
     <>
       {/* Nav Bar */}
       {location.pathname != '/' && <Navbar/>}
-      {/* Main */}
-      <main className="app-main-container">
-        <Outlet />
-      </main>
+      <ErrorBoundary
+        FallbackComponent={(props) => (<ErrorFallback {...props} fullPage={true} />)}
+        resetKeys={[location.pathname]}
+      >
+        {/* Main */}
+        <main className="app-main-container">
+          <Outlet />
+        </main>
+      </ErrorBoundary>  
       {/* Footer moved to individual pages */}
     </>
   )
