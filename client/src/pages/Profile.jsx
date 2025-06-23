@@ -17,6 +17,7 @@ import ChallengesDesktop from '../components/profile/ChallengesDesktop';
 import FriendList from '../components/profile/FriendList';
 import GameSuggestions from '../components/profile/GameSuggestions';
 import Footer from "../components/Footer";
+import ErrorFallbackServer from '../components/ErrorFallbackServer';
 // Utilities
 import Auth from '../utils/auth';
 
@@ -34,6 +35,17 @@ function Profile() {
   }, []);
 
   if (loading) return <p>Loading...</p>
+
+  // Server-side error. Instead of wrapping individual components in ErrorBoundaries, I chose to handle query errors here at the page level.This is because the components themselves don't make their own queries. They rely entirely on data passed down from this parent. If the query fails, there's no point rendering the child components at all.
+  if (error) {
+    return (
+      <ErrorFallbackServer
+        error="Server-side error"
+        retry={() => window.location.reload()}
+        fullPage={true}
+      />
+    );
+  }
 
   if (isAuthenticated) {
     return (
