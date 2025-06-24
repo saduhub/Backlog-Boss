@@ -8,6 +8,7 @@ import '../assets/css/Library.css';
 // Components
 import SortingBanner from '../components/library/SortingBanner';
 import Footer from '../components/Footer.jsx';
+import ErrorFallbackServer from '../components/ErrorFallbackServer';
 // import ProfileUserCard from '../components/profile/ProfileUserCard';
 
 
@@ -18,7 +19,16 @@ function Library() {
   
   if (!isAuthenticated) return <Navigate to="/login" replace={true} />
   if (loading) return <p>Loading ...</p>
-  if (error) return <p className="p-8 text-red-600">Something Went Wrong</p>;
+  
+  if (error) {
+    return (
+      <ErrorFallbackServer
+        error="Server-side error"
+        retry={() => window.location.reload()}
+        fullPage={true}
+      />
+    );
+  }
   
   const userData = data?.me || {}
   // console.log(userData);

@@ -7,6 +7,7 @@ import GameReviewCard from '../components/home/GameReviewCard';
 import WelcomeBanner from '../components/home/WelcomeBanner';
 import Footer from '../components/Footer.jsx';
 import Auth from '../utils/auth';
+import ErrorFallbackServer from '../components/ErrorFallbackServer';
 
 function Home() {
   // eslint-disable-next-line
@@ -18,7 +19,16 @@ function Home() {
   // console.log(user)
 
   if (loading) return <p>Loading Latest Reviews...</p>
-  if (error) return <p>Something Went Wrong</p>;
+  
+  if (error) {
+    return (
+      <ErrorFallbackServer
+        error="Server-side error"
+        retry={() => window.location.reload()}
+        fullPage={true}
+      />
+    );
+  }
 
   return (
     <>

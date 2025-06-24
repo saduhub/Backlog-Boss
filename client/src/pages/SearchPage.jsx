@@ -4,6 +4,7 @@ import Auth from "../utils/auth";
 import { Link } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
 import FilterBar from '../components/FilterBar';
+import ErrorFallbackServer from '../components/ErrorFallbackServer';
 import Footer from '../components/Footer';
 import '../assets/css/searchPage.css';
 
@@ -49,7 +50,16 @@ const SearchPage = () => {
   };
   if (!isAuth) return <Navigate to="/login" replace />;
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  
+  if (error) {
+    return (
+      <ErrorFallbackServer
+        error="Server-side error"
+        retry={() => window.location.reload()}
+        fullPage={true}
+      />
+    );
+  }
 
   return (
     <div className="search-page">

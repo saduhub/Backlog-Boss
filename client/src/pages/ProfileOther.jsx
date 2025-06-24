@@ -16,6 +16,7 @@ import ChallengesDesktop from '../components/profile/ChallengesDesktop';
 import FriendList from '../components/profile/FriendList';
 import GameSuggestions from '../components/profile/GameSuggestions';
 import Footer from "../components/Footer";
+import ErrorFallbackServer from '../components/ErrorFallbackServer';
 // Utilities
 // import Auth from '../utils/auth';
 
@@ -38,6 +39,16 @@ function Profile() {
     const userVisitedData = data?.userVisitedInfo || {}
     //   console.log(userVisitedData);
     if (loading) return <p>Loading...</p>
+    // Note: I'm not explicitly handling `error` from GET_PROFILE_BACKLOGGED_COUNT because its value is non-critical. If it fails, the fallback value of 0 ensures the app still renders safely: backloggedCount={countData?.profileBackloggedCount || 0}
+    if (error) {
+      return (
+        <ErrorFallbackServer
+          error="Server-side error"
+          retry={() => window.location.reload()}
+          fullPage={true}
+        />
+      );
+    }
 
     return (
       <>
