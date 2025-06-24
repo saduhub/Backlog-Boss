@@ -9,6 +9,7 @@ import FriendList from '../components/social/FriendList';
 import FriendSuggestion from '../components/social/FriendSuggestion';
 import UserReviews from '../components/social/UserReviews';
 import Footer from '../components/Footer';
+import ErrorFallbackServer from '../components/ErrorFallbackServer';
 // import profilePic from '../assets/images/png/icons8-male-user-16.png';
 import Auth from '../utils/auth';
 
@@ -26,6 +27,16 @@ const Social = () => {
   }, []);
 
   if (loading) return <p>Loading...</p>
+
+  if (error) {
+    return (
+      <ErrorFallbackServer
+        error="Server-side error"
+        retry={() => window.location.reload()}
+        fullPage={true}
+      />
+    );
+  }
 
   const friendRequestData = meData.friendRequests;
   // console.log(friendRequestData);
