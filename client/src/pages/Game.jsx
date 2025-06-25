@@ -25,6 +25,7 @@ import RelatedGamesBanner from "../components/game/RelatedGamesBanner.jsx";
 import UserReviewsContainer from "../components/game/UserReviewsContainer.jsx";
 import GameReviewForm from "../components/game/GameReviewForm.jsx";
 import Footer from '../components/Footer.jsx';
+import ErrorFallbackServer from '../components/ErrorFallbackServer';
 // Styles and Assets
 import "../assets/css/Game.css";
 import {
@@ -72,7 +73,16 @@ function Game() {
 
   if (!isAuth) return <Navigate to="/login" replace />;
   if (loading) return <p>Loading game…</p>;
-  if (error) return <p>Something went wrong.</p>;
+  // Note: I'm not explicitly handling `error` from RELATED_GAMES_GENRE because its value is non-critical. If it fails, the fallback value of [] ensures the app still renders safely.
+  if (error) {
+    return (
+      <ErrorFallbackServer
+        error="Server-side error"
+        retry={() => window.location.reload()}
+        fullPage={true}
+      />
+    );
+  }
   if (relatedLoading) return <p>Loading related games…</p>;
   // Destructure results to later eveluate if game in array matches the game id
   const { game, me } = data;
