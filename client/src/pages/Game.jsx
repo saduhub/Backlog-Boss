@@ -1,5 +1,6 @@
 import { useParams, Navigate } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
+import { useState, useEffect } from "react";
 import Auth from "../utils/auth";
 // Queries and Mutations
 import { QUERY_GAME, RELATED_GAMES_GENRE } from "../utils/queries.js";
@@ -36,6 +37,15 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 // Game
 function Game() {
+  //State
+  const [mutationError, setMutationError] = useState(null);
+  // Effect to scroll to top on mutation error
+  useEffect(() => {
+    if (mutationError) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [mutationError]);
+  // Params and Auth
   const { id: gameId } = useParams();
   const isAuth = Auth.loggedIn();
   // Get game info
@@ -116,35 +126,54 @@ function Game() {
   const is100Completed = games100Completed.some((g) => g._id === game._id);
   // Status Button Handler that passes mutation called by each button in GameStatusBanner
   const handleToggle = (flag, addMutation, removeMutation) => async () => {
-    if (flag) {
-      await removeMutation({ variables: { gameId } });
-    } else {
-      await addMutation({ variables: { gameId } });
+    try {
+      if (flag) {
+        await removeMutation({ variables: { gameId } });
+      } else {
+        await addMutation({ variables: { gameId } });
+      }
+      await refetch();  // re‑pull me query so the related games in genre banner updates
+      setMutationError(null);
+    } catch (err) {
+      setMutationError("Failed to update game status. Please try again.");
     }
-    await refetch();  // re‑pull me query so your related games in genre banner updates
   };
   // Evalute if review ids in array match review id 
   const meLikedIds = likedReviews?.map((r) => r._id) ?? [];
   // Like Button Handler that passes mutation called by heart button in HeartsRating
   const handleToggleLike = (hasLiked, reviewId) => async () => {
-    if (hasLiked) {
-      await removeLikeFromReview({ variables: { reviewId } });
-    } else {
-      await addLikeToReview({ variables: { reviewId } });
+    try {
+      if (hasLiked) {
+        await removeLikeFromReview({ variables: { reviewId } });
+      } else {
+        await addLikeToReview({ variables: { reviewId } });
+      }
+      await refetch();
+      setMutationError(null);
+    } catch (err) {
+      setMutationError("Failed to update like status. Try again later.");
     }
-    await refetch();
   };
   //Review Form Handler Passed to ReviewForm Component to Handle Review Submission
   const handleAddReview = async ({ rating, reviewText }) => {
-    //Retrieve Response Data From the addReview Mutation Being Triggered.
-    await addReview({
-      variables: { gameId: _id, rating, reviewText }
-    });
-    // Apollo Should Refetch QUERY_GAME So Reviews Is Updated
+    try {
+      //Retrieve Response Data From the addReview Mutation Being Triggered.
+      await addReview({
+        variables: { gameId: _id, rating, reviewText }
+      });
+      setMutationError(null);
+    } catch (err) {
+      setMutationError("Failed to submit review. Please try again.");
+    }
   };
 
   return (
     <>
+      {mutationError && (
+        <p className="game-mutation-error-banner">
+          {mutationError}
+        </p>
+      )}
       <section className="game-main-section">
         <LargeGameCard
           title={title}
