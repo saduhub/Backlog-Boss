@@ -304,7 +304,7 @@ const resolvers = {
         if (!user) {
           throw new AuthenticationError("User not logged in");
         }
-        const updatedUser = await User.findByIdAndUpdate(
+        const updatedUser = await Usxer.findByIdAndUpdate(
           {_id : user._id},
           { $addToSet: { gamesInFavorites: gameId } },
           { new: true }

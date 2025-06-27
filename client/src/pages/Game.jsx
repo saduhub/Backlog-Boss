@@ -39,6 +39,7 @@ import {
 function Game() {
   //State
   const [mutationError, setMutationError] = useState(null);
+  const [mutationErrorCount, setMutationErrorCount] = useState(0);
   // Effect to scroll to top on mutation error
   useEffect(() => {
     if (mutationError) {
@@ -135,6 +136,7 @@ function Game() {
       await refetch();  // re‑pull me query so the related games in genre banner updates
       setMutationError(null);
     } catch (err) {
+      setMutationErrorCount((prev) => prev + 1);
       setMutationError("Failed to update game status. Please try again.");
     }
   };
@@ -151,6 +153,7 @@ function Game() {
       await refetch();
       setMutationError(null);
     } catch (err) {
+      setMutationErrorCount((prev) => prev + 1);
       setMutationError("Failed to update like status. Try again later.");
     }
   };
@@ -163,6 +166,7 @@ function Game() {
       });
       setMutationError(null);
     } catch (err) {
+      setMutationErrorCount((prev) => prev + 1);
       setMutationError("Failed to submit review. Please try again.");
     }
   };
@@ -172,6 +176,7 @@ function Game() {
       {mutationError && (
         <p className="game-mutation-error-banner">
           {mutationError}
+          {mutationErrorCount >= 2 && <span> ({mutationErrorCount})</span>}
         </p>
       )}
       <section className="game-main-section">
