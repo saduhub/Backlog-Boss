@@ -42,10 +42,10 @@ function Game() {
   const [mutationErrorCount, setMutationErrorCount] = useState(0);
   // Effect to scroll to top on mutation error
   useEffect(() => {
-    if (mutationError) {
+    if (mutationErrorCount > 0) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  }, [mutationError]);
+  }, [mutationErrorCount]);
   // Params and Auth
   const { id: gameId } = useParams();
   const isAuth = Auth.loggedIn();
@@ -135,6 +135,7 @@ function Game() {
       }
       await refetch();  // re‑pull me query so the related games in genre banner updates
       setMutationError(null);
+      setMutationErrorCount(0);
     } catch (err) {
       setMutationErrorCount((prev) => prev + 1);
       setMutationError("Failed to update game status. Please try again.");
@@ -152,6 +153,7 @@ function Game() {
       }
       await refetch();
       setMutationError(null);
+      setMutationErrorCount(0);
     } catch (err) {
       setMutationErrorCount((prev) => prev + 1);
       setMutationError("Failed to update like status. Try again later.");
@@ -165,6 +167,7 @@ function Game() {
         variables: { gameId: _id, rating, reviewText }
       });
       setMutationError(null);
+      setMutationErrorCount(0);
     } catch (err) {
       setMutationErrorCount((prev) => prev + 1);
       setMutationError("Failed to submit review. Please try again.");
