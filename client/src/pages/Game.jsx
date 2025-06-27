@@ -1,6 +1,6 @@
 import { useParams, Navigate } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Auth from "../utils/auth";
 // Queries and Mutations
 import { QUERY_GAME, RELATED_GAMES_GENRE } from "../utils/queries.js";
@@ -39,12 +39,7 @@ import {
 function Game() {
   //State
   const [mutationError, setMutationError] = useState(null);
-  // Effect to scroll to top on mutation error
-  useEffect(() => {
-    if (mutationError) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  }, [mutationError]);
+  const [mutationErrorCount, setMutationErrorCount] = useState(0);
   // Params and Auth
   const { id: gameId } = useParams();
   const isAuth = Auth.loggedIn();
@@ -134,7 +129,9 @@ function Game() {
       }
       await refetch();  // re‑pull me query so the related games in genre banner updates
       setMutationError(null);
+      setMutationErrorCount(0);
     } catch (err) {
+      setMutationErrorCount((prev) => prev + 1);
       setMutationError("Failed to update game status. Please try again.");
     }
   };
@@ -150,7 +147,9 @@ function Game() {
       }
       await refetch();
       setMutationError(null);
+      setMutationErrorCount(0);
     } catch (err) {
+      setMutationErrorCount((prev) => prev + 1);
       setMutationError("Failed to update like status. Try again later.");
     }
   };
@@ -162,7 +161,9 @@ function Game() {
         variables: { gameId: _id, rating, reviewText }
       });
       setMutationError(null);
+      setMutationErrorCount(0);
     } catch (err) {
+      setMutationErrorCount((prev) => prev + 1);
       setMutationError("Failed to submit review. Please try again.");
     }
   };
@@ -170,9 +171,22 @@ function Game() {
   return (
     <>
       {mutationError && (
-        <p className="game-mutation-error-banner">
+        <div className="game-mutation-error-banner">
+          <span>
           {mutationError}
-        </p>
+          {mutationErrorCount >= 2 && <span> ({mutationErrorCount})</span>}
+          </span>
+          <button
+            onClick={() => {
+              setMutationError(null);
+              setMutationErrorCount(0);
+            }}
+            className="game-close-error-button"
+            aria-label="Dismiss error"
+          >
+            X
+          </button>
+        </div>
       )}
       <section className="game-main-section">
         <LargeGameCard

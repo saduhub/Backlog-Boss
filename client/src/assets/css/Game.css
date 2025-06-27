@@ -27,11 +27,36 @@
 }
 
 .game-mutation-error-banner {
+  position: fixed;
+  top: 0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
   background: #9f34ff;
   color: #ffffff;
   padding: 0.75rem 1rem;
-  font-size: 0.95rem;
-  font-weight: 500;
+  font-size: 1rem;
   text-align: center;
-  margin: auto;
+  border-radius: 0.25rem;
+  z-index: 9999;
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
+
+.game-close-error-button {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  margin-left: 1rem;
+  line-height: 0.5;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
 }
