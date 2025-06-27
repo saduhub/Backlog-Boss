@@ -171,10 +171,22 @@ function Game() {
   return (
     <>
       {mutationError && (
-        <p className="game-mutation-error-banner">
+        <div className="game-mutation-error-banner">
+          <span>
           {mutationError}
           {mutationErrorCount >= 2 && <span> ({mutationErrorCount})</span>}
-        </p>
+          </span>
+          <button
+            onClick={() => {
+              setMutationError(null);
+              setMutationErrorCount(0);
+            }}
+            className="game-close-error-button"
+            aria-label="Dismiss error"
+          >
+            X
+          </button>
+        </div>
       )}
       <section className="game-main-section">
         <LargeGameCard

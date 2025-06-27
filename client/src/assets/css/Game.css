@@ -42,6 +42,19 @@
   animation: fadeIn 0.5s forwards;
 }
 
+.game-close-error-button {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  margin-left: 1rem;
+  line-height: 0.5;
+}
+
 @keyframes fadeIn {
   to {
     opacity: 1;
