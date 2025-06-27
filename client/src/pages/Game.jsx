@@ -1,6 +1,6 @@
 import { useParams, Navigate } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Auth from "../utils/auth";
 // Queries and Mutations
 import { QUERY_GAME, RELATED_GAMES_GENRE } from "../utils/queries.js";
@@ -40,12 +40,6 @@ function Game() {
   //State
   const [mutationError, setMutationError] = useState(null);
   const [mutationErrorCount, setMutationErrorCount] = useState(0);
-  // Effect to scroll to top on mutation error
-  useEffect(() => {
-    if (mutationErrorCount > 0) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  }, [mutationErrorCount]);
   // Params and Auth
   const { id: gameId } = useParams();
   const isAuth = Auth.loggedIn();
