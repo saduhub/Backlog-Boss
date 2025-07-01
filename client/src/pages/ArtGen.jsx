@@ -15,6 +15,9 @@ import '../assets/css/artGen.css';
 
 function ArtGen() {
   const isAuth = Auth.loggedIn();
+  //State
+  const [mutationError, setMutationError] = useState(null);
+  const [mutationErrorCount, setMutationErrorCount] = useState(0);
   const [previewUrl, setPreviewUrl] = useState('');
   const [prompt, setPrompt] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
@@ -39,8 +42,12 @@ function ArtGen() {
     try {
       await changeProfilePic({ variables: { url: previewUrl } });
       setAvatarSet(true);
+      setMutationError(null);
+      setMutationErrorCount(0);
     } catch (err) {
-      setErrorMsg("An unexpected error occurred, try again.");
+      // setErrorMsg("An unexpected error occurred, try again.");
+      setMutationErrorCount((prev) => prev + 1);
+      setMutationError("Failed to update Avatar. Please try again.");
       // console.error(err);
     }
   };
@@ -95,7 +102,25 @@ function ArtGen() {
 
   return (
     <>
-      {errorMsg && (<p className="artgen-error-message">{errorMsg}</p>)}
+      {/* {errorMsg && (<p className="artgen-error-message">{errorMsg}</p>)} */}
+      {mutationError && (
+        <div className="game-mutation-error-banner">
+          <span>
+          {mutationError}
+          {mutationErrorCount >= 2 && <span> ({mutationErrorCount})</span>}
+          </span>
+          <button
+            onClick={() => {
+              setMutationError(null);
+              setMutationErrorCount(0);
+            }}
+            className="game-close-error-button"
+            aria-label="Dismiss error"
+          >
+            X
+          </button>
+        </div>
+      )}
       <section className="artgen-container">
 
         <PromptForm onSubmit={generateAvatar} isLoading={loadingImage} />
