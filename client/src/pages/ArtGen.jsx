@@ -20,7 +20,6 @@ function ArtGen() {
   const [mutationErrorCount, setMutationErrorCount] = useState(0);
   const [previewUrl, setPreviewUrl] = useState('');
   const [prompt, setPrompt] = useState('');
-  const [errorMsg, setErrorMsg] = useState('');
   const [avatarSet, setAvatarSet] = useState(false);
   const [gallerySaved, setGallerySaved] = useState(false);
 
@@ -48,7 +47,6 @@ function ArtGen() {
       setMutationError(null);
       setMutationErrorCount(0);
     } catch (err) {
-      // setErrorMsg("An unexpected error occurred, try again.");
       setMutationErrorCount((prev) => prev + 1);
       setMutationError("Failed to update Avatar. Please try again.");
       // console.error(err);
@@ -60,8 +58,11 @@ function ArtGen() {
     try {
       await saveAiPic({ variables: { url: previewUrl } });
       setGallerySaved(true);
+      setMutationError(null);
+      setMutationErrorCount(0);
     } catch (err) {
-      setErrorMsg("An unexpected error occurred, try again.");
+      setMutationErrorCount((prev) => prev + 1);
+      setMutationError("Failed to save image to gallery. Please try again later.");
       // console.error(err);
     }
   };
@@ -85,12 +86,6 @@ function ArtGen() {
     }
   }, [imageData]);
 
-  useEffect(() => {
-    if (errorMsg) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  }, [errorMsg]);
-
   // Render
   const anyLoading = loadingImage || savingAvatar || savingGallery;
 
@@ -98,7 +93,6 @@ function ArtGen() {
 
   return (
     <>
-      {/* {errorMsg && (<p className="artgen-error-message">{errorMsg}</p>)} */}
       {mutationError && (
         <div className="game-mutation-error-banner">
           <span>
@@ -118,9 +112,7 @@ function ArtGen() {
         </div>
       )}
       <section className="artgen-container">
-
         <PromptForm onSubmit={generateAvatar} isLoading={loadingImage} />
-
         <AnimatePresence mode="wait">
           <motion.div
             key={previewUrl || 'placeholder'}
