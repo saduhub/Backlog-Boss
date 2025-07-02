@@ -30,11 +30,14 @@ function ArtGen() {
   const [saveAiPic, { loading: savingGallery }] = useMutation(SAVE_AI_PIC);
 
   // Helpers and Callbacks
-  const generateAvatar = (formValues) => {
-    const built = buildPrompt(formValues);
-    setPrompt(built);
-    setErrorMsg('');
-    getAiImage({ variables: { prompt: built } });
+  const generateAvatar = async (formValues) => {
+    try {
+      const built = buildPrompt(formValues);
+      setPrompt(built);
+      await getAiImage({ variables: { prompt: built } });
+    } catch (err) {
+      // console.error(err);
+    }
   };
 
   const handleSetAvatar = async () => {
@@ -66,26 +69,19 @@ function ArtGen() {
   //Effect - whenever query returns, update preview
   useEffect(() => {
     const result = imageData?.getAiImage;
-
     if (result?.url) {
       setPreviewUrl(result.url);
-      setErrorMsg('');
+      setMutationError(null);
+      setMutationErrorCount(0);
       setAvatarSet(false);     
       setGallerySaved(false);
     } else if (result?.error) {
       setPreviewUrl('');
       setAvatarSet(false);
       setGallerySaved(false);
+      setMutationErrorCount((prev) => prev + 1);
+      setMutationError("Failed to generate image. Please try again and make sure you are not including restricted or copyrighted content.");
       // console.error("AI error from backend:", result.error);
-
-      const messageMap = {
-        image_generation_user_error: "Your prompt likely includes restricted content or names. Please try rewording it.",
-        empty_prompt: "Prompt cannot be empty. Please describe what you'd like generated.",
-        no_image_data: "The image could not be generated. Try a different style or subject.",
-        unknown_error: "Something went wrong. Please try again later.",
-      };
-
-      setErrorMsg(messageMap[result.error] || "An unexpected error occurred.");
     }
   }, [imageData]);
 
