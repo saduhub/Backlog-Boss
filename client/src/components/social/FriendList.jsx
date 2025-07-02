@@ -2,27 +2,28 @@ import { useState, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
 import { REMOVE_FRIEND } from '../../utils/mutations';
 // eslint-disable-next-line
-const FriendList = ({ friends }) => {
+const FriendList = ({ friends, refetchSocial }) => {
   // State
-  const [friendList, setFriendList] = useState(friends);
   const [removeFriend, { loading }] = useMutation(REMOVE_FRIEND);
   const [mutationError, setMutationError] = useState(null);
   const [mutationErrorCount, setMutationErrorCount] = useState(0);
 
-  useEffect(() => {
-    setFriendList(friends);
-  }, [friends]);
-
   const handleFriendRemove = async (friendId) => {
     if (loading) return;
     try {
-      const { data } = await removeFriend({
+      await removeFriend({
         variables: { friendId },
       });
-      setFriendList(data.removeFriend.friends);
       setMutationError(null);
       setMutationErrorCount(0);
-    } catch (err) {
+      try {
+        await refetchSocial();
+      } catch (refetchError) {
+        // console.error('Refetch failed:', refetchError);
+        setMutationErrorCount((prev) => prev + 1);
+        setMutationError('Friend removed, but we had trouble updating your list.');
+      }
+      } catch (err) {
       setMutationErrorCount((prev) => prev + 1);
       setMutationError('Failed to remove friend. Please try again.');
     }
