@@ -15,9 +15,11 @@ import '../assets/css/artGen.css';
 
 function ArtGen() {
   const isAuth = Auth.loggedIn();
+  //State
+  const [mutationError, setMutationError] = useState(null);
+  const [mutationErrorCount, setMutationErrorCount] = useState(0);
   const [previewUrl, setPreviewUrl] = useState('');
   const [prompt, setPrompt] = useState('');
-  const [errorMsg, setErrorMsg] = useState('');
   const [avatarSet, setAvatarSet] = useState(false);
   const [gallerySaved, setGallerySaved] = useState(false);
 
@@ -27,11 +29,14 @@ function ArtGen() {
   const [saveAiPic, { loading: savingGallery }] = useMutation(SAVE_AI_PIC);
 
   // Helpers and Callbacks
-  const generateAvatar = (formValues) => {
-    const built = buildPrompt(formValues);
-    setPrompt(built);
-    setErrorMsg('');
-    getAiImage({ variables: { prompt: built } });
+  const generateAvatar = async (formValues) => {
+    try {
+      const built = buildPrompt(formValues);
+      setPrompt(built);
+      await getAiImage({ variables: { prompt: built } });
+    } catch (err) {
+      // console.error(err);
+    }
   };
 
   const handleSetAvatar = async () => {
@@ -39,8 +44,11 @@ function ArtGen() {
     try {
       await changeProfilePic({ variables: { url: previewUrl } });
       setAvatarSet(true);
+      setMutationError(null);
+      setMutationErrorCount(0);
     } catch (err) {
-      setErrorMsg("An unexpected error occurred, try again.");
+      setMutationErrorCount((prev) => prev + 1);
+      setMutationError("Failed to update Avatar. Please try again.");
       // console.error(err);
     }
   };
@@ -50,8 +58,11 @@ function ArtGen() {
     try {
       await saveAiPic({ variables: { url: previewUrl } });
       setGallerySaved(true);
+      setMutationError(null);
+      setMutationErrorCount(0);
     } catch (err) {
-      setErrorMsg("An unexpected error occurred, try again.");
+      setMutationErrorCount((prev) => prev + 1);
+      setMutationError("Failed to save image to gallery. Please try again later.");
       // console.error(err);
     }
   };
@@ -59,34 +70,21 @@ function ArtGen() {
   //Effect - whenever query returns, update preview
   useEffect(() => {
     const result = imageData?.getAiImage;
-
     if (result?.url) {
       setPreviewUrl(result.url);
-      setErrorMsg('');
+      setMutationError(null);
+      setMutationErrorCount(0);
       setAvatarSet(false);     
       setGallerySaved(false);
     } else if (result?.error) {
       setPreviewUrl('');
       setAvatarSet(false);
       setGallerySaved(false);
+      setMutationErrorCount((prev) => prev + 1);
+      setMutationError("Failed to generate image. Please try again and make sure you are not including restricted or copyrighted content.");
       // console.error("AI error from backend:", result.error);
-
-      const messageMap = {
-        image_generation_user_error: "Your prompt likely includes restricted content or names. Please try rewording it.",
-        empty_prompt: "Prompt cannot be empty. Please describe what you'd like generated.",
-        no_image_data: "The image could not be generated. Try a different style or subject.",
-        unknown_error: "Something went wrong. Please try again later.",
-      };
-
-      setErrorMsg(messageMap[result.error] || "An unexpected error occurred.");
     }
   }, [imageData]);
-
-  useEffect(() => {
-    if (errorMsg) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  }, [errorMsg]);
 
   // Render
   const anyLoading = loadingImage || savingAvatar || savingGallery;
@@ -95,11 +93,26 @@ function ArtGen() {
 
   return (
     <>
-      {errorMsg && (<p className="artgen-error-message">{errorMsg}</p>)}
+      {mutationError && (
+        <div className="game-mutation-error-banner">
+          <span>
+          {mutationError}
+          {mutationErrorCount >= 2 && <span> ({mutationErrorCount})</span>}
+          </span>
+          <button
+            onClick={() => {
+              setMutationError(null);
+              setMutationErrorCount(0);
+            }}
+            className="game-close-error-button"
+            aria-label="Dismiss error"
+          >
+            X
+          </button>
+        </div>
+      )}
       <section className="artgen-container">
-
         <PromptForm onSubmit={generateAvatar} isLoading={loadingImage} />
-
         <AnimatePresence mode="wait">
           <motion.div
             key={previewUrl || 'placeholder'}
