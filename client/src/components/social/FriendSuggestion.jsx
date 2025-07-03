@@ -4,13 +4,10 @@ import { ADD_FRIEND } from '../../utils/mutations';
 import { SOCIAL } from '../../utils/queries';
 // eslint-disable-next-line
 const FriendSuggestion = ({ friendSuggestions = [], friends = [] }) => {
-  // const [suggestions, setSuggestions] = useState(friendSuggestions);
-  const [error, setError]= useState(null);
+  // State
+  const [mutationError, setMutationError] = useState(null);
+  const [mutationErrorCount, setMutationErrorCount] = useState(0);
   const currentUserId = localStorage.getItem('_id');
-
-  // useEffect(() => {
-  //   setSuggestions(friendSuggestions);
-  // }, [friendSuggestions]);
 
   const [addFriend, { loading: adding }] = useMutation(ADD_FRIEND, {
     refetchQueries: [{ query: SOCIAL }],
@@ -24,12 +21,14 @@ const FriendSuggestion = ({ friendSuggestions = [], friends = [] }) => {
 
   const handleFriendAdd = async (userId) => {
     if (adding) return;
-    setError(null);
     try {
       await addFriend({variables: {userId: userId}})
+      setMutationError(null);
+      setMutationErrorCount(0);
     } catch (err) {
       // console.error(err, userId)
-      setError('Something went wrong. Please try again.');
+      setMutationErrorCount((prev) => prev + 1);
+      setMutationError('Failed to add friend. Please try again.');
     }
   };
 
@@ -44,7 +43,26 @@ const FriendSuggestion = ({ friendSuggestions = [], friends = [] }) => {
     <div>
       <section className="social-font">
         <h3 className="social-my-p5">Suggested Friends</h3>
-        {error && <div className="social-error-box">{error}</div>}
+        {/* Error banner below can be used if the error message is to be displayed inside of component */}
+        {/* {mutationError && <div className="social-error-box">{mutationError}</div>} */}
+        {mutationError && (
+          <div className="game-mutation-error-banner">
+            <span>
+            {mutationError}
+            {mutationErrorCount >= 2 && <span> ({mutationErrorCount})</span>}
+            </span>
+            <button
+              onClick={() => {
+                setMutationError(null);
+                setMutationErrorCount(0);
+              }}
+              className="game-close-error-button"
+              aria-label="Dismiss error"
+            >
+              X
+            </button>
+          </div>
+        )}
         <div className="social-col-2 social-suggested-friends">
           {filtered.length?filtered.map(suggestion => (
             <div key={suggestion._id}

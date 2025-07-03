@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { REMOVE_FRIEND } from '../../utils/mutations';
 // eslint-disable-next-line
@@ -49,23 +49,23 @@ const FriendList = ({ friends, refetchSocial }) => {
           </div>
         )} */}
         {mutationError && (
-        <div className="game-mutation-error-banner">
-          <span>
-          {mutationError}
-          {mutationErrorCount >= 2 && <span> ({mutationErrorCount})</span>}
-          </span>
-          <button
-            onClick={() => {
-              setMutationError(null);
-              setMutationErrorCount(0);
-            }}
-            className="game-close-error-button"
-            aria-label="Dismiss error"
-          >
-            X
-          </button>
-        </div>
-      )}
+          <div className="game-mutation-error-banner">
+            <span>
+            {mutationError}
+            {mutationErrorCount >= 2 && <span> ({mutationErrorCount})</span>}
+            </span>
+            <button
+              onClick={() => {
+                setMutationError(null);
+                setMutationErrorCount(0);
+              }}
+              className="game-close-error-button"
+              aria-label="Dismiss error"
+            >
+              X
+            </button>
+          </div>
+        )}
 
         <div className="social-col-2">
           {friends.length === 0 ? (
