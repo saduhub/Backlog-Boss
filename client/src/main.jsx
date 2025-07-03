@@ -14,6 +14,7 @@ import ArtGen from './pages/ArtGen';
 import Social from './pages/Social';
 import Library from './pages/Library.jsx';
 import Login from './pages/Login.jsx';
+import NotFound from './pages/NotFound'; 
 const httpLink = createHttpLink({
   uri: "/graphql"
 
@@ -55,7 +56,8 @@ const router = createBrowserRouter([
       { path: 'search', element: <SearchPage /> },
       { path: 'ProfileOther', element: <ProfileOther /> },
       { path: 'login', element: <Login /> },
-      { path: 'Library', element: <Library /> }
+      { path: 'Library', element: <Library /> },
+      { path: '*', element: <NotFound /> }
     ],
   },
 ]);

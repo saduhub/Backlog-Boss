@@ -1,0 +1,36 @@
+.notfound-section {
+  text-align: center;
+  color: white;
+  padding: 4rem 2rem;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.notfound-h2 {
+  font-size: 2.5rem;
+  color: #9f34ff; 
+  margin-bottom: 1rem;
+}
+
+.notfound-p {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  color: #cccccc;
+}
+
+.notfouns-back-home-link {
+  background-color: #9f34ff;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.notfouns-back-home-link:hover {
+  background-color: #b155ff;
+}
