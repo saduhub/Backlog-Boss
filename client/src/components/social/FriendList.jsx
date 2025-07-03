@@ -2,27 +2,30 @@ import { useState, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
 import { REMOVE_FRIEND } from '../../utils/mutations';
 // eslint-disable-next-line
-const FriendList = ({ friends }) => {
-  const [friendList, setFriendList] = useState(friends);
-  const [error, setError] = useState(null);
+const FriendList = ({ friends, refetchSocial }) => {
+  // State
   const [removeFriend, { loading }] = useMutation(REMOVE_FRIEND);
-
-  useEffect(() => {
-    setFriendList(friends);
-  }, [friends]);
+  const [mutationError, setMutationError] = useState(null);
+  const [mutationErrorCount, setMutationErrorCount] = useState(0);
 
   const handleFriendRemove = async (friendId) => {
     if (loading) return;
-    setError(null);
-
     try {
-      const { data } = await removeFriend({
+      await removeFriend({
         variables: { friendId },
       });
-
-      setFriendList(data.removeFriend.friends);
-    } catch (err) {
-      setError('Something went wrong. Please try again.');
+      setMutationError(null);
+      setMutationErrorCount(0);
+      try {
+        await refetchSocial();
+      } catch (refetchError) {
+        // console.error('Refetch failed:', refetchError);
+        setMutationErrorCount((prev) => prev + 1);
+        setMutationError('Friend removed, but we had trouble updating your list.');
+      }
+      } catch (err) {
+      setMutationErrorCount((prev) => prev + 1);
+      setMutationError('Failed to remove friend. Please try again.');
     }
   };
   // console.log(friends);
@@ -39,12 +42,30 @@ const FriendList = ({ friends }) => {
         <h3 className="social-my-p5">
           Friend List
         </h3>
-        
-        {error && (
+        {/* Error banner below can be used if the error message is to be displayed inside of component */}
+        {/* {mutationError && (
           <div className="social-error-box">
-            {error}
+            {mutationError}
           </div>
-        )}
+        )} */}
+        {mutationError && (
+        <div className="game-mutation-error-banner">
+          <span>
+          {mutationError}
+          {mutationErrorCount >= 2 && <span> ({mutationErrorCount})</span>}
+          </span>
+          <button
+            onClick={() => {
+              setMutationError(null);
+              setMutationErrorCount(0);
+            }}
+            className="game-close-error-button"
+            aria-label="Dismiss error"
+          >
+            X
+          </button>
+        </div>
+      )}
 
         <div className="social-col-2">
           {friends.length === 0 ? (

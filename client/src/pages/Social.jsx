@@ -15,7 +15,7 @@ import Auth from '../utils/auth';
 
 const Social = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
-  const { data, loading, error } = useQuery(SOCIAL);
+  const { data, loading, error, refetch } = useQuery(SOCIAL);
   // console.log(error);
   const meData = data?.me || {}
   // console.log(meData);
@@ -53,7 +53,7 @@ const Social = () => {
 
           <FriendRequest friendRequests={friendRequestData} />
 
-          <FriendList friends={friendsData} />
+          <FriendList friends={friendsData} refetchSocial={refetch}/>
 
           <FriendSuggestion friendSuggestions={usersData} friends={friendsData} />
 
