@@ -4,36 +4,33 @@ import { ADD_FRIEND } from '../../utils/mutations';
 import { SOCIAL } from '../../utils/queries';
 // eslint-disable-next-line
 const FriendSuggestion = ({ friendSuggestions = [], friends = [] }) => {
-  const [suggestions, setSuggestions] = useState(friendSuggestions);
+  // const [suggestions, setSuggestions] = useState(friendSuggestions);
   const [error, setError]= useState(null);
   const currentUserId = localStorage.getItem('_id');
 
-  useEffect(() => {
-    setSuggestions(friendSuggestions);
-  }, [friendSuggestions]);
+  // useEffect(() => {
+  //   setSuggestions(friendSuggestions);
+  // }, [friendSuggestions]);
 
   const [addFriend, { loading: adding }] = useMutation(ADD_FRIEND, {
     refetchQueries: [{ query: SOCIAL }],
     awaitRefetchQueries: true,
   });
 
-  const filtered = suggestions.filter(suggestion =>
+  const filtered = friendSuggestions.filter(suggestion =>
     !friends.some(friend => friend._id === suggestion._id) &&
     suggestion._id !== currentUserId
   );
 
-  const handleFriendAdd = (userId) => {
+  const handleFriendAdd = async (userId) => {
     if (adding) return;
     setError(null);
-
-    addFriend({
-      variables: {userId: userId}
-    }).then((response) => {
-      setSuggestions(prev => prev.filter(suggestion => suggestion._id !== userId));
-    }).catch (error => {
-      // console.error(error, userId)
+    try {
+      await addFriend({variables: {userId: userId}})
+    } catch (err) {
+      // console.error(err, userId)
       setError('Something went wrong. Please try again.');
-    });
+    }
   };
 
   const handleVisit = (friendId) => {
